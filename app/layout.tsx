@@ -1,6 +1,7 @@
+import { Metadata } from 'next';
 import '../styles/globals.css';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: {
         template: '%s | Antenna Go Admin',
         default: 'Antenna Go Admin'
