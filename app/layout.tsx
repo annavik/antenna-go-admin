@@ -1,5 +1,42 @@
 import { Metadata } from 'next';
+import localFont from 'next/font/local';
 import '../styles/globals.css';
+import '../styles/typography.css';
+
+const Mazzard = localFont({
+    src: [
+        {
+            path: '../public/fonts/mazzardsoftm-regular.otf',
+            weight: '400',
+            style: 'normal'
+        },
+        {
+            path: '../public/fonts/mazzardsoftm-italic.otf',
+            weight: '400',
+            style: 'italic'
+        },
+        {
+            path: '../public/fonts/mazzardsoftm-medium.otf',
+            weight: '500',
+            style: 'normal'
+        },
+        {
+            path: '../public/fonts/mazzardsoftm-mediumitalic.otf',
+            weight: '500',
+            style: 'italic'
+        },
+        {
+            path: '../public/fonts/mazzardsoftm-semibold.otf',
+            weight: '600',
+            style: 'normal'
+        },
+        {
+            path: '../public/fonts/mazzardsoftm-semibolditalic.otf',
+            weight: '600',
+            style: 'italic'
+        }
+    ]
+});
 
 export const metadata: Metadata = {
     title: {
@@ -10,16 +47,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" className={Mazzard.className}>
             <head>
                 <link rel="icon" href="/images/favicon.png" sizes="any" />
             </head>
-            <body className="antialiased text-white bg-blue-900">
-                <div className="flex flex-col min-h-screen px-6 sm:px-12">
-                    <div className="flex flex-col w-full max-w-5xl mx-auto grow">
-                        <main className="flex items-center justify-center grow">{children}</main>
-                    </div>
-                </div>
+            <body className="min-h-screen flex flex-col antialiased">
+                <header className="h-10 bg-background border-border border-b"></header>
+                <main className="flex flex-col grow">{children}</main>
             </body>
         </html>
     );

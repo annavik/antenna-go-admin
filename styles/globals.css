@@ -1,14 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
 @import 'tailwindcss';
 
+:root {
+    --background: #ffffff;
+    --border: #dedfe3;
+    --destructive: #ef4444;
+    --foreground: #171820;
+    --muted-foreground: #52545d;
+    --muted: #f9f9fa;
+    --primary: #3b4681;
+    --secondary: #5193f0;
+    --success: #00ae87;
+}
+
 @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+    --color-background: var(--background);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-foreground: var(--foreground);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-primary-foreground: var(--background);
+    --color-primary: var(--primary);
+    --color-ring: var(--border);
+    --color-secondary-foreground: var(--background);
+    --color-secondary: var(--secondary);
+    --color-success: var(--success);
+    --radius-lg: 12px;
+    --radius-md: 6px;
 }
 
 @layer base {
-    h1 {
-        @apply text-4xl font-bold tracking-tight sm:text-5xl;
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
     }
 }
