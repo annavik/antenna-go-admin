@@ -39,3 +39,7 @@ netlify dev
 ```
 
 If your browser doesn't navigate to the site automatically, visit [localhost:8888](http://localhost:8888).
+
+## Export Supabase types
+
+`npx supabase gen types typescript --project-id "$PROJECT_REF" --schema public > lib/supabase/database.types.ts`
