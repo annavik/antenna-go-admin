@@ -11,10 +11,5 @@ export default async function Page({ params }) {
         return null;
     }
 
-    return (
-        <div>
-            <TaxonHeader taxon={taxon} />
-            <TaxonForm taxon={taxon} />
-        </div>
-    );
+    return <TaxonForm taxon={taxon} />;
 }

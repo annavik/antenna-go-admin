@@ -10,7 +10,7 @@ export default async function RootLayout({ children, params }) {
     const { taxaListId } = await params;
     const supabase = await createClient();
     const { data: taxaList } = await supabase.from('taxa_lists').select().eq('id', taxaListId).maybeSingle();
-    const { data: taxa } = await supabase.from('taxa').select().eq('taxa_list_id', taxaListId);
+    const { data: taxa } = await supabase.from('taxa').select().eq('taxa_list_id', taxaListId).order('id');
 
     if (!taxaList) {
         return null;

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }) {
     const supabase = await createClient();
-    const { data: taxaLists } = await supabase.from('taxa_lists').select();
+    const { data: taxaLists } = await supabase.from('taxa_lists').select().order('id');
 
     return (
         <html lang="en" className={Mazzard.className}>
