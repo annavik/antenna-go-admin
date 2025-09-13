@@ -29,7 +29,7 @@ export default async function RootLayout({ children, params }) {
                                 href={`/taxa-list/${taxaList.id}/taxon/${taxon.id}`}
                                 key={taxon.id}
                             >
-                                <span className="pt-0.5">{label ?? 'n/a'}</span>
+                                <span className="pt-0.5">{label}</span>
                                 <ChevronRight className="w-4 h-4" />
                             </Link>
                         );

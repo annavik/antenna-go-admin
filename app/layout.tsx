@@ -61,7 +61,7 @@ export default async function RootLayout({ children }) {
                 <link rel="icon" href="/images/favicon.png" sizes="any" />
             </head>
             <body className="min-h-screen flex flex-col antialiased">
-                <header className="h-10 bg-background border-border border-b"></header>
+                <header className="h-10 bg-background border-b"></header>
                 <main className="flex flex-col grow">
                     <div className="flex grow">
                         <Panel title="Taxa lists">

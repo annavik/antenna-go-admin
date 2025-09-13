@@ -21,10 +21,11 @@
     --color-muted: var(--muted);
     --color-primary-foreground: var(--background);
     --color-primary: var(--primary);
-    --color-ring: var(--border);
+    --color-ring: var(--foreground);
     --color-secondary-foreground: var(--background);
     --color-secondary: var(--secondary);
     --color-success: var(--success);
+    --color-success-foreground: var(--background);
     --radius-lg: 12px;
     --radius-md: 6px;
 }

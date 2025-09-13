@@ -1,4 +1,4 @@
-import { Tables } from '../supabase/database.types';
+import { Tables } from '@/lib/supabase/database.types';
 import { RANKS } from './constants';
 import { getTaxonInfo } from './get-taxon-info';
 
