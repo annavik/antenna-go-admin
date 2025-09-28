@@ -53,7 +53,7 @@ export const INatControl = ({
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button size="lg" type="button" variant="outline">
+                <Button type="button" variant="outline">
                     <SearchIcon className="w-4 h-4" />
                     <span className="pt-0.5">Search taxa</span>
                 </Button>
@@ -165,10 +165,10 @@ const INatConfirm = ({
                 </div>
             ) : null}
             <div className="flex items-center justify-end gap-4">
-                <Button size="lg" variant="outline" onClick={() => onBack()}>
+                <Button variant="outline" onClick={() => onBack()}>
                     <span className="pt-0.5">Back</span>
                 </Button>
-                <Button disabled={!taxon} size="lg" variant="success" onClick={() => onConfirm(taxon)}>
+                <Button disabled={!taxon} variant="success" onClick={() => onConfirm(taxon)}>
                     <span className="pt-0.5">Confirm</span>
                 </Button>
             </div>
