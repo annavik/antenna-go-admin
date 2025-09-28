@@ -7,16 +7,15 @@ import { Tables } from '@/lib/supabase/database.types';
 import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
+import { DeleteTaxonButton } from './delete-taxon-button';
 import { INatControl } from './inat-control';
 import { TaxonHeader } from './taxon-header';
 
-export const TaxonForm = ({ taxon }: { taxon: Tables<'taxa'> }) => {
+export const TaxonForm = ({ taxaListId, taxon }: { taxaListId: number; taxon: Tables<'taxa'> }) => {
     const supabase = createClient();
     const router = useRouter();
     const [formValues, setFormValues] = useState(taxon);
     const [isLoading, setIsLoading] = useState(false);
-
-    const onReset = () => setFormValues(taxon);
 
     const onSubmit = async () => {
         try {
@@ -124,10 +123,8 @@ export const TaxonForm = ({ taxon }: { taxon: Tables<'taxa'> }) => {
                     </div>
                 </FormSection>
                 <div className="flex items-center justify-end gap-4 sticky bottom-8">
-                    <Button onClick={onReset} size="lg" type="button" variant="outline">
-                        <span className="pt-0.5">Reset</span>
-                    </Button>
-                    <Button size="lg" variant="success" type="submit">
+                    <DeleteTaxonButton taxaListId={taxaListId} taxonId={taxon.id} />
+                    <Button variant="success" type="submit">
                         <span className="pt-0.5">Save</span>
                         {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : null}
                     </Button>
