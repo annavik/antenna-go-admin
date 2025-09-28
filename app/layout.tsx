@@ -66,7 +66,7 @@ export default async function RootLayout({ children }) {
                     <div className="flex grow">
                         <Panel title="Taxa lists">
                             <div className="grid gap-2">
-                                {taxaLists.map((taxaList) => (
+                                {taxaLists?.map((taxaList) => (
                                     <Link
                                         className={cn(buttonVariants({ variant: 'outline' }), 'justify-between')}
                                         href={`/taxa-list/${taxaList.id}`}

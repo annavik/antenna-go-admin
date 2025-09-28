@@ -192,13 +192,9 @@ const TaxonInfo = ({
             {thumbnailUrl ? <img alt={label} className="w-full h-full object-cover" src={thumbnailUrl} /> : null}
         </div>
         <div className="grid gap-1">
-            {rank !== 'species' ? (
-                <span className="body-base font-medium capitalize">
-                    {rank} {label}
-                </span>
-            ) : (
-                <span className="body-base font-medium italic">{label}</span>
-            )}
+            <span className="body-base font-medium">
+                {rank !== 'species' ? <span className="capitalize">{rank}</span> : null} <span>{label}</span>
+            </span>
             {commonName ? <span className="body-small text-foreground/50">({commonName})</span> : null}
         </div>
     </div>
