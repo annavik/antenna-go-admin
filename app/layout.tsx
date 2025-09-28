@@ -1,5 +1,6 @@
 import { buttonVariants } from '@/components/ui/button';
 import { Panel } from '@/components/ui/panel';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/server';
 import { cn } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
@@ -61,26 +62,28 @@ export default async function RootLayout({ children }) {
                 <link rel="icon" href="/images/favicon.png" sizes="any" />
             </head>
             <body className="min-h-screen flex flex-col antialiased">
-                <header className="h-10 bg-background border-b"></header>
-                <main className="flex flex-col grow">
-                    <div className="flex grow">
-                        <Panel title="Taxa lists">
-                            <div className="grid gap-2">
-                                {taxaLists?.map((taxaList) => (
-                                    <Link
-                                        className={cn(buttonVariants({ variant: 'outline' }), 'justify-between')}
-                                        href={`/taxa-list/${taxaList.id}`}
-                                        key={taxaList.id}
-                                    >
-                                        <span className="pt-0.5">{taxaList.name}</span>
-                                        <ChevronRight className="w-4 h-4" />
-                                    </Link>
-                                ))}
-                            </div>
-                        </Panel>
-                        {children}
-                    </div>
-                </main>
+                <TooltipProvider>
+                    <header className="h-10 bg-background border-b"></header>
+                    <main className="flex flex-col grow">
+                        <div className="flex grow">
+                            <Panel title="Taxa lists">
+                                <div className="grid gap-2">
+                                    {taxaLists?.map((taxaList) => (
+                                        <Link
+                                            className={cn(buttonVariants({ variant: 'outline' }), 'justify-between')}
+                                            href={`/taxa-list/${taxaList.id}`}
+                                            key={taxaList.id}
+                                        >
+                                            <span className="pt-0.5">{taxaList.name}</span>
+                                            <ChevronRight className="w-4 h-4" />
+                                        </Link>
+                                    ))}
+                                </div>
+                            </Panel>
+                            {children}
+                        </div>
+                    </main>
+                </TooltipProvider>
             </body>
         </html>
     );

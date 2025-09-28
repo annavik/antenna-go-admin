@@ -5,6 +5,7 @@ import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { cn } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { NewTaxonButton } from './new-taxon-button';
 
 export default async function RootLayout({ children, params }) {
     const { taxaListId } = await params;
@@ -20,6 +21,10 @@ export default async function RootLayout({ children, params }) {
         <>
             <Panel title={taxaList.name} description={taxaList.comments}>
                 <div className="grid gap-2">
+                    <div className="flex items-center justify-between gap-2">
+                        <span className="body-base font-medium">Taxa</span>
+                        <NewTaxonButton taxaListId={taxaList.id} />
+                    </div>
                     {taxa.map((taxon) => {
                         const { label } = getTaxonInfo(taxon);
 
