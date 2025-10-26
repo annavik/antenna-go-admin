@@ -195,7 +195,7 @@ const TaxonInfo = ({
             <span className="body-base font-medium">
                 {rank !== 'species' ? <span className="capitalize">{rank}</span> : null} <span>{label}</span>
             </span>
-            {commonName ? <span className="body-small text-foreground/50">({commonName})</span> : null}
+            {commonName ? <span className="body-small text-muted-foreground">({commonName})</span> : null}
         </div>
     </div>
 );

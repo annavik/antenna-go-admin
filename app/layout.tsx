@@ -60,7 +60,10 @@ export default async function RootLayout({ children }) {
             </head>
             <body className="min-h-screen flex flex-col antialiased">
                 <TooltipProvider>
-                    <header className="h-10 bg-background border-b"></header>
+                    <header className="h-12 px-8 flex items-center justify-between gap-2 bg-background border-b">
+                        <img alt="Antenna logo" className="w-8 h-8" src="/images/favicon.png" />
+                        <span className="label text-muted-foreground font-semibold">Under construction</span>
+                    </header>
                     <main className="flex flex-col grow">
                         <div className="flex grow">
                             <Panel title="Taxa lists">
