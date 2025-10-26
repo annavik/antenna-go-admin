@@ -118,8 +118,8 @@ const INatSearch = ({
                 <div className="border rounded-md overflow-hidden">
                     {data.results.slice(0, 5).map((result) => (
                         <div
-                            className="not-last:border-b hover:bg-muted cursor-pointer"
                             key={result.id}
+                            className="not-last:border-b hover:bg-muted cursor-pointer"
                             onClick={() => onTaxonIdChange(result.id)}
                         >
                             <TaxonInfo

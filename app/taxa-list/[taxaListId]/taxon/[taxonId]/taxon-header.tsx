@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
 import { Fragment } from 'react';
 
 export const TaxonHeader = ({ taxon }: { taxon: Tables<'taxa'> }) => {
-    const { label, rank } = getTaxonInfo(taxon);
+    const { label } = getTaxonInfo(taxon);
     const parents = getTaxonParents(taxon);
 
     return (
@@ -30,7 +30,7 @@ export const TaxonHeader = ({ taxon }: { taxon: Tables<'taxa'> }) => {
                 ) : null}
                 <div className="grid gap-2">
                     <h1 className="heading-small text-primary">
-                        {rank !== 'species' ? <span className="capitalize">{rank}</span> : null} <span>{label}</span>
+                        <span>{label}</span>
                     </h1>
                     {taxon.common_name ? (
                         <span className="body-xlarge text-foreground/50">({taxon.common_name})</span>

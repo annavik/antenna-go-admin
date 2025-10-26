@@ -1,14 +1,11 @@
-import { buttonVariants } from '@/components/ui/button';
 import { Panel } from '@/components/ui/panel';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/server';
-import { cn } from '@/lib/utils';
-import { ChevronRight } from 'lucide-react';
 import { Metadata } from 'next';
 import localFont from 'next/font/local';
-import Link from 'next/link';
 import '../styles/globals.css';
 import '../styles/typography.css';
+import { TaxaListLink } from './taxa-list-link';
 
 const Mazzard = localFont({
     src: [
@@ -69,14 +66,7 @@ export default async function RootLayout({ children }) {
                             <Panel title="Taxa lists">
                                 <div className="grid gap-2">
                                     {taxaLists?.map((taxaList) => (
-                                        <Link
-                                            className={cn(buttonVariants({ variant: 'outline' }), 'justify-between')}
-                                            href={`/taxa-list/${taxaList.id}`}
-                                            key={taxaList.id}
-                                        >
-                                            <span className="pt-0.5">{taxaList.name}</span>
-                                            <ChevronRight className="w-4 h-4" />
-                                        </Link>
+                                        <TaxaListLink key={taxaList.id} taxaList={taxaList} />
                                     ))}
                                 </div>
                             </Panel>

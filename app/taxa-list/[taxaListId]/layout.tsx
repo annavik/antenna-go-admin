@@ -1,11 +1,7 @@
-import { buttonVariants } from '@/components/ui/button';
 import { Panel } from '@/components/ui/panel';
 import { createClient } from '@/lib/supabase/server';
-import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
-import { cn } from '@/lib/utils';
-import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 import { NewTaxonButton } from './new-taxon-button';
+import { TaxonLink } from './taxon-link';
 
 export default async function RootLayout({ children, params }) {
     const { taxaListId } = await params;
@@ -25,20 +21,9 @@ export default async function RootLayout({ children, params }) {
                         <span className="body-base font-medium">Taxa</span>
                         <NewTaxonButton taxaListId={taxaList.id} />
                     </div>
-                    {taxa.map((taxon) => {
-                        const { label } = getTaxonInfo(taxon);
-
-                        return (
-                            <Link
-                                className={cn(buttonVariants({ variant: 'outline' }), 'justify-between')}
-                                href={`/taxa-list/${taxaList.id}/taxon/${taxon.id}`}
-                                key={taxon.id}
-                            >
-                                <span className="pt-0.5">{label}</span>
-                                <ChevronRight className="w-4 h-4" />
-                            </Link>
-                        );
-                    })}
+                    {taxa.map((taxon) => (
+                        <TaxonLink key={taxon.id} taxaListId={taxaList.id} taxon={taxon} />
+                    ))}
                 </div>
             </Panel>
             {children}
