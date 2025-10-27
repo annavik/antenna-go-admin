@@ -7,7 +7,7 @@ import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export const DeleteTaxonButton = ({ taxaListId, taxonId }: { taxaListId: number; taxonId: number }) => {
+export const DeleteTaxon = ({ taxaListId, taxonId }: { taxaListId: number; taxonId: number }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);

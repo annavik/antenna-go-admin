@@ -1,17 +1,19 @@
 'use client';
 
+import { FormControl } from '@/components/forms/form-control';
+import { FormInput } from '@/components/forms/form-input';
+import { FormSection } from '@/components/forms/form-section';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { ReactNode, useState } from 'react';
-import { DeleteTaxonButton } from './delete-taxon-button';
-import { INatControl } from './inat-control';
+import { useState } from 'react';
+import { INatControl } from '../inat/inat-control';
+import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
 
-export const TaxonForm = ({ taxaListId, taxon }: { taxaListId: number; taxon: Tables<'taxa'> }) => {
+export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Tables<'taxa'> }) => {
     const supabase = createClient();
     const router = useRouter();
     const [formValues, setFormValues] = useState(taxon);
@@ -123,7 +125,7 @@ export const TaxonForm = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
                     </div>
                 </FormSection>
                 <div className="flex items-center justify-end gap-4 sticky bottom-8">
-                    <DeleteTaxonButton taxaListId={taxaListId} taxonId={taxon.id} />
+                    <DeleteTaxon taxaListId={taxaListId} taxonId={taxon.id} />
                     <Button variant="success" type="submit">
                         <span className="pt-0.5">Save</span>
                         {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : null}
@@ -133,34 +135,3 @@ export const TaxonForm = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
         </div>
     );
 };
-
-const FormSection = ({ label, children }: { children: ReactNode; label: string }) => (
-    <div className="grid gap-8">
-        <h2 className="body-xlarge font-medium">{label}</h2>
-        {children}
-    </div>
-);
-
-const FormControl = ({ label, children }: { children: ReactNode; label: string }) => (
-    <div className="grid gap-1">
-        <label className="label text-muted-foreground font-semibold">{label}</label>
-        {children}
-    </div>
-);
-
-const FormInput = ({
-    label,
-    value,
-    onValueChange
-}: {
-    label: string;
-    value: string | null;
-    onValueChange: (value: string | null) => void;
-}) => (
-    <FormControl label={label}>
-        <Input
-            value={value ?? ''}
-            onChange={(e) => onValueChange(e.currentTarget.value.length ? e.currentTarget.value : null)}
-        />
-    </FormControl>
-);

@@ -1,5 +1,5 @@
+import { EditTaxon } from '@/components/taxa/edit-taxon';
 import { createClient } from '@/lib/supabase/server';
-import { TaxonForm } from './taxon-form';
 
 export default async function Page({ params }) {
     const { taxonId, taxaListId } = await params;
@@ -10,5 +10,5 @@ export default async function Page({ params }) {
         return null;
     }
 
-    return <TaxonForm taxaListId={taxaListId} taxon={taxon} />;
+    return <EditTaxon taxaListId={taxaListId} taxon={taxon} />;
 }

@@ -3,27 +3,23 @@
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/client';
-import { Loader2Icon, PlusIcon } from 'lucide-react';
+import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export const NewTaxonButton = ({ taxaListId }: { taxaListId: number }) => {
+export const DeleteTaxaList = ({ taxaListId }: { taxaListId: number }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    const onCreate = async () => {
+    const onDelete = async () => {
         try {
             setIsLoading(true);
-            const { data: taxon, error } = await supabase
-                .from('taxa')
-                .insert({ taxa_list_id: taxaListId })
-                .select()
-                .maybeSingle();
+            const { error } = await supabase.from('taxa_lists').delete().eq('id', taxaListId);
             if (error) {
                 throw error;
             }
-            router.push(`/taxa-list/${taxaListId}/taxon/${taxon.id}`);
+            router.replace('/');
         } catch (error) {
             // TODO: Show message
         } finally {
@@ -35,12 +31,12 @@ export const NewTaxonButton = ({ taxaListId }: { taxaListId: number }) => {
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <Button onClick={onCreate} size="icon" variant="ghost">
-                    {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <PlusIcon className="w-4 h-4" />}
+                <Button onClick={onDelete} size="icon" type="button" variant="ghost">
+                    {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <TrashIcon className="w-4 h-4" />}
                 </Button>
             </TooltipTrigger>
             <TooltipContent>
-                <span className="pt-0.5">Create new taxon</span>
+                <span className="pt-0.5">Delete taxa list</span>
             </TooltipContent>
         </Tooltip>
     );
