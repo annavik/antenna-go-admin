@@ -14,7 +14,7 @@ export const getTaxonInfo = (taxon: Tables<'taxa'>): { label: string; rank?: str
         }
     });
 
-    if (rank !== 'species') {
+    if (rank && rank !== 'species') {
         label = `${capitalize(rank)} ${label}`;
     }
 

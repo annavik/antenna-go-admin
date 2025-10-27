@@ -23,7 +23,7 @@ export const Card = ({
         )}
         href={href}
     >
-        {image ? <img alt="" className="h-16 aspect-square object-cover" src={image} /> : null}
+        {image ? <img alt="" className="w-16 h-16 object-cover" src={image} /> : null}
         <div className="grow grid gap-1 px-3 py-2">
             <span className="pt-0.5 body-base font-medium truncate">{label}</span>
             {description ? (
