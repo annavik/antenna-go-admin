@@ -19,7 +19,14 @@ export const Panel = ({
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     return (
-        <div className={cn('relative bg-muted border-r', { 'w-sm': !isCollapsed })}>
+        <div
+            className={cn('relative bg-muted border-r', { 'w-sm': !isCollapsed })}
+            onClick={() => {
+                if (isCollapsed) {
+                    setIsCollapsed(false);
+                }
+            }}
+        >
             {isCollapsed ? (
                 <div className="p-8" style={{ writingMode: 'vertical-rl' }}>
                     <span className="body-xlarge font-medium text-primary">{title}</span>
