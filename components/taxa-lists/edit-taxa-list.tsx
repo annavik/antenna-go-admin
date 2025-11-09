@@ -17,6 +17,7 @@ import { Loader2Icon, PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { DeleteTaxaList } from './delete-taxa-list';
+import { FormTextarea } from '../forms/form-textarea';
 
 export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -73,7 +74,7 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
                         value={formValues.name}
                         onValueChange={(value) => setFormValues((prev) => ({ ...prev, name: value }))}
                     />
-                    <FormInput
+                    <FormTextarea
                         label="Description"
                         value={formValues.comments}
                         onValueChange={(value) => setFormValues((prev) => ({ ...prev, comments: value }))}
