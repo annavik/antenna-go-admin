@@ -12,10 +12,11 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useINatSearch } from '@/hooks/useINatSearch';
 import { useINatTaxon } from '@/hooks/useINatTaxon';
 import { Tables } from '@/lib/supabase/database.types';
+import { LABELS } from '@/lib/taxa/constants';
 import { convertINatTaxon } from '@/lib/taxa/convert-inat-taxon';
-import { INatTaxonDetails } from '@/lib/types';
 import { ExternalLinkIcon, Loader2Icon, SearchIcon, XIcon } from 'lucide-react';
-import { useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Checkbox } from '../ui/checkbox';
 
 export const INatControl = ({
     taxon,
@@ -59,8 +60,8 @@ export const INatControl = ({
                 </Button>
             </DialogTrigger>
             <INatForm
-                onConfirm={(iNatTaxon) => {
-                    onTaxonChange({ ...taxon, ...convertINatTaxon(iNatTaxon) });
+                onConfirm={(fields) => {
+                    onTaxonChange({ ...taxon, ...fields });
                     setIsOpen(false);
                 }}
             />
@@ -68,7 +69,7 @@ export const INatControl = ({
     );
 };
 
-const INatForm = ({ onConfirm }: { onConfirm: (taxon: INatTaxonDetails) => void }) => {
+const INatForm = ({ onConfirm }: { onConfirm: (fields: { [key: string]: string }) => void }) => {
     const [searchString, setSearchString] = useState('');
     const [taxonId, setTaxonId] = useState<number>(null);
 
@@ -91,8 +92,8 @@ const INatForm = ({ onConfirm }: { onConfirm: (taxon: INatTaxonDetails) => void 
     return (
         <DialogContent>
             <DialogHeader>
-                <DialogTitle>Confirm iNaturalist taxon</DialogTitle>
-                <DialogDescription>Is this your taxon?</DialogDescription>
+                <DialogTitle>Confirm import</DialogTitle>
+                <DialogDescription>You can import all or some fields.</DialogDescription>
             </DialogHeader>
             <INatConfirm onBack={() => setTaxonId(null)} onConfirm={onConfirm} taxonId={taxonId} />
         </DialogContent>
@@ -142,11 +143,20 @@ const INatConfirm = ({
     taxonId
 }: {
     onBack: () => void;
-    onConfirm: (taxon: INatTaxonDetails) => void;
+    onConfirm: (fields: { [key: string]: string }) => void;
     taxonId: number;
 }) => {
+    const [checked, setChecked] = useState<{ [key: string]: boolean }>({});
     const { data, isLoading } = useINatTaxon(taxonId);
-    const taxon = data?.results?.length ? data.results[0] : null;
+    const iNatTaxon = data?.results?.length ? data.results[0] : undefined;
+    const fields = useMemo(() => (iNatTaxon ? convertINatTaxon(iNatTaxon) : undefined), [iNatTaxon]);
+
+    useEffect(() => {
+        // Set all fields as selected from start
+        if (fields) {
+            setChecked(Object.fromEntries(Object.keys(fields).map((key) => [key, true])));
+        }
+    }, [fields]);
 
     return (
         <>
@@ -154,21 +164,39 @@ const INatConfirm = ({
                 <div className="flex justify-center">
                     <Loader2Icon className="w-16 h-16 text-secondary animate-spin" />
                 </div>
-            ) : taxon ? (
-                <div className="border rounded-md overflow-hidden">
-                    <TaxonInfo
-                        commonName={taxon.preferred_common_name}
-                        label={taxon.name}
-                        rank={taxon.rank}
-                        thumbnailUrl={taxon.default_photo?.square_url}
-                    />
+            ) : fields ? (
+                <div className="grid gap-4 py-4" style={{ gridTemplateColumns: 'auto auto 1fr' }}>
+                    {Object.entries(fields).map(([key, value]) => (
+                        <Fragment key={key}>
+                            <div className="flex items-center">
+                                <Checkbox
+                                    checked={checked[key] ?? false}
+                                    id={key}
+                                    onCheckedChange={() => setChecked((prev) => ({ ...prev, [key]: !checked[key] }))}
+                                />
+                            </div>
+                            <label className="pt-0.5 body-small font-medium truncate" htmlFor={key}>
+                                {LABELS[key]}
+                            </label>
+                            <span className="pt-0.5 body-small text-muted-foreground truncate">{value}</span>
+                        </Fragment>
+                    ))}
                 </div>
             ) : null}
             <div className="flex items-center justify-end gap-4">
-                <Button variant="outline" onClick={() => onBack()}>
+                <Button onClick={() => onBack()} variant="outline">
                     <span className="pt-0.5">Back</span>
                 </Button>
-                <Button disabled={!taxon} variant="success" onClick={() => onConfirm(taxon)}>
+                <Button
+                    disabled={!fields}
+                    onClick={() => {
+                        const checkedFields = Object.fromEntries(
+                            Object.entries(fields).filter(([key]) => checked[key])
+                        );
+                        onConfirm(checkedFields);
+                    }}
+                    variant="success"
+                >
                     <span className="pt-0.5">Confirm</span>
                 </Button>
             </div>

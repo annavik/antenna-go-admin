@@ -6,6 +6,7 @@ import { FormSection } from '@/components/forms/form-section';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
+import { LABELS } from '@/lib/taxa/constants';
 import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -47,7 +48,7 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
             >
                 <FormSection label="External resources">
                     <div className="grid grid-cols-2 gap-8">
-                        <FormControl label="iNat taxon ID">
+                        <FormControl label={LABELS.inat_taxon_id}>
                             <INatControl taxon={formValues} onTaxonChange={setFormValues} />
                         </FormControl>
                     </div>
@@ -55,47 +56,47 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
                 <FormSection label="Taxonomy">
                     <div className="grid grid-cols-2 gap-8">
                         <FormInput
-                            label="Phylum"
+                            label={LABELS.phylum}
                             value={formValues.phylum}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, phylum: value }))}
                         />
                         <FormInput
-                            label="Class"
+                            label={LABELS.class}
                             value={formValues.class}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, class: value }))}
                         />
                         <FormInput
-                            label="Order"
+                            label={LABELS.order}
                             value={formValues.order}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, order: value }))}
                         />
                         <FormInput
-                            label="Superfamily"
+                            label={LABELS.superfamily}
                             value={formValues.superfamily}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, superfamily: value }))}
                         />
                         <FormInput
-                            label="Family"
+                            label={LABELS.family}
                             value={formValues.family}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, family: value }))}
                         />
                         <FormInput
-                            label="Subfamily"
+                            label={LABELS.subfamily}
                             value={formValues.subfamily}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, subfamily: value }))}
                         />
                         <FormInput
-                            label="Tribe"
+                            label={LABELS.tribe}
                             value={formValues.tribe}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, tribe: value }))}
                         />
                         <FormInput
-                            label="Genus"
+                            label={LABELS.genus}
                             value={formValues.genus}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, genus: value }))}
                         />
                         <FormInput
-                            label="Species"
+                            label={LABELS.species}
                             value={formValues.species}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, species: value }))}
                         />
@@ -104,12 +105,12 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
                 <FormSection label="Image">
                     <div className="grid grid-cols-2 gap-8">
                         <FormInput
-                            label="Cover image URL"
+                            label={LABELS.cover_image_url}
                             value={formValues.cover_image_url}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, cover_image_url: value }))}
                         />
                         <FormInput
-                            label="Cover image credit"
+                            label={LABELS.cover_image_credit}
                             value={formValues.cover_image_credit}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, cover_image_credit: value }))}
                         />
@@ -118,7 +119,7 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
                 <FormSection label="More">
                     <div className="grid grid-cols-2 gap-8">
                         <FormInput
-                            label="Common name"
+                            label={LABELS.common_name}
                             value={formValues.common_name}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, common_name: value }))}
                         />
