@@ -14,6 +14,7 @@ export type Database = {
                     comments: string | null;
                     common_name: string | null;
                     cover_image_credit: string | null;
+                    cover_image_thumbnail_url: string | null;
                     cover_image_url: string | null;
                     created_at: string;
                     family: string | null;
@@ -35,6 +36,7 @@ export type Database = {
                     comments?: string | null;
                     common_name?: string | null;
                     cover_image_credit?: string | null;
+                    cover_image_thumbnail_url?: string | null;
                     cover_image_url?: string | null;
                     created_at?: string;
                     family?: string | null;
@@ -56,6 +58,7 @@ export type Database = {
                     comments?: string | null;
                     common_name?: string | null;
                     cover_image_credit?: string | null;
+                    cover_image_thumbnail_url?: string | null;
                     cover_image_url?: string | null;
                     created_at?: string;
                     family?: string | null;

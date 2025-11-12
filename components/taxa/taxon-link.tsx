@@ -14,7 +14,7 @@ export const TaxonLink = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
         <Card
             description={taxon.common_name ? `(${taxon.common_name})` : null}
             href={`/taxa-list/${taxaListId}/taxon/${taxon.id}`}
-            image={taxon.cover_image_url}
+            image={taxon.cover_image_thumbnail_url}
             isActive={isActive}
             label={label}
         />

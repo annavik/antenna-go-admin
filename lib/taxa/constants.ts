@@ -12,6 +12,7 @@ export const LABELS = {
     genus: 'Genus',
     species: 'Species',
     cover_image_url: 'Cover image URL',
+    cover_image_thumbnail_url: 'Cover image thumbnail URL',
     cover_image_credit: 'Cover image credit',
     common_name: 'Common name'
 };

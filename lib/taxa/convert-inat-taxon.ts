@@ -24,6 +24,10 @@ export const convertINatTaxon = (iNatTaxon: INatTaxonDetails): { [key: string]: 
         fields.cover_image_url = iNatTaxon.default_photo.medium_url;
     }
 
+    if (iNatTaxon.default_photo?.square_url) {
+        fields.cover_image_thumbnail_url = iNatTaxon.default_photo.square_url;
+    }
+
     if (iNatTaxon.default_photo?.attribution) {
         fields.cover_image_credit = iNatTaxon.default_photo.attribution;
     }
