@@ -18,6 +18,8 @@ import { ExternalLinkIcon, Loader2Icon, SearchIcon, XIcon } from 'lucide-react';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Checkbox } from '../ui/checkbox';
 
+const getINatUrl = (iNatTaxonId: string) => `https://www.inaturalist.org/taxa/${iNatTaxonId}`;
+
 export const INatControl = ({
     taxon,
     onTaxonChange
@@ -27,45 +29,45 @@ export const INatControl = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    if (taxon.inat_taxon_id) {
-        return (
-            <div className="flex items-center gap-4">
-                <a
-                    className={buttonVariants({ size: 'lg', variant: 'outline' })}
-                    href={`https://www.inaturalist.org/taxa/${taxon.inat_taxon_id}`}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    <span className="pt-0.5">{taxon.inat_taxon_id}</span>
-                    <ExternalLinkIcon className="w-4 h-4" />
-                </a>
-                <Button
-                    onClick={() => onTaxonChange({ ...taxon, inat_taxon_id: null })}
-                    size="icon"
-                    type="button"
-                    variant="ghost"
-                >
-                    <XIcon className="w-4 h-4" />
-                </Button>
-            </div>
-        );
-    }
-
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-                <Button type="button" variant="outline">
-                    <SearchIcon className="w-4 h-4" />
-                    <span className="pt-0.5">Search taxa</span>
-                </Button>
-            </DialogTrigger>
-            <INatForm
-                onConfirm={(fields) => {
-                    onTaxonChange({ ...taxon, ...fields });
-                    setIsOpen(false);
-                }}
-            />
-        </Dialog>
+        <div className="flex items-center gap-2">
+            {taxon.inat_taxon_id ? (
+                <div className="flex items-center gap-2">
+                    <a
+                        className={buttonVariants({ variant: 'outline' })}
+                        href={getINatUrl(taxon.inat_taxon_id)}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        <span className="pt-0.5">{taxon.inat_taxon_id}</span>
+                        <ExternalLinkIcon className="w-4 h-4" />
+                    </a>
+                    <Button
+                        onClick={() => onTaxonChange({ ...taxon, inat_taxon_id: null })}
+                        size="icon"
+                        type="button"
+                        variant="ghost"
+                    >
+                        <XIcon className="w-4 h-4" />
+                    </Button>
+                </div>
+            ) : (
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                    <DialogTrigger asChild>
+                        <Button type="button" variant="outline">
+                            <span>Search iNaturalist</span>
+                            <SearchIcon className="w-4 h-4" />
+                        </Button>
+                    </DialogTrigger>
+                    <INatForm
+                        onConfirm={(fields) => {
+                            onTaxonChange({ ...taxon, ...fields });
+                            setIsOpen(false);
+                        }}
+                    />
+                </Dialog>
+            )}
+        </div>
     );
 };
 
@@ -168,17 +170,21 @@ const INatConfirm = ({
                 <div className="grid gap-4 py-4" style={{ gridTemplateColumns: 'auto auto 1fr' }}>
                     {Object.entries(fields).map(([key, value]) => (
                         <Fragment key={key}>
-                            <div className="flex items-center">
+                            <div className="flex h-5 items-center">
                                 <Checkbox
                                     checked={checked[key] ?? false}
                                     id={key}
                                     onCheckedChange={() => setChecked((prev) => ({ ...prev, [key]: !checked[key] }))}
                                 />
                             </div>
-                            <label className="pt-0.5 body-small font-medium truncate" htmlFor={key}>
+                            <label className="pt-0.5 body-small font-medium whitespace-nowrap" htmlFor={key}>
                                 {LABELS[key]}
                             </label>
-                            <span className="pt-0.5 body-small text-muted-foreground truncate">{value}</span>
+                            {key === 'cover_image_url' || key === 'cover_image_thumbnail_url' ? (
+                                <img alt="" className="max-h-32 bg-muted rounded-md border" src={value} />
+                            ) : (
+                                <span className="pt-0.5 body-small text-muted-foreground">{value}</span>
+                            )}
                         </Fragment>
                     ))}
                 </div>
