@@ -1,0 +1,52 @@
+import { CheckIcon, PenIcon } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { FormControl } from './form-control';
+
+export const FormImage = ({
+    label,
+    onValueChange,
+    value
+}: {
+    label: string;
+    onValueChange: (value: string | null) => void;
+    value: string | null;
+}) => {
+    const [isEditing, setIsEditing] = useState(false);
+
+    return (
+        <FormControl
+            label={label}
+            accessory={
+                isEditing ? (
+                    <Button onClick={() => setIsEditing(false)} size="icon" type="button" variant="outline">
+                        <CheckIcon className="w-4 h-4" />
+                    </Button>
+                ) : (
+                    <Button onClick={() => setIsEditing(true)} size="icon" type="button" variant="outline">
+                        <PenIcon className="w-4 h-4" />
+                    </Button>
+                )
+            }
+        >
+            {isEditing ? (
+                <Input
+                    placeholder="Specify image URL"
+                    value={value ?? ''}
+                    onChange={(e) => onValueChange(e.currentTarget.value.length ? e.currentTarget.value : null)}
+                />
+            ) : (
+                <div>
+                    {value ? (
+                        <a className="hover:opacity-70" href={value} rel="noopener noreferrer" target="_blank">
+                            <img alt="" className="bg-muted rounded-md border" src={value} />
+                        </a>
+                    ) : (
+                        <span className="body-base text-muted-foreground">No image set</span>
+                    )}
+                </div>
+            )}
+        </FormControl>
+    );
+};

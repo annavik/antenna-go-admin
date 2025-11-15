@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { INatControl } from '../inat/inat-control';
 import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
+import { FormImage } from '../forms/form-image';
 
 export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Tables<'taxa'> }) => {
     const supabase = createClient();
@@ -103,13 +104,13 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
                     </div>
                 </FormSection>
                 <FormSection label="Image">
-                    <div className="grid grid-cols-2 gap-8">
-                        <FormInput
+                    <div className="grid grid-cols-2 gap-8 items-start">
+                        <FormImage
                             label={LABELS.cover_image_url}
                             value={formValues.cover_image_url}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, cover_image_url: value }))}
                         />
-                        <FormInput
+                        <FormImage
                             label={LABELS.cover_image_thumbnail_url}
                             value={formValues.cover_image_thumbnail_url}
                             onValueChange={(value) =>
