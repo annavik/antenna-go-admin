@@ -14,6 +14,7 @@ import { INatControl } from '../inat/inat-control';
 import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
 import { FormImage } from '../forms/form-image';
+import { FormTextarea } from '../forms/form-textarea';
 
 export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Tables<'taxa'> }) => {
     const supabase = createClient();
@@ -125,11 +126,16 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Ta
                     </div>
                 </FormSection>
                 <FormSection label="More">
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid grid-cols-2 gap-8 items-start">
                         <FormInput
                             label={LABELS.common_name}
                             value={formValues.common_name}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, common_name: value }))}
+                        />
+                        <FormTextarea
+                            label={LABELS.notes}
+                            value={formValues.notes}
+                            onValueChange={(value) => setFormValues((prev) => ({ ...prev, notes: value }))}
                         />
                     </div>
                 </FormSection>

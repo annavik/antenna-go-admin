@@ -11,7 +11,6 @@ export type Database = {
             taxa: {
                 Row: {
                     class: string | null;
-                    comments: string | null;
                     common_name: string | null;
                     cover_image_credit: string | null;
                     cover_image_thumbnail_url: string | null;
@@ -22,6 +21,7 @@ export type Database = {
                     genus: string | null;
                     id: number;
                     inat_taxon_id: string | null;
+                    notes: string | null;
                     order: string | null;
                     phylum: string | null;
                     species: string | null;
@@ -33,7 +33,6 @@ export type Database = {
                 };
                 Insert: {
                     class?: string | null;
-                    comments?: string | null;
                     common_name?: string | null;
                     cover_image_credit?: string | null;
                     cover_image_thumbnail_url?: string | null;
@@ -44,6 +43,7 @@ export type Database = {
                     genus?: string | null;
                     id?: number;
                     inat_taxon_id?: string | null;
+                    notes?: string | null;
                     order?: string | null;
                     phylum?: string | null;
                     species?: string | null;
@@ -55,7 +55,6 @@ export type Database = {
                 };
                 Update: {
                     class?: string | null;
-                    comments?: string | null;
                     common_name?: string | null;
                     cover_image_credit?: string | null;
                     cover_image_thumbnail_url?: string | null;
@@ -66,6 +65,7 @@ export type Database = {
                     genus?: string | null;
                     id?: number;
                     inat_taxon_id?: string | null;
+                    notes?: string | null;
                     order?: string | null;
                     phylum?: string | null;
                     species?: string | null;
@@ -85,45 +85,22 @@ export type Database = {
                     }
                 ];
             };
-            taxa_list_members: {
-                Row: {
-                    taxa_list_id: number;
-                    user_id: string;
-                };
-                Insert: {
-                    taxa_list_id: number;
-                    user_id: string;
-                };
-                Update: {
-                    taxa_list_id?: number;
-                    user_id?: string;
-                };
-                Relationships: [
-                    {
-                        foreignKeyName: 'taxa_list_members_taxa_list_id_fkey';
-                        columns: ['taxa_list_id'];
-                        isOneToOne: false;
-                        referencedRelation: 'taxa_lists';
-                        referencedColumns: ['id'];
-                    }
-                ];
-            };
             taxa_lists: {
                 Row: {
-                    comments: string | null;
                     created_at: string;
+                    description: string | null;
                     id: number;
                     name: string;
                 };
                 Insert: {
-                    comments?: string | null;
                     created_at?: string;
+                    description?: string | null;
                     id?: number;
                     name: string;
                 };
                 Update: {
-                    comments?: string | null;
                     created_at?: string;
+                    description?: string | null;
                     id?: number;
                     name?: string;
                 };

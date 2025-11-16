@@ -14,5 +14,6 @@ export const LABELS = {
     cover_image_url: 'Cover image',
     cover_image_thumbnail_url: 'Cover image thumbnail',
     cover_image_credit: 'Cover image credit',
-    common_name: 'Common name'
+    common_name: 'Common name',
+    notes: 'Notes'
 };

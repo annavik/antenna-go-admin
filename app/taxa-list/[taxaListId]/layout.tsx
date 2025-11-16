@@ -26,7 +26,7 @@ export default async function RootLayout({ children, params }) {
                     </div>
                 }
                 title={taxaList.name}
-                description={taxaList.comments}
+                description={taxaList.description}
             >
                 <div className="grid gap-2">
                     <div className="flex items-center justify-between gap-2">
