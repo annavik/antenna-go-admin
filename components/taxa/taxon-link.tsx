@@ -5,10 +5,10 @@ import { Tables } from '@/lib/supabase/database.types';
 import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { useParams } from 'next/navigation';
 
-export const TaxonLink = ({ taxaListId, taxon }: { taxaListId: number; taxon: Tables<'taxa'> }) => {
+export const TaxonLink = ({ taxaListId, taxon }: { taxaListId: string; taxon: Tables<'taxa'> }) => {
     const params = useParams();
     const { label } = getTaxonInfo(taxon);
-    const isActive = Number(params.taxonId) === taxon.id;
+    const isActive = params.taxonId === taxon.id;
 
     return (
         <Card

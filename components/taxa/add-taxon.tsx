@@ -7,7 +7,7 @@ import { Loader2Icon, PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export const AddTaxon = ({ taxaListId }: { taxaListId: number }) => {
+export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);

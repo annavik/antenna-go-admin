@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const FILE_NAME = 'taxa.csv';
 
-export const ExportTaxa = ({ taxaListId }: { taxaListId: number }) => {
+export const ExportTaxa = ({ taxaListId }: { taxaListId: string }) => {
     const supabase = createClient();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -19,7 +19,7 @@ export const ExportTaxa = ({ taxaListId }: { taxaListId: number }) => {
                 .from('taxa')
                 .select()
                 .eq('taxa_list_id', taxaListId)
-                .order('id')
+                .order('created_at')
                 .csv();
 
             if (error) {

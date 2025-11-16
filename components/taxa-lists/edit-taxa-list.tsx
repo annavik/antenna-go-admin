@@ -76,7 +76,7 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
                     <FormTextarea
                         label="Description"
                         value={formValues.description}
-                        onValueChange={(value) => setFormValues((prev) => ({ ...prev, comments: value }))}
+                        onValueChange={(value) => setFormValues((prev) => ({ ...prev, description: value }))}
                     />
                     <div className="flex items-center justify-end gap-4">
                         <Button onClick={() => setIsOpen(false)} variant="ghost">

@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 
 export const TaxaListLink = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) => {
     const params = useParams();
-    const isActive = Number(params.taxaListId) === taxaList.id;
+    const isActive = params.taxaListId === taxaList.id;
 
     return (
         <Card

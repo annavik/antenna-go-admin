@@ -16,7 +16,7 @@ import { TaxonHeader } from './taxon-header';
 import { FormImage } from '../forms/form-image';
 import { FormTextarea } from '../forms/form-textarea';
 
-export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: number; taxon: Tables<'taxa'> }) => {
+export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: string; taxon: Tables<'taxa'> }) => {
     const supabase = createClient();
     const router = useRouter();
     const [formValues, setFormValues] = useState(taxon);

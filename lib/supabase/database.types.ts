@@ -19,16 +19,15 @@ export type Database = {
                     family: string | null;
                     gbif_taxon_key: string | null;
                     genus: string | null;
-                    id: number;
+                    id: string;
                     inat_taxon_id: string | null;
                     notes: string | null;
                     order: string | null;
                     phylum: string | null;
                     species: string | null;
-                    status: string | null;
                     subfamily: string | null;
                     superfamily: string | null;
-                    taxa_list_id: number;
+                    taxa_list_id: string;
                     tribe: string | null;
                 };
                 Insert: {
@@ -41,16 +40,15 @@ export type Database = {
                     family?: string | null;
                     gbif_taxon_key?: string | null;
                     genus?: string | null;
-                    id?: number;
+                    id?: string;
                     inat_taxon_id?: string | null;
                     notes?: string | null;
                     order?: string | null;
                     phylum?: string | null;
                     species?: string | null;
-                    status?: string | null;
                     subfamily?: string | null;
                     superfamily?: string | null;
-                    taxa_list_id: number;
+                    taxa_list_id: string;
                     tribe?: string | null;
                 };
                 Update: {
@@ -63,16 +61,15 @@ export type Database = {
                     family?: string | null;
                     gbif_taxon_key?: string | null;
                     genus?: string | null;
-                    id?: number;
+                    id?: string;
                     inat_taxon_id?: string | null;
                     notes?: string | null;
                     order?: string | null;
                     phylum?: string | null;
                     species?: string | null;
-                    status?: string | null;
                     subfamily?: string | null;
                     superfamily?: string | null;
-                    taxa_list_id?: number;
+                    taxa_list_id?: string;
                     tribe?: string | null;
                 };
                 Relationships: [
@@ -89,19 +86,19 @@ export type Database = {
                 Row: {
                     created_at: string;
                     description: string | null;
-                    id: number;
+                    id: string;
                     name: string;
                 };
                 Insert: {
                     created_at?: string;
                     description?: string | null;
-                    id?: number;
+                    id?: string;
                     name: string;
                 };
                 Update: {
                     created_at?: string;
                     description?: string | null;
-                    id?: number;
+                    id?: string;
                     name?: string;
                 };
                 Relationships: [];

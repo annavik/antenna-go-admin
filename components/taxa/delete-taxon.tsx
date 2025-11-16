@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { DeleteDialog } from '../ui/delete-dialog';
 
-export const DeleteTaxon = ({ taxaListId, taxonId }: { taxaListId: number; taxonId: number }) => {
+export const DeleteTaxon = ({ taxaListId, taxonId }: { taxaListId: string; taxonId: string }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
