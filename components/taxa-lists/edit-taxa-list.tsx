@@ -47,7 +47,7 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
             <Tooltip>
                 <TooltipTrigger asChild>
                     <DialogTrigger asChild>
-                        <Button type="button" size="icon" variant="ghost">
+                        <Button size="icon" variant="ghost">
                             <PenIcon className="w-4 h-4" />
                         </Button>
                     </DialogTrigger>
@@ -79,7 +79,7 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
                         onValueChange={(value) => setFormValues((prev) => ({ ...prev, comments: value }))}
                     />
                     <div className="flex items-center justify-end gap-4">
-                        <Button onClick={() => setIsOpen(false)} type="button" variant="ghost">
+                        <Button onClick={() => setIsOpen(false)} variant="ghost">
                             <span className="pt-0.5">Cancel</span>
                         </Button>
                         <Button variant="success" type="submit">

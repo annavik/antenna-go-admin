@@ -29,7 +29,7 @@ export const DeleteDialog = ({
             <Tooltip>
                 <TooltipTrigger asChild>
                     <DialogTrigger asChild>
-                        <Button type="button" size="icon" variant="ghost">
+                        <Button size="icon" variant="ghost">
                             <TrashIcon className="w-4 h-4" />
                         </Button>
                     </DialogTrigger>
@@ -44,10 +44,10 @@ export const DeleteDialog = ({
                     <DialogDescription>{description}</DialogDescription>
                 </DialogHeader>
                 <div className="flex items-center justify-end gap-4">
-                    <Button onClick={() => setIsOpen(false)} type="button" variant="ghost">
+                    <Button onClick={() => setIsOpen(false)} variant="ghost">
                         <span className="pt-0.5">Cancel</span>
                     </Button>
-                    <Button onClick={onDelete} type="button" variant="destructive">
+                    <Button onClick={onDelete} variant="destructive">
                         {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : null}
                         <span className="pt-0.5">Delete</span>
                     </Button>

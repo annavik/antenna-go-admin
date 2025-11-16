@@ -45,7 +45,6 @@ export const INatControl = ({
                     <Button
                         onClick={() => onTaxonChange({ ...taxon, inat_taxon_id: null })}
                         size="icon"
-                        type="button"
                         variant="ghost"
                     >
                         <XIcon className="w-4 h-4" />
@@ -54,7 +53,7 @@ export const INatControl = ({
             ) : (
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogTrigger asChild>
-                        <Button type="button" variant="outline">
+                        <Button variant="outline">
                             <span>Search iNaturalist</span>
                             <SearchIcon className="w-4 h-4" />
                         </Button>
