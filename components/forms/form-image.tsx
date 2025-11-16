@@ -20,11 +20,11 @@ export const FormImage = ({
             label={label}
             accessory={
                 isEditing ? (
-                    <Button onClick={() => setIsEditing(false)} size="icon" variant="outline">
+                    <Button onClick={() => setIsEditing(false)} size="icon" variant="success">
                         <CheckIcon className="w-4 h-4" />
                     </Button>
                 ) : (
-                    <Button onClick={() => setIsEditing(true)} size="icon" variant="outline">
+                    <Button onClick={() => setIsEditing(true)} size="icon" variant="ghost">
                         <PenIcon className="w-4 h-4" />
                     </Button>
                 )
