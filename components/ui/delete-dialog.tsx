@@ -7,9 +7,9 @@ import {
     DialogTitle,
     DialogTrigger
 } from '@/components/ui/dialog';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { useState } from 'react';
+import { ButtonTooltip } from './button-tooltip';
 
 export const DeleteDialog = ({
     description,
@@ -26,18 +26,13 @@ export const DeleteDialog = ({
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <DialogTrigger asChild>
-                        <Button size="icon" variant="ghost">
-                            <TrashIcon className="w-4 h-4" />
-                        </Button>
-                    </DialogTrigger>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <span className="pt-0.5">{title}</span>
-                </TooltipContent>
-            </Tooltip>
+            <ButtonTooltip content={title}>
+                <DialogTrigger asChild>
+                    <Button size="icon" variant="ghost">
+                        <TrashIcon className="w-4 h-4" />
+                    </Button>
+                </DialogTrigger>
+            </ButtonTooltip>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>

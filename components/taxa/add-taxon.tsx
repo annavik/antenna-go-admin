@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/client';
 import { Loader2Icon, PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { ButtonTooltip } from '../ui/button-tooltip';
 
 export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     const supabase = createClient();
@@ -31,15 +31,10 @@ export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     };
 
     return (
-        <Tooltip>
-            <TooltipTrigger asChild>
-                <Button onClick={onCreate} size="icon" variant="ghost">
-                    {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <PlusIcon className="w-4 h-4" />}
-                </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-                <span className="pt-0.5">Add new taxon</span>
-            </TooltipContent>
-        </Tooltip>
+        <ButtonTooltip content="Add new taxon">
+            <Button onClick={onCreate} size="icon" variant="ghost">
+                {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <PlusIcon className="w-4 h-4" />}
+            </Button>
+        </ButtonTooltip>
     );
 };

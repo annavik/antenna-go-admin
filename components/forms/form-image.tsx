@@ -1,8 +1,8 @@
 import { CheckIcon, PenIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
+import { ButtonTooltip } from '../ui/button-tooltip';
 import { Input } from '../ui/input';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import { FormControl } from './form-control';
 
 export const FormImage = ({
@@ -25,16 +25,11 @@ export const FormImage = ({
                         <CheckIcon className="w-4 h-4" />
                     </Button>
                 ) : (
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button onClick={() => setIsEditing(true)} size="icon" variant="ghost">
-                                <PenIcon className="w-4 h-4" />
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <span className="pt-0.5">Edit image</span>
-                        </TooltipContent>
-                    </Tooltip>
+                    <ButtonTooltip content="Edit image">
+                        <Button onClick={() => setIsEditing(true)} size="icon" variant="ghost">
+                            <PenIcon className="w-4 h-4" />
+                        </Button>
+                    </ButtonTooltip>
                 )
             }
         >

@@ -10,13 +10,13 @@ import {
     DialogTitle,
     DialogTrigger
 } from '@/components/ui/dialog';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { Loader2Icon, PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormTextarea } from '../forms/form-textarea';
+import { ButtonTooltip } from '../ui/button-tooltip';
 
 export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -44,18 +44,13 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <DialogTrigger asChild>
-                        <Button size="icon" variant="ghost">
-                            <PenIcon className="w-4 h-4" />
-                        </Button>
-                    </DialogTrigger>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <span className="pt-0.5">Edit taxa list</span>
-                </TooltipContent>
-            </Tooltip>
+            <ButtonTooltip content="Edit taxa list">
+                <DialogTrigger asChild>
+                    <Button size="icon" variant="ghost">
+                        <PenIcon className="w-4 h-4" />
+                    </Button>
+                </DialogTrigger>
+            </ButtonTooltip>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Edit taxa list</DialogTitle>
