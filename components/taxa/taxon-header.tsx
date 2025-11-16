@@ -11,9 +11,11 @@ export const TaxonHeader = ({ taxon }: { taxon: Tables<'taxa'> }) => {
     return (
         <div className="flex items-center gap-8 p-8">
             {taxon.cover_image_url ? (
-                <div className="h-32 shrink-0 bg-muted rounded-md border overflow-hidden">
-                    <img alt={label} className="h-full" src={taxon.cover_image_url} />
-                </div>
+                <img
+                    alt={label}
+                    className="shrink-0 w-32 h-32 object-cover bg-muted rounded-md border"
+                    src={taxon.cover_image_url}
+                />
             ) : null}
             <div className="grid gap-4">
                 {parents.length ? (

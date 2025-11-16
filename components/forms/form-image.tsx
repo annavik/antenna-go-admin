@@ -4,12 +4,15 @@ import { Button } from '../ui/button';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { Input } from '../ui/input';
 import { FormControl } from './form-control';
+import { cn } from '@/lib/utils';
 
 export const FormImage = ({
+    imageClassName,
     label,
     onValueChange,
     value
 }: {
+    imageClassName?: string;
     label: string;
     onValueChange: (value: string | null) => void;
     value: string | null;
@@ -43,7 +46,7 @@ export const FormImage = ({
                 <div>
                     {value ? (
                         <a className="hover:opacity-70" href={value} rel="noopener noreferrer" target="_blank">
-                            <img alt="" className="bg-muted rounded-md border" src={value} />
+                            <img alt="" className={cn('bg-muted rounded-md border', imageClassName)} src={value} />
                         </a>
                     ) : (
                         <span className="body-base text-muted-foreground">No image set</span>

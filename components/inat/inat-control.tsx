@@ -179,8 +179,10 @@ const INatConfirm = ({
                             <label className="pt-0.5 body-small font-medium whitespace-nowrap" htmlFor={key}>
                                 {LABELS[key]}
                             </label>
-                            {key === 'cover_image_url' || key === 'cover_image_thumbnail_url' ? (
-                                <img alt="" className="max-h-32 bg-muted rounded-md border" src={value} />
+                            {key === 'cover_image_url' ? (
+                                <img alt="" className="h-32 bg-muted rounded-md border" src={value} />
+                            ) : key === 'cover_image_thumbnail_url' ? (
+                                <img alt="" className="h-16 w-16 object-cover bg-muted rounded-md border" src={value} />
                             ) : (
                                 <span className="pt-0.5 body-small text-muted-foreground">{value}</span>
                             )}

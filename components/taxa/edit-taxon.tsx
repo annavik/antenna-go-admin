@@ -112,6 +112,7 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: string; taxon: Ta
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, cover_image_url: value }))}
                         />
                         <FormImage
+                            imageClassName="w-32 h-32 object-cover"
                             label={LABELS.cover_image_thumbnail_url}
                             value={formValues.cover_image_thumbnail_url}
                             onValueChange={(value) =>

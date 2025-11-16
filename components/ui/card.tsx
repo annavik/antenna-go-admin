@@ -28,7 +28,7 @@ export const Card = ({
     >
         {withImage ? (
             image ? (
-                <img alt="" className="shrink-0 w-16 h-16 border-r object-cover" src={image} />
+                <img alt="" className="shrink-0 w-16 h-16 object-cover bg-muted border-r" src={image} />
             ) : (
                 <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-muted border-r">
                     <ImageIcon className="w-4 h-4 text-foreground/50" />
