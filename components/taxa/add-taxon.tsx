@@ -7,7 +7,7 @@ import { Loader2Icon, PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export const CreateTaxon = ({ taxaListId }: { taxaListId: number }) => {
+export const AddTaxon = ({ taxaListId }: { taxaListId: number }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ export const CreateTaxon = ({ taxaListId }: { taxaListId: number }) => {
                 </Button>
             </TooltipTrigger>
             <TooltipContent>
-                <span className="pt-0.5">Create new taxon</span>
+                <span className="pt-0.5">Add new taxon</span>
             </TooltipContent>
         </Tooltip>
     );
