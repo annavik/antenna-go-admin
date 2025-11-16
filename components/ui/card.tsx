@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { ImageIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export const Card = ({
@@ -6,13 +7,15 @@ export const Card = ({
     href,
     image,
     isActive,
-    label
+    label,
+    withImage
 }: {
     description?: string;
     href: string;
     image?: string;
     isActive?: boolean;
     label: string;
+    withImage?: boolean;
 }) => (
     <Link
         className={cn(
@@ -23,7 +26,15 @@ export const Card = ({
         )}
         href={href}
     >
-        {image ? <img alt="" className="w-16 h-16 object-cover" src={image} /> : null}
+        {withImage ? (
+            image ? (
+                <img alt="" className="shrink-0 w-16 h-16 border-r object-cover" src={image} />
+            ) : (
+                <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-muted border-r">
+                    <ImageIcon className="w-4 h-4 text-foreground/50" />
+                </div>
+            )
+        ) : null}
         <div className="grow grid gap-1 px-3 py-2">
             <span className="pt-0.5 body-base font-medium truncate">{label}</span>
             {description ? (

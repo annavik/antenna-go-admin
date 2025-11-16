@@ -55,7 +55,7 @@ export const INatControl = ({
                     <DialogTrigger asChild>
                         <Button variant="outline">
                             <SearchIcon className="w-4 h-4" />
-                            <span>Search iNaturalist</span>
+                            <span className="pt-0.5">Search iNaturalist</span>
                         </Button>
                     </DialogTrigger>
                     <INatForm

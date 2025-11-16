@@ -4,9 +4,9 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/server';
 import { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { TaxaListLink } from '../components/taxa-lists/taxa-list-link';
 import '../styles/globals.css';
 import '../styles/typography.css';
-import { TaxaListLink } from './taxa-list-link';
 
 const Mazzard = localFont({
     src: [

@@ -21,7 +21,7 @@ export const convertINatTaxon = (iNatTaxon: INatTaxonDetails): { [key: string]: 
     }
 
     const taxonPhoto = iNatTaxon.taxon_photos[0].photo;
-    if (iNatTaxon.taxon_photos[0]) {
+    if (taxonPhoto) {
         if (taxonPhoto.original_url) {
             fields.cover_image_url = taxonPhoto.original_url;
         }
