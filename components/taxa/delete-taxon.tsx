@@ -1,11 +1,7 @@
-'use client';
-
-import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/client';
-import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { DeleteDialog } from '../ui/delete-dialog';
 
 export const DeleteTaxon = ({ taxaListId, taxonId }: { taxaListId: number; taxonId: number }) => {
     const supabase = createClient();
@@ -29,15 +25,11 @@ export const DeleteTaxon = ({ taxaListId, taxonId }: { taxaListId: number; taxon
     };
 
     return (
-        <Tooltip>
-            <TooltipTrigger asChild>
-                <Button onClick={onDelete} size="icon" type="button" variant="ghost">
-                    {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <TrashIcon className="w-4 h-4" />}
-                </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-                <span className="pt-0.5">Delete taxon</span>
-            </TooltipContent>
-        </Tooltip>
+        <DeleteDialog
+            description="Are you sure you want to delete this taxon?"
+            isLoading={isLoading}
+            onDelete={onDelete}
+            title="Delete taxon"
+        />
     );
 };

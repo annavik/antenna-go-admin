@@ -1,3 +1,4 @@
+import { DeleteTaxaList } from '@/components/taxa-lists/delete-taxa-list';
 import { EditTaxaList } from '@/components/taxa-lists/edit-taxa-list';
 import { AddTaxon } from '@/components/taxa/add-taxon';
 import { ExportTaxa } from '@/components/taxa/export-taxa';
@@ -18,7 +19,12 @@ export default async function RootLayout({ children, params }) {
     return (
         <>
             <Panel
-                accessory={<EditTaxaList taxaList={taxaList} />}
+                accessory={
+                    <div className="flex items-center gap-2">
+                        <DeleteTaxaList taxaListId={taxaList.id} />
+                        <EditTaxaList taxaList={taxaList} />
+                    </div>
+                }
                 title={taxaList.name}
                 description={taxaList.comments}
             >

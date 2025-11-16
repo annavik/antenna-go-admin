@@ -16,7 +16,6 @@ import { Tables } from '@/lib/supabase/database.types';
 import { Loader2Icon, PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { DeleteTaxaList } from './delete-taxa-list';
 import { FormTextarea } from '../forms/form-textarea';
 
 export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) => {
@@ -80,7 +79,9 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
                         onValueChange={(value) => setFormValues((prev) => ({ ...prev, comments: value }))}
                     />
                     <div className="flex items-center justify-end gap-4">
-                        <DeleteTaxaList taxaListId={taxaList.id} />
+                        <Button onClick={() => setIsOpen(false)} type="button" variant="ghost">
+                            <span className="pt-0.5">Cancel</span>
+                        </Button>
                         <Button variant="success" type="submit">
                             <span className="pt-0.5">Save</span>
                             {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : null}

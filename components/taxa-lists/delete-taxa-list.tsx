@@ -1,11 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/client';
-import { Loader2Icon, TrashIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { DeleteDialog } from '../ui/delete-dialog';
 
 export const DeleteTaxaList = ({ taxaListId }: { taxaListId: number }) => {
     const supabase = createClient();
@@ -29,15 +27,11 @@ export const DeleteTaxaList = ({ taxaListId }: { taxaListId: number }) => {
     };
 
     return (
-        <Tooltip>
-            <TooltipTrigger asChild>
-                <Button onClick={onDelete} size="icon" type="button" variant="ghost">
-                    {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <TrashIcon className="w-4 h-4" />}
-                </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-                <span className="pt-0.5">Delete taxa list</span>
-            </TooltipContent>
-        </Tooltip>
+        <DeleteDialog
+            description="Are you sure you want to delete this taxa list? This will also delete related taxa."
+            isLoading={isLoading}
+            onDelete={onDelete}
+            title="Delete taxa list"
+        />
     );
 };
