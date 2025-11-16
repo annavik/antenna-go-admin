@@ -3,10 +3,15 @@ export interface INatTaxon {
     rank: string;
     name: string;
     default_photo?: {
-        attribution: string;
-        medium_url: string;
         square_url: string;
     };
+    taxon_photos: {
+        photo: {
+            original_url?: string;
+            small_url?: string;
+            attribution?: string;
+        };
+    }[];
     preferred_common_name: string;
 }
 

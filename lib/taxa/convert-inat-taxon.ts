@@ -20,16 +20,19 @@ export const convertINatTaxon = (iNatTaxon: INatTaxonDetails): { [key: string]: 
         fields[iNatTaxon.rank] = iNatTaxon.name;
     }
 
-    if (iNatTaxon.default_photo?.medium_url) {
-        fields.cover_image_url = iNatTaxon.default_photo.medium_url;
-    }
+    const taxonPhoto = iNatTaxon.taxon_photos[0].photo;
+    if (iNatTaxon.taxon_photos[0]) {
+        if (taxonPhoto.original_url) {
+            fields.cover_image_url = taxonPhoto.original_url;
+        }
 
-    if (iNatTaxon.default_photo?.square_url) {
-        fields.cover_image_thumbnail_url = iNatTaxon.default_photo.square_url;
-    }
+        if (taxonPhoto.small_url) {
+            fields.cover_image_thumbnail_url = taxonPhoto.small_url;
+        }
 
-    if (iNatTaxon.default_photo?.attribution) {
-        fields.cover_image_credit = iNatTaxon.default_photo.attribution;
+        if (taxonPhoto.attribution) {
+            fields.cover_image_credit = taxonPhoto.attribution;
+        }
     }
 
     if (iNatTaxon.preferred_common_name) {
