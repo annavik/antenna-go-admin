@@ -1,5 +1,6 @@
 import { EditTaxaList } from '@/components/taxa-lists/edit-taxa-list';
 import { CreateTaxon } from '@/components/taxa/create-taxon';
+import { ExportTaxa } from '@/components/taxa/export-taxa';
 import { TaxonLink } from '@/components/taxa/taxon-link';
 import { Panel } from '@/components/ui/panel';
 import { createClient } from '@/lib/supabase/server';
@@ -24,7 +25,10 @@ export default async function RootLayout({ children, params }) {
                 <div className="grid gap-2">
                     <div className="flex items-center justify-between gap-2">
                         <span className="body-base font-medium">Taxa</span>
-                        <CreateTaxon taxaListId={taxaList.id} />
+                        <div className="flex items-center justify-center gap-2">
+                            <ExportTaxa taxaListId={taxaList.id} />
+                            <CreateTaxon taxaListId={taxaList.id} />
+                        </div>
                     </div>
                     {taxa.map((taxon) => (
                         <TaxonLink key={taxon.id} taxaListId={taxaList.id} taxon={taxon} />
