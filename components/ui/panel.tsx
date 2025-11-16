@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ReactNode, useState } from 'react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import { Button } from './button';
 
 export const Panel = ({
@@ -43,14 +44,21 @@ export const Panel = ({
                     {children}
                 </div>
             )}
-            <Button
-                className="absolute top-2 right-0 translate-x-[50%] rounded-full z-1"
-                onClick={() => setIsCollapsed(!isCollapsed)}
-                size="icon"
-                variant="outline"
-            >
-                {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-            </Button>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        className="absolute top-2 right-0 translate-x-[50%] rounded-full z-1"
+                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        size="icon"
+                        variant="outline"
+                    >
+                        {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <span className="pt-0.5">{isCollapsed ? 'Expand' : 'Collapse'}</span>
+                </TooltipContent>
+            </Tooltip>
         </div>
     );
 };
