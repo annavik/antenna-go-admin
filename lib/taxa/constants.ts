@@ -2,6 +2,7 @@ export const RANKS = ['phylum', 'class', 'order', 'superfamily', 'family', 'subf
 
 export const LABELS = {
     inat_taxon_id: 'iNat taxon ID',
+    gbif_taxon_key: 'GBIF taxon key',
     phylum: 'Phylum',
     class: 'Class',
     order: 'Order',

@@ -10,11 +10,12 @@ import { LABELS } from '@/lib/taxa/constants';
 import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { INatControl } from '../inat/inat-control';
-import { DeleteTaxon } from './delete-taxon';
-import { TaxonHeader } from './taxon-header';
+import { GBIFControl } from '../external-resources/gbif-control';
+import { INatControl } from '../external-resources/inat-control';
 import { FormImage } from '../forms/form-image';
 import { FormTextarea } from '../forms/form-textarea';
+import { DeleteTaxon } from './delete-taxon';
+import { TaxonHeader } from './taxon-header';
 
 export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: string; taxon: Tables<'taxa'> }) => {
     const supabase = createClient();
@@ -52,6 +53,9 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: string; taxon: Ta
                     <div className="grid grid-cols-2 gap-8">
                         <FormControl label={LABELS.inat_taxon_id}>
                             <INatControl taxon={formValues} onTaxonChange={setFormValues} />
+                        </FormControl>
+                        <FormControl label={LABELS.gbif_taxon_key}>
+                            <GBIFControl taxon={formValues} onTaxonChange={setFormValues} />
                         </FormControl>
                     </div>
                 </FormSection>

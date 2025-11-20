@@ -22,3 +22,18 @@ export interface INatTaxonDetails extends INatTaxon {
         name: string;
     }[];
 }
+
+export interface GBIFTaxon {
+    key: number;
+    rank: string;
+    canonicalName: string;
+    phylum?: string;
+    class?: string;
+    order?: string;
+    superfamily?: string;
+    family?: string;
+    subfamily?: string;
+    tribe?: string;
+    genus?: string;
+    species?: string;
+}
