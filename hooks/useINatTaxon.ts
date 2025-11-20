@@ -1,8 +1,7 @@
 import { INatTaxonDetails } from '@/lib/types';
 import { useEffect, useState } from 'react';
 
-// See https://api.inaturalist.org/v1/docs/ for more info
-const API_URL = 'https://api.inaturalist.org/v1';
+const API_URL = 'https://api.inaturalist.org/v1'; // See https://api.inaturalist.org/v1/docs/ for more info
 
 export const useINatTaxon = (id: number) => {
     const [data, setData] = useState<{

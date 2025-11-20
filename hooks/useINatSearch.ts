@@ -1,8 +1,8 @@
 import { INatTaxon } from '@/lib/types';
 import { useEffect, useState } from 'react';
 
-// See https://api.inaturalist.org/v1/docs/ for more info
-const API_URL = 'https://api.inaturalist.org/v1';
+const API_URL = 'https://api.inaturalist.org/v1'; // See https://api.inaturalist.org/v1/docs/ for more info
+const TAXON_ID = 47158; // Insecta
 
 export const useINatSearch = (q: string) => {
     const [data, setData] = useState<{
@@ -16,7 +16,7 @@ export const useINatSearch = (q: string) => {
         }
 
         setIsLoading(true);
-        fetch(`${API_URL}/taxa/autocomplete?q=${q}&taxon_id=47120`)
+        fetch(`${API_URL}/taxa/autocomplete?taxon_id=${TAXON_ID}&q=${q}`)
             .then((res) => res.json())
             .then((data) => {
                 setData(data);

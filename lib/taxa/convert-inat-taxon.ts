@@ -1,26 +1,23 @@
 import { INatTaxonDetails } from '../types';
 import { RANKS } from './constants';
 
-export const convertINatTaxon = (iNatTaxon: INatTaxonDetails): { [key: string]: string } => {
-    const ancestors = RANKS.reduce((prev: { [key: string]: string }, rank) => {
-        const ancestor = iNatTaxon.ancestors.find((ancestor) => ancestor.rank === rank);
-        if (ancestor) {
-            prev[rank] = ancestor.name;
-        }
-
-        return prev;
-    }, {});
-
+export const convertINatTaxon = (taxon: INatTaxonDetails): { [key: string]: string } => {
     const fields: { [key: string]: string } = {
-        inat_taxon_id: `${iNatTaxon.id}`,
-        ...ancestors
+        inat_taxon_id: `${taxon.id}`
     };
 
-    if (RANKS.includes(iNatTaxon.rank)) {
-        fields[iNatTaxon.rank] = iNatTaxon.name;
+    RANKS.forEach((rank) => {
+        const ancestor = taxon.ancestors.find((ancestor) => ancestor.rank === rank);
+        if (ancestor) {
+            fields[rank] = ancestor.name;
+        }
+    });
+
+    if (RANKS.includes(taxon.rank)) {
+        fields[taxon.rank] = taxon.name;
     }
 
-    const taxonPhoto = iNatTaxon.taxon_photos[0].photo;
+    const taxonPhoto = taxon.taxon_photos[0]?.photo;
     if (taxonPhoto) {
         if (taxonPhoto.original_url) {
             fields.cover_image_url = taxonPhoto.original_url;
@@ -35,8 +32,8 @@ export const convertINatTaxon = (iNatTaxon: INatTaxonDetails): { [key: string]: 
         }
     }
 
-    if (iNatTaxon.preferred_common_name) {
-        fields.common_name = iNatTaxon.preferred_common_name;
+    if (taxon.preferred_common_name) {
+        fields.common_name = taxon.preferred_common_name;
     }
 
     return fields;

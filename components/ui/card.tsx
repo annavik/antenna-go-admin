@@ -27,13 +27,13 @@ export const Card = ({
         href={href}
     >
         {withImage ? (
-            image ? (
-                <img alt="" className="shrink-0 w-16 h-16 object-cover bg-muted border-r" src={image} />
-            ) : (
-                <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-muted border-r">
+            <div className="shrink-0 w-16 h-16 flex items-center justify-center bg-muted border-r">
+                {image ? (
+                    <img alt={label} className="w-full h-full object-cover" src={image} />
+                ) : (
                     <ImageIcon className="w-4 h-4 text-foreground/50" />
-                </div>
-            )
+                )}
+            </div>
         ) : null}
         <div className="grow grid gap-1 px-3 py-2">
             <span className="pt-0.5 body-base font-medium truncate">{label}</span>
