@@ -21,7 +21,7 @@ export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
             if (error) {
                 throw error;
             }
-            router.push(`/taxa-list/${taxaListId}/taxon/${taxon.id}`);
+            router.push(`/admin/taxa-list/${taxaListId}/taxon/${taxon.id}`);
         } catch (error) {
             // TODO: Show message
         } finally {

@@ -11,7 +11,7 @@ export const TaxaListLink = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
     return (
         <Card
             description={taxaList.description}
-            href={`/taxa-list/${taxaList.id}`}
+            href={`/admin/taxa-list/${taxaList.id}`}
             isActive={isActive}
             label={taxaList.name}
         />

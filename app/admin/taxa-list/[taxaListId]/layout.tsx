@@ -3,6 +3,7 @@ import { EditTaxaList } from '@/components/taxa-lists/edit-taxa-list';
 import { Taxa } from '@/components/taxa/taxa';
 import { Panel } from '@/components/ui/panel';
 import { createClient } from '@/lib/supabase/server';
+import { notFound } from 'next/navigation';
 
 export default async function RootLayout({ children, params }) {
     const { taxaListId } = await params;
@@ -11,7 +12,7 @@ export default async function RootLayout({ children, params }) {
     const { data: taxa } = await supabase.from('taxa').select().eq('taxa_list_id', taxaListId).order('created_at');
 
     if (!taxaList) {
-        return null;
+        return notFound();
     }
 
     return (

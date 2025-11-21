@@ -17,7 +17,7 @@ export const DeleteTaxaList = ({ taxaListId }: { taxaListId: string }) => {
             if (error) {
                 throw error;
             }
-            router.replace('/');
+            router.replace('/admin');
         } catch (error) {
             // TODO: Show message
         } finally {

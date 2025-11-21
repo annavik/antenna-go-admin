@@ -1,10 +1,6 @@
-import { CreateTaxaList } from '@/components/taxa-lists/create-taxa-list';
-import { Panel } from '@/components/ui/panel';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { createClient } from '@/lib/supabase/server';
 import { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { TaxaListLink } from '../components/taxa-lists/taxa-list-link';
 import '../styles/globals.css';
 import '../styles/typography.css';
 
@@ -50,10 +46,7 @@ export const metadata: Metadata = {
     }
 };
 
-export default async function RootLayout({ children }) {
-    const supabase = await createClient();
-    const { data: taxaLists } = await supabase.from('taxa_lists').select().order('created_at');
-
+export default function RootLayout({ children }) {
     return (
         <html lang="en" className={Mazzard.className}>
             <head>
@@ -65,18 +58,7 @@ export default async function RootLayout({ children }) {
                         <img alt="Antenna logo" className="w-8 h-8" src="/images/favicon.png" />
                         <span className="label text-muted-foreground font-semibold">Under construction</span>
                     </header>
-                    <main className="flex flex-col grow">
-                        <div className="flex grow">
-                            <Panel accessory={<CreateTaxaList />} title="Taxa lists">
-                                <div className="grid gap-2">
-                                    {taxaLists?.map((taxaList) => (
-                                        <TaxaListLink key={taxaList.id} taxaList={taxaList} />
-                                    ))}
-                                </div>
-                            </Panel>
-                            {children}
-                        </div>
-                    </main>
+                    <main className="flex flex-col grow">{children}</main>
                 </TooltipProvider>
             </body>
         </html>

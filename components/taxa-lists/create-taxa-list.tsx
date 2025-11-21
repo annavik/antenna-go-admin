@@ -23,7 +23,7 @@ export const CreateTaxaList = () => {
             if (error) {
                 throw error;
             }
-            router.push(`/taxa-list/${taxaList.id}`);
+            router.push(`/admin/taxa-list/${taxaList.id}`);
         } catch (error) {
             // TODO: Show message
         } finally {

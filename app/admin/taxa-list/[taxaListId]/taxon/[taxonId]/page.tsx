@@ -1,5 +1,6 @@
 import { EditTaxon } from '@/components/taxa/edit-taxon';
 import { createClient } from '@/lib/supabase/server';
+import { notFound } from 'next/navigation';
 
 export default async function Page({ params }) {
     const { taxonId, taxaListId } = await params;
@@ -7,7 +8,7 @@ export default async function Page({ params }) {
     const { data: taxon } = await supabase.from('taxa').select().eq('id', taxonId).maybeSingle();
 
     if (!taxon) {
-        return null;
+        return notFound();
     }
 
     return <EditTaxon taxaListId={taxaListId} taxon={taxon} />;
