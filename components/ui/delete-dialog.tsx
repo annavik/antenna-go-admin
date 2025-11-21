@@ -7,9 +7,10 @@ import {
     DialogTitle,
     DialogTrigger
 } from '@/components/ui/dialog';
-import { Loader2Icon, TrashIcon } from 'lucide-react';
+import { TrashIcon } from 'lucide-react';
 import { useState } from 'react';
 import { ButtonTooltip } from './button-tooltip';
+import { LoadingIcon } from './loading/loading-icon';
 
 export const DeleteDialog = ({
     description,
@@ -43,8 +44,8 @@ export const DeleteDialog = ({
                         <span className="pt-0.5">Cancel</span>
                     </Button>
                     <Button onClick={onDelete} variant="destructive">
-                        {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : null}
                         <span className="pt-0.5">Delete</span>
+                        {isLoading ? <LoadingIcon /> : null}
                     </Button>
                 </div>
             </DialogContent>

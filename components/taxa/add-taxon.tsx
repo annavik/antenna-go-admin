@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
-import { Loader2Icon, PlusIcon } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ButtonTooltip } from '../ui/button-tooltip';
+import { LoadingIcon } from '../ui/loading/loading-icon';
 
 export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     const supabase = createClient();
@@ -33,7 +34,7 @@ export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     return (
         <ButtonTooltip content="Add new taxon">
             <Button onClick={onCreate} size="icon" variant="ghost">
-                {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <PlusIcon className="w-4 h-4" />}
+                {isLoading ? <LoadingIcon /> : <PlusIcon className="w-4 h-4" />}
             </Button>
         </ButtonTooltip>
     );

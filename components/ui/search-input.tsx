@@ -1,6 +1,7 @@
-import { Loader2Icon, SearchIcon, XIcon } from 'lucide-react';
+import { SearchIcon, XIcon } from 'lucide-react';
 import { Button } from './button';
 import { Input } from './input';
+import { LoadingIcon } from './loading/loading-icon';
 
 export const SearchInput = ({
     isLoading,
@@ -25,7 +26,7 @@ export const SearchInput = ({
         />
         <div className="w-10 h-full flex items-center justify-center absolute top-0 right-0">
             {isLoading ? (
-                <Loader2Icon className="w-4 h-4 text-secondary animate-spin" />
+                <LoadingIcon />
             ) : value.length ? (
                 <Button onClick={() => onValueChange('')} size="icon" variant="ghost">
                     <XIcon />

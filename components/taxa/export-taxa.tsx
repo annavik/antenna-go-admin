@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
-import { DownloadIcon, Loader2Icon } from 'lucide-react';
+import { DownloadIcon } from 'lucide-react';
 import { useState } from 'react';
 import { ButtonTooltip } from '../ui/button-tooltip';
+import { LoadingIcon } from '../ui/loading/loading-icon';
 
 const FILE_NAME = 'taxa.csv';
 
@@ -41,7 +42,7 @@ export const ExportTaxa = ({ taxaListId }: { taxaListId: string }) => {
     return (
         <ButtonTooltip content="Export taxa as CSV">
             <Button onClick={onExport} size="icon" variant="ghost">
-                {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <DownloadIcon className="w-4 h-4" />}
+                {isLoading ? <LoadingIcon /> : <DownloadIcon className="w-4 h-4" />}
             </Button>
         </ButtonTooltip>
     );

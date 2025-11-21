@@ -7,13 +7,13 @@ import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
-import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GBIFControl } from '../external-resources/gbif-control';
 import { INatControl } from '../external-resources/inat-control';
 import { FormImage } from '../forms/form-image';
 import { FormTextarea } from '../forms/form-textarea';
+import { LoadingIcon } from '../ui/loading/loading-icon';
 import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
 
@@ -148,7 +148,7 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: string; taxon: Ta
                     <DeleteTaxon taxaListId={taxaListId} taxonId={taxon.id} />
                     <Button variant="success" type="submit">
                         <span className="pt-0.5">Save</span>
-                        {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : null}
+                        {isLoading ? <LoadingIcon /> : null}
                     </Button>
                 </div>
             </form>

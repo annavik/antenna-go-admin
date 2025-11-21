@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { LABELS } from '@/lib/taxa/constants';
-import { Loader2Icon } from 'lucide-react';
 import { Fragment, useEffect, useState } from 'react';
 import { Checkbox } from '../ui/checkbox';
+import { LoadingSection } from '../ui/loading/loading-section';
 
 export const ConfirmForm = ({
     fields,
@@ -27,9 +27,7 @@ export const ConfirmForm = ({
     return (
         <>
             {isLoading ? (
-                <div className="flex justify-center">
-                    <Loader2Icon className="w-16 h-16 text-secondary animate-spin" />
-                </div>
+                <LoadingSection />
             ) : fields ? (
                 <div className="grid gap-4 py-4" style={{ gridTemplateColumns: 'auto auto 1fr' }}>
                     {Object.entries(fields).map(([key, value]) => (

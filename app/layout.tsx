@@ -58,7 +58,7 @@ export default function RootLayout({ children }) {
                         <img alt="Antenna logo" className="w-8 h-8" src="/images/favicon.png" />
                         <span className="label text-muted-foreground font-semibold">Under construction</span>
                     </header>
-                    <main className="flex flex-col grow">{children}</main>
+                    <main className="grow flex flex-col">{children}</main>
                 </TooltipProvider>
             </body>
         </html>

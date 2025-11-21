@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormTextarea } from '../forms/form-textarea';
 import { ButtonTooltip } from '../ui/button-tooltip';
+import { LoadingIcon } from '../ui/loading/loading-icon';
 
 export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +80,7 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
                         </Button>
                         <Button variant="success" type="submit">
                             <span className="pt-0.5">Save</span>
-                            {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : null}
+                            {isLoading ? <LoadingIcon /> : null}
                         </Button>
                     </div>
                 </form>
