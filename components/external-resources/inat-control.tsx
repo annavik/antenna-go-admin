@@ -125,7 +125,7 @@ const INatSearch = ({
                     {data.results.slice(0, 5).map((result) => (
                         <div
                             key={result.id}
-                            className="not-last:border-b hover:bg-muted cursor-pointer"
+                            className="not-last:border-b cursor-pointer hover:bg-muted"
                             onClick={() => onConfirm(result.id)}
                         >
                             <SearchResult

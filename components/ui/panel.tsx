@@ -33,7 +33,7 @@ export const Panel = ({
                     <span className="body-xlarge font-medium text-primary">{title}</span>
                 </div>
             ) : (
-                <div className="h-full w-full absolute top-0 left-0 p-8 overflow-auto">
+                <div className="w-full h-full absolute top-0 left-0 p-8 overflow-auto">
                     <div className="grid gap-2 mb-8">
                         <div className="flex items-center justify-between gap-2">
                             <span className="body-xlarge font-medium text-primary">{title}</span>

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { FormControl } from './form-control';
 
-const COLOR_OPTIONS = ['#3b4681', '#5193f0', '#00ae87', '#f2a31f', '#ef4444'];
+const COLOR_OPTIONS = ['#3b4681', '#5193f0', '#00ae87', '#f2a31f', '#ef4444', '#f55691'];
 
 export const FormColor = ({
     label,

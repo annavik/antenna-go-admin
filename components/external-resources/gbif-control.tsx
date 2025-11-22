@@ -125,7 +125,7 @@ const GBIFSearch = ({
                     {data.results.slice(0, 5).map((result) => (
                         <div
                             key={result.key}
-                            className="not-last:border-b hover:bg-muted cursor-pointer"
+                            className="not-last:border-b cursor-pointer hover:bg-muted"
                             onClick={() => onConfirm(result)}
                         >
                             <SearchResult label={result.canonicalName} rank={result.rank.toLowerCase()} />
