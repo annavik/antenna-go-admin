@@ -8,6 +8,38 @@ export type Database = {
     };
     public: {
         Tables: {
+            tags: {
+                Row: {
+                    color: string | null;
+                    created_at: string;
+                    id: string;
+                    name: string;
+                    taxa_list_id: string;
+                };
+                Insert: {
+                    color?: string | null;
+                    created_at?: string;
+                    id?: string;
+                    name: string;
+                    taxa_list_id: string;
+                };
+                Update: {
+                    color?: string | null;
+                    created_at?: string;
+                    id?: string;
+                    name?: string;
+                    taxa_list_id?: string;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: 'tags_taxa_list_id_fkey';
+                        columns: ['taxa_list_id'];
+                        isOneToOne: false;
+                        referencedRelation: 'taxa_lists';
+                        referencedColumns: ['id'];
+                    }
+                ];
+            };
             taxa: {
                 Row: {
                     class: string | null;

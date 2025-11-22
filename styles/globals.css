@@ -4,6 +4,7 @@
     --background: #ffffff;
     --border: #dedfe3;
     --destructive: #ef4444;
+    --warning: #f2a31f;
     --foreground: #171820;
     --muted-foreground: #52545d;
     --muted: #f9f9fa;
@@ -17,6 +18,8 @@
     --color-border: var(--border);
     --color-destructive: var(--destructive);
     --color-destructive-foreground: var(--background);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--background);
     --color-foreground: var(--foreground);
     --color-muted-foreground: var(--muted-foreground);
     --color-muted: var(--muted);
