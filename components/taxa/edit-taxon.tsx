@@ -162,7 +162,7 @@ export const EditTaxon = ({
                                     ))}
                                 </div>
                             ) : (
-                                <span className="body-base text-muted-foreground">No tags set</span>
+                                <span className="body-base text-muted-foreground">Not set</span>
                             )}
                         </FormControl>
                         <FormTextarea

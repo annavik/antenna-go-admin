@@ -49,7 +49,7 @@ export const FormImage = ({
                             <img alt="" className={cn('bg-muted rounded-md border', imageClassName)} src={value} />
                         </a>
                     ) : (
-                        <span className="body-base text-muted-foreground">No image set</span>
+                        <span className="body-base text-muted-foreground">Not set</span>
                     )}
                 </div>
             )}
