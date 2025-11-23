@@ -15,7 +15,7 @@ import { Tables } from '@/lib/supabase/database.types';
 import { convertINatTaxon } from '@/lib/taxa/convert-inat-taxon';
 import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { ExternalLinkIcon, SearchIcon, XIcon } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ConfirmForm } from './confirm-form';
 import { SearchResult } from './search-result';
 
@@ -58,12 +58,13 @@ const INatDialog = ({
     taxon: Tables<'taxa'>;
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [searchString, setSearchString] = useState(() => {
-        const { name } = getTaxonInfo(taxon);
-
-        return name ?? '';
-    });
+    const [searchString, setSearchString] = useState(getTaxonInfo(taxon)?.name ?? '');
     const [taxonId, setTaxonId] = useState<number>(null);
+
+    useEffect(() => {
+        setSearchString(getTaxonInfo(taxon)?.name ?? '');
+        setTaxonId(null);
+    }, [isOpen, taxon]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

@@ -11,7 +11,7 @@ import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 import { Tag } from './tag';
@@ -51,6 +51,8 @@ export const EditTags = ({
             router.refresh();
         }
     };
+
+    useEffect(() => setChecked(Object.fromEntries(taxonTags.map(({ id }) => [id, true]))), [isOpen, taxonTags]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

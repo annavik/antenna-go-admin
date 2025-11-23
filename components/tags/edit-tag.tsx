@@ -14,7 +14,7 @@ import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormColor } from '../forms/form-color';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
@@ -42,6 +42,8 @@ export const EditTag = ({ tag }: { tag: Tables<'tags'> }) => {
             router.refresh();
         }
     };
+
+    useEffect(() => setFormValues(tag), [isOpen, tag]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

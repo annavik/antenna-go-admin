@@ -12,9 +12,9 @@ import {
 } from '@/components/ui/dialog';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
-import { Loader2Icon, PenIcon } from 'lucide-react';
+import { PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormTextarea } from '../forms/form-textarea';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
@@ -42,6 +42,8 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
             router.refresh();
         }
     };
+
+    useEffect(() => setFormValues(taxaList), [isOpen, taxaList]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

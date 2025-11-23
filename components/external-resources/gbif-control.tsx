@@ -15,7 +15,7 @@ import { convertGBIFTaxon } from '@/lib/taxa/convert-gbif-taxon';
 import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { GBIFTaxon } from '@/lib/types';
 import { ExternalLinkIcon, SearchIcon, XIcon } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ConfirmForm } from './confirm-form';
 import { SearchResult } from './search-result';
 
@@ -58,12 +58,13 @@ const GBIFDialog = ({
     taxon: Tables<'taxa'>;
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [searchString, setSearchString] = useState(() => {
-        const { name } = getTaxonInfo(_taxon);
-
-        return name ?? '';
-    });
+    const [searchString, setSearchString] = useState('');
     const [taxon, setTaxon] = useState<GBIFTaxon>(null);
+
+    useEffect(() => {
+        setSearchString(getTaxonInfo(_taxon)?.name ?? '');
+        setTaxon(null);
+    }, [isOpen, _taxon]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
