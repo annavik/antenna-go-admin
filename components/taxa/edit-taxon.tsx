@@ -13,11 +13,23 @@ import { GBIFControl } from '../external-resources/gbif-control';
 import { INatControl } from '../external-resources/inat-control';
 import { FormImage } from '../forms/form-image';
 import { FormTextarea } from '../forms/form-textarea';
+import { EditTags } from '../tags/edit-tags';
+import { Tag } from '../tags/tag';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
 
-export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: string; taxon: Tables<'taxa'> }) => {
+export const EditTaxon = ({
+    taxaListId,
+    taxaListTags,
+    taxon,
+    taxonTags
+}: {
+    taxaListId: string;
+    taxaListTags: Tables<'tags'>[];
+    taxon: Tables<'taxa'>;
+    taxonTags: Tables<'tags'>[];
+}) => {
     const supabase = createClient();
     const router = useRouter();
     const [formValues, setFormValues] = useState(taxon);
@@ -137,6 +149,22 @@ export const EditTaxon = ({ taxaListId, taxon }: { taxaListId: string; taxon: Ta
                             value={formValues.common_name}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, common_name: value }))}
                         />
+                        <FormControl
+                            label={LABELS.tags}
+                            accessory={
+                                <EditTags taxaListTags={taxaListTags} taxonId={taxon.id} taxonTags={taxonTags} />
+                            }
+                        >
+                            {taxonTags.length ? (
+                                <div className="flex flex-wrap gap-2">
+                                    {taxonTags.map((tag) => (
+                                        <Tag key={tag.id} isActive tag={tag} />
+                                    ))}
+                                </div>
+                            ) : (
+                                <span className="body-base text-muted-foreground">No tags set</span>
+                            )}
+                        </FormControl>
                         <FormTextarea
                             label={LABELS.notes}
                             value={formValues.notes}

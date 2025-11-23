@@ -135,6 +135,36 @@ export type Database = {
                 };
                 Relationships: [];
             };
+            taxa_tags: {
+                Row: {
+                    tag_id: string;
+                    taxon_id: string;
+                };
+                Insert: {
+                    tag_id?: string;
+                    taxon_id?: string;
+                };
+                Update: {
+                    tag_id?: string;
+                    taxon_id?: string;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: 'taxa_tags_tag_id_fkey';
+                        columns: ['tag_id'];
+                        isOneToOne: false;
+                        referencedRelation: 'tags';
+                        referencedColumns: ['id'];
+                    },
+                    {
+                        foreignKeyName: 'taxa_tags_taxon_id_fkey';
+                        columns: ['taxon_id'];
+                        isOneToOne: false;
+                        referencedRelation: 'taxa';
+                        referencedColumns: ['id'];
+                    }
+                ];
+            };
         };
         Views: {
             [_ in never]: never;

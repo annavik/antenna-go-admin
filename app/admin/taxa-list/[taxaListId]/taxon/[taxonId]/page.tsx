@@ -5,11 +5,14 @@ import { notFound } from 'next/navigation';
 export default async function Page({ params }) {
     const { taxonId, taxaListId } = await params;
     const supabase = await createClient();
-    const { data: taxon } = await supabase.from('taxa').select().eq('id', taxonId).maybeSingle();
+    const { data } = await supabase.from('taxa').select('*, tags( * )').eq('id', taxonId).maybeSingle();
+    const { tags: taxonTags, ...taxon } = data;
 
     if (!taxon) {
         return notFound();
     }
 
-    return <EditTaxon taxaListId={taxaListId} taxon={taxon} />;
+    const { data: tags } = await supabase.from('tags').select().eq('taxa_list_id', taxaListId).order('created_at');
+
+    return <EditTaxon taxaListId={taxaListId} taxaListTags={tags} taxon={taxon} taxonTags={taxonTags} />;
 }
