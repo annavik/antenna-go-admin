@@ -1,5 +1,5 @@
 import { Tables } from '@/lib/supabase/database.types';
-import { AddTag } from './add-tag';
+import { CreateTag } from './create-tag';
 import { DeleteTag } from './delete-tag';
 import { EditTag } from './edit-tag';
 import { Tag } from './tag';
@@ -8,7 +8,7 @@ export const Tags = ({ tags, taxaListId }: { tags: Tables<'tags'>[]; taxaListId:
     <div className="grid gap-2">
         <div className="flex items-center justify-between gap-2">
             <span className="body-base font-medium">Tags</span>
-            <AddTag taxaListId={taxaListId} />
+            <CreateTag taxaListId={taxaListId} />
         </div>
         {tags.map((tag) => (
             <div key={tag.id} className="flex items-center justify-between gap-2">

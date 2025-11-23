@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 
-export const AddTag = ({ taxaListId }: { taxaListId: string }) => {
+export const CreateTag = ({ taxaListId }: { taxaListId: string }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +33,7 @@ export const AddTag = ({ taxaListId }: { taxaListId: string }) => {
     };
 
     return (
-        <ButtonTooltip content="Add new tag">
+        <ButtonTooltip content="Create new tag">
             <Button onClick={onCreate} size="icon" variant="ghost">
                 {isLoading ? <LoadingIcon /> : <PlusIcon className="w-4 h-4" />}
             </Button>
