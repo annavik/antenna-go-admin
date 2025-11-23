@@ -150,10 +150,10 @@ export const EditTaxon = ({
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, common_name: value }))}
                         />
                         <FormControl
-                            label={LABELS.tags}
                             accessory={
                                 <EditTags taxaListTags={taxaListTags} taxonId={taxon.id} taxonTags={taxonTags} />
                             }
+                            label={LABELS.tags}
                         >
                             {taxonTags.length ? (
                                 <div className="flex flex-wrap gap-2">

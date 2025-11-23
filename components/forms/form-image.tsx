@@ -21,7 +21,6 @@ export const FormImage = ({
 
     return (
         <FormControl
-            label={label}
             accessory={
                 isEditing ? (
                     <Button onClick={() => setIsEditing(false)} size="icon" variant="success">
@@ -35,6 +34,7 @@ export const FormImage = ({
                     </ButtonTooltip>
                 )
             }
+            label={label}
         >
             {isEditing ? (
                 <Input

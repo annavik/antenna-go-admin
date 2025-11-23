@@ -25,9 +25,9 @@ export const EditTags = ({
     taxonId: string;
     taxonTags: Tables<'tags'>[];
 }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const supabase = createClient();
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
     const [checked, setChecked] = useState<{ [key: string]: boolean }>(
         Object.fromEntries(taxonTags.map(({ id }) => [id, true]))
     );

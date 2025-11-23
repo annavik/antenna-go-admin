@@ -15,14 +15,14 @@ import { Tables } from '@/lib/supabase/database.types';
 import { PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { FormColor } from '../forms/form-color';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
-import { FormColor } from '../forms/form-color';
 
 export const EditTag = ({ tag }: { tag: Tables<'tags'> }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const supabase = createClient();
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
     const [formValues, setFormValues] = useState(tag);
     const [isLoading, setIsLoading] = useState(false);
 

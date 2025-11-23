@@ -20,9 +20,9 @@ import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 
 export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const supabase = createClient();
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
     const [formValues, setFormValues] = useState(taxaList);
     const [isLoading, setIsLoading] = useState(false);
 

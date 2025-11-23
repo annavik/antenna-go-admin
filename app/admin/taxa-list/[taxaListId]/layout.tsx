@@ -37,8 +37,8 @@ const Content = async ({ params }: { params: any }) => {
                     <EditTaxaList taxaList={taxaList} />
                 </div>
             }
-            title={taxaList.name}
             description={taxaList.description}
+            title={taxaList.name}
         >
             <div className="grid gap-8">
                 <Tags tags={tags} taxaListId={taxaList.id} />
