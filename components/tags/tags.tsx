@@ -21,7 +21,7 @@ export const Tags = ({ tags, taxaListId }: { tags: Tables<'tags'>[]; taxaListId:
                 </div>
             ))
         ) : (
-            <span className="body-base text-muted-foreground">Not set</span>
+            <span className="body-base text-muted-foreground">Nothing to show here yet</span>
         )}
     </div>
 );

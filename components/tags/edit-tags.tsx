@@ -70,14 +70,18 @@ export const EditTags = ({
                 </DialogHeader>
                 <div className="grid gap-8">
                     <div className="flex flex-wrap gap-2">
-                        {taxaListTags.map((tag) => (
-                            <Tag
-                                key={tag.id}
-                                isActive={checked[tag.id]}
-                                onClick={() => setChecked((prev) => ({ ...prev, [tag.id]: !checked[tag.id] }))}
-                                tag={tag}
-                            />
-                        ))}
+                        {taxaListTags.length ? (
+                            taxaListTags.map((tag) => (
+                                <Tag
+                                    key={tag.id}
+                                    isActive={checked[tag.id]}
+                                    onClick={() => setChecked((prev) => ({ ...prev, [tag.id]: !checked[tag.id] }))}
+                                    tag={tag}
+                                />
+                            ))
+                        ) : (
+                            <span className="body-base text-muted-foreground">Nothing to show here yet</span>
+                        )}
                     </div>
                     <div className="flex items-center justify-end gap-4">
                         <Button onClick={() => setIsOpen(false)} variant="ghost">

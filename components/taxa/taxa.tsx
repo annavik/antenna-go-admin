@@ -33,14 +33,22 @@ export const Taxa = ({ taxa, taxaListId }: { taxa: Tables<'taxa'>[]; taxaListId:
             <div className="flex items-center justify-between gap-2">
                 <span className="body-base font-medium">Taxa</span>
                 <div className="flex items-center justify-center gap-2">
-                    <ExportTaxa taxaListId={taxaListId} />
+                    {taxa.length ? <ExportTaxa taxaListId={taxaListId} /> : null}
                     <AddTaxon taxaListId={taxaListId} />
                 </div>
             </div>
-            <SearchInput placeholder="Search taxa..." onValueChange={setSearchString} value={searchString} />
-            {filteredTaxa.map((taxon) => (
-                <TaxonLink key={taxon.id} taxon={taxon} />
-            ))}
+            {taxa.length ? (
+                <>
+                    <SearchInput placeholder="Search taxa..." onValueChange={setSearchString} value={searchString} />
+                    {filteredTaxa.length ? (
+                        filteredTaxa.map((taxon) => <TaxonLink key={taxon.id} taxon={taxon} />)
+                    ) : (
+                        <span className="body-base text-muted-foreground">No matches found</span>
+                    )}
+                </>
+            ) : (
+                <span className="body-base text-muted-foreground">Nothing to show here yet</span>
+            )}
         </div>
     );
 };
