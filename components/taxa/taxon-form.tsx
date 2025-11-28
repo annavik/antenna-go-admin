@@ -1,6 +1,6 @@
 'use client';
 
-import { FormControl } from '@/components/forms/form-control';
+import { FormField } from '@/components/forms/form-field';
 import { FormInput } from '@/components/forms/form-input';
 import { FormSection } from '@/components/forms/form-section';
 import { Button } from '@/components/ui/button';
@@ -19,7 +19,7 @@ import { LoadingIcon } from '../ui/loading/loading-icon';
 import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
 
-export const EditTaxon = ({
+export const TaxonForm = ({
     taxaListId,
     taxaListTags,
     taxon,
@@ -65,12 +65,12 @@ export const EditTaxon = ({
             >
                 <FormSection label="External resources">
                     <div className="grid grid-cols-2 gap-8">
-                        <FormControl label={LABELS.inat_taxon_id}>
+                        <FormField label={LABELS.inat_taxon_id}>
                             <INatControl taxon={formValues} onTaxonChange={setFormValues} />
-                        </FormControl>
-                        <FormControl label={LABELS.gbif_taxon_key}>
+                        </FormField>
+                        <FormField label={LABELS.gbif_taxon_key}>
                             <GBIFControl taxon={formValues} onTaxonChange={setFormValues} />
-                        </FormControl>
+                        </FormField>
                     </div>
                 </FormSection>
                 <FormSection label="Taxonomy">
@@ -151,7 +151,7 @@ export const EditTaxon = ({
                             value={formValues.common_name}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, common_name: value }))}
                         />
-                        <FormControl
+                        <FormField
                             accessory={
                                 <EditTags taxaListTags={taxaListTags} taxonId={taxon.id} taxonTags={taxonTags} />
                             }
@@ -166,7 +166,7 @@ export const EditTaxon = ({
                             ) : (
                                 <span className="body-base text-muted-foreground">Not set</span>
                             )}
-                        </FormControl>
+                        </FormField>
                         <FormTextarea
                             label={LABELS.notes}
                             value={formValues.notes}

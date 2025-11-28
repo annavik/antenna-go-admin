@@ -1,5 +1,5 @@
 import { Textarea } from '../ui/textarea';
-import { FormControl } from './form-control';
+import { FormField } from './form-field';
 
 export const FormTextarea = ({
     label,
@@ -10,10 +10,10 @@ export const FormTextarea = ({
     onValueChange: (value: string | null) => void;
     value: string | null;
 }) => (
-    <FormControl label={label}>
+    <FormField label={label}>
         <Textarea
             value={value ?? ''}
             onChange={(e) => onValueChange(e.currentTarget.value.length ? e.currentTarget.value : null)}
         />
-    </FormControl>
+    </FormField>
 );

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export const FormControl = ({
+export const FormField = ({
     accessory,
     children,
     label

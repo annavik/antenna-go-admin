@@ -1,10 +1,10 @@
+import { cn } from '@/lib/utils';
 import { CheckIcon, PenIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { Input } from '../ui/input';
-import { FormControl } from './form-control';
-import { cn } from '@/lib/utils';
+import { FormField } from './form-field';
 
 export const FormImage = ({
     imageClassName,
@@ -20,7 +20,7 @@ export const FormImage = ({
     const [isEditing, setIsEditing] = useState(false);
 
     return (
-        <FormControl
+        <FormField
             accessory={
                 isEditing ? (
                     <Button onClick={() => setIsEditing(false)} size="icon" variant="success">
@@ -53,6 +53,6 @@ export const FormImage = ({
                     )}
                 </div>
             )}
-        </FormControl>
+        </FormField>
     );
 };

@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { ImageIcon } from 'lucide-react';
 import Link from 'next/link';
 
-export const Card = ({
+export const ListItem = ({
     description,
     href,
     image,

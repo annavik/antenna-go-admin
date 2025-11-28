@@ -1,5 +1,5 @@
 import { Input } from '../ui/input';
-import { FormControl } from './form-control';
+import { FormField } from './form-field';
 
 export const FormInput = ({
     label,
@@ -10,10 +10,10 @@ export const FormInput = ({
     onValueChange: (value: string | null) => void;
     value: string | null;
 }) => (
-    <FormControl label={label}>
+    <FormField label={label}>
         <Input
             value={value ?? ''}
             onChange={(e) => onValueChange(e.currentTarget.value.length ? e.currentTarget.value : null)}
         />
-    </FormControl>
+    </FormField>
 );

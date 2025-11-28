@@ -1,5 +1,5 @@
 import { CreateTaxaList } from '@/components/taxa-lists/create-taxa-list';
-import { TaxaListLink } from '@/components/taxa-lists/taxa-list-link';
+import { TaxaLists } from '@/components/taxa-lists/taxa-lists';
 import { LoadingPanel } from '@/components/ui/loading/loading-panel';
 import { Panel } from '@/components/ui/panel';
 import { createClient } from '@/lib/supabase/server';
@@ -22,11 +22,7 @@ const Content = async () => {
 
     return (
         <Panel accessory={<CreateTaxaList />} title="Taxa lists">
-            <div className="grid gap-2">
-                {taxaLists?.map((taxaList) => (
-                    <TaxaListLink key={taxaList.id} taxaList={taxaList} />
-                ))}
-            </div>
+            <TaxaLists taxaLists={taxaLists} />
         </Panel>
     );
 };

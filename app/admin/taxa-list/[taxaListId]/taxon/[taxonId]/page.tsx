@@ -1,4 +1,4 @@
-import { EditTaxon } from '@/components/taxa/edit-taxon';
+import { TaxonForm } from '@/components/taxa/taxon-form';
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 
@@ -14,5 +14,5 @@ export default async function Page({ params }) {
 
     const { data: tags } = await supabase.from('tags').select().eq('taxa_list_id', taxaListId).order('created_at');
 
-    return <EditTaxon taxaListId={taxaListId} taxaListTags={tags} taxon={taxon} taxonTags={taxonTags} />;
+    return <TaxonForm taxaListId={taxaListId} taxaListTags={tags} taxon={taxon} taxonTags={taxonTags} />;
 }
