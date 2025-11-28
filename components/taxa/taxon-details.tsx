@@ -1,15 +1,26 @@
 import { FormField } from '@/components/forms/form-field';
 import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
+import { cn } from '@/lib/utils';
+import { PenIcon } from 'lucide-react';
+import Link from 'next/link';
 import { GBIFLink } from '../external-resources/gbif-link';
 import { INatLink } from '../external-resources/inat-link';
 import { Tag } from '../tags/tag';
+import { buttonVariants } from '../ui/button';
 import { TaxonHeader } from './taxon-header';
 
 export const TaxonDetails = ({ taxon, taxonTags }: { taxon: Tables<'taxa'>; taxonTags: Tables<'tags'>[] }) => (
     <div className="grid px-8 bg-background rounded-lg border">
         <div className="grid gap-2 py-8 border-b relative">
             <TaxonHeader taxon={taxon} />
+            <Link
+                className={cn(buttonVariants({ variant: 'outline' }), 'absolute top-8 right-0')}
+                href={`/admin/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
+            >
+                <PenIcon className="w-4 h-4" />
+                <span className="pt-0.5">Edit</span>
+            </Link>
         </div>
         <div className="grid grid-cols-2 items-start gap-8 py-8">
             <div className="grid grid-cols-2 items-start gap-8">

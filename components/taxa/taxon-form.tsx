@@ -3,10 +3,13 @@
 import { FormField } from '@/components/forms/form-field';
 import { FormInput } from '@/components/forms/form-input';
 import { FormSection } from '@/components/forms/form-section';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
+import { cn } from '@/lib/utils';
+import { EyeIcon } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GBIFControl } from '../external-resources/gbif-control';
@@ -53,8 +56,15 @@ export const TaxonForm = ({
 
     return (
         <div>
-            <div className="p-8">
+            <div className="p-8 relative">
                 <TaxonHeader taxon={formValues} withImage />
+                <Link
+                    className={cn(buttonVariants({ variant: 'outline' }), 'absolute top-8 right-8')}
+                    href={`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
+                >
+                    <EyeIcon className="w-4 h-4" />
+                    <span className="pt-0.5">View</span>
+                </Link>
             </div>
             <form
                 onSubmit={(e) => {
