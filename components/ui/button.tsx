@@ -12,6 +12,7 @@ const buttonVariants = cva(
                 destructive: 'bg-destructive text-destructive-foreground',
                 ghost: undefined,
                 outline: 'bg-background border',
+                secondary: 'bg-secondary text-secondary-foreground',
                 success: 'bg-success text-success-foreground'
             },
             size: {

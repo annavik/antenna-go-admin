@@ -1,3 +1,4 @@
+import { Header } from '@/components/header';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -54,10 +55,7 @@ export default function RootLayout({ children }) {
             </head>
             <body className="min-h-screen flex flex-col antialiased">
                 <TooltipProvider>
-                    <header className="h-12 px-8 flex items-center justify-between gap-2 bg-background border-b">
-                        <img alt="Antenna logo" className="w-8 h-8" src="/images/favicon.png" />
-                        <span className="label text-muted-foreground font-semibold">Under construction</span>
-                    </header>
+                    <Header />
                     <main className="grow flex flex-col">{children}</main>
                 </TooltipProvider>
             </body>
