@@ -1,3 +1,4 @@
+import { Breadcrumbs } from '@/components/breadcrumbs';
 import { Gallery, GalleryItem } from '@/components/ui/gallery';
 import { createClient } from '@/lib/supabase/server';
 import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
@@ -15,30 +16,27 @@ export default async function Page({ params }) {
     const { data: taxa } = await supabase.from('taxa').select().eq('taxa_list_id', taxaListId).order('created_at');
 
     return (
-        <div className="grow p-8 bg-muted">
-            <div className="grid px-8">
-                <div className="grid gap-2 py-8 border-b">
-                    <h1 className="heading-small text-primary">{taxaList.name}</h1>
-                    {taxaList.description ? <span className="body-base">{taxaList.description}</span> : null}
-                </div>
-                <div className="py-8">
-                    <Gallery>
-                        {taxa.map((taxon) => {
-                            const { label } = getTaxonInfo(taxon);
-
-                            return (
-                                <GalleryItem
-                                    key={taxon.id}
-                                    description={taxon.common_name ? `(${taxon.common_name})` : null}
-                                    href={`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
-                                    image={taxon.cover_image_thumbnail_url}
-                                    title={label}
-                                />
-                            );
-                        })}
-                    </Gallery>
-                </div>
+        <div className="grow space-y-8 p-8">
+            <Breadcrumbs items={[{ href: '/', label: 'Taxa lists' }, { label: taxaList.name }]} />
+            <div className="grid gap-2 pb-8 border-b">
+                <h1 className="heading-small text-primary">{taxaList.name}</h1>
+                {taxaList.description ? <span className="body-base">{taxaList.description}</span> : null}
             </div>
+            <Gallery>
+                {taxa.map((taxon) => {
+                    const { label } = getTaxonInfo(taxon);
+
+                    return (
+                        <GalleryItem
+                            key={taxon.id}
+                            description={taxon.common_name ? `(${taxon.common_name})` : null}
+                            href={`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
+                            image={taxon.cover_image_thumbnail_url}
+                            title={label}
+                        />
+                    );
+                })}
+            </Gallery>
         </div>
     );
 }

@@ -10,7 +10,7 @@ export const Header = () => {
     const activeSegment = useSelectedLayoutSegment();
 
     return (
-        <header className="h-12 px-8 flex items-center justify-between gap-8 bg-background border-b">
+        <header className="px-8 py-4 flex items-center justify-between gap-8 bg-background border-b">
             <div className="flex items-center gap-8">
                 <Link href="/">
                     <img alt="Antenna logo" className="w-8 h-8" src="/images/favicon.png" />

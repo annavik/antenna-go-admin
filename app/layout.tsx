@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
             <body className="min-h-screen flex flex-col antialiased">
                 <TooltipProvider>
                     <Header />
-                    <main className="grow flex flex-col">{children}</main>
+                    <main className="grow flex flex-col bg-muted">{children}</main>
                 </TooltipProvider>
             </body>
         </html>
