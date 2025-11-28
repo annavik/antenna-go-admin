@@ -53,7 +53,9 @@ export const EditTaxon = ({
 
     return (
         <div>
-            <TaxonHeader taxon={formValues} />
+            <div className="p-8">
+                <TaxonHeader taxon={formValues} withImage />
+            </div>
             <form
                 onSubmit={(e) => {
                     e.preventDefault();

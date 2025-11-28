@@ -4,17 +4,17 @@ import { getTaxonParents } from '@/lib/taxa/get-taxon-parents';
 import { ChevronRight } from 'lucide-react';
 import { Fragment } from 'react';
 
-export const TaxonHeader = ({ taxon }: { taxon: Tables<'taxa'> }) => {
+export const TaxonHeader = ({ taxon, withImage }: { taxon: Tables<'taxa'>; withImage?: boolean }) => {
     const { label } = getTaxonInfo(taxon);
     const parents = getTaxonParents(taxon);
 
     return (
-        <div className="flex items-center gap-8 p-8">
-            {taxon.cover_image_url ? (
+        <div className="flex items-center gap-8">
+            {withImage && taxon.cover_image_thumbnail_url ? (
                 <img
                     alt={label}
                     className="shrink-0 w-32 h-32 object-cover bg-muted rounded-md border"
-                    src={taxon.cover_image_url}
+                    src={taxon.cover_image_thumbnail_url}
                 />
             ) : null}
             <div className="grid gap-4">
@@ -31,9 +31,7 @@ export const TaxonHeader = ({ taxon }: { taxon: Tables<'taxa'> }) => {
                     </div>
                 ) : null}
                 <div className="grid gap-2">
-                    <h1 className="heading-small text-primary">
-                        <span>{label}</span>
-                    </h1>
+                    <h1 className="heading-small text-primary">{label}</h1>
                     {taxon.common_name ? (
                         <span className="body-xlarge text-foreground/50">({taxon.common_name})</span>
                     ) : null}

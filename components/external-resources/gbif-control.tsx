@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogContent,
@@ -14,12 +14,11 @@ import { Tables } from '@/lib/supabase/database.types';
 import { convertGBIFTaxon } from '@/lib/taxa/convert-gbif-taxon';
 import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { GBIFTaxon } from '@/lib/types';
-import { ExternalLinkIcon, SearchIcon, XIcon } from 'lucide-react';
+import { SearchIcon, XIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { ConfirmForm } from './confirm-form';
+import { GBIFLink } from './gbif-link';
 import { SearchResult } from './search-result';
-
-const getGBIFUrl = (taxonKey: string) => `https://www.gbif.org/species/${taxonKey}`;
 
 export const GBIFControl = ({
     onTaxonChange,
@@ -33,15 +32,7 @@ export const GBIFControl = ({
             <GBIFDialog onConfirm={(fields) => onTaxonChange({ ...taxon, ...fields })} taxon={taxon} />
         ) : (
             <div className="flex items-center gap-2">
-                <a
-                    className={buttonVariants({ variant: 'outline' })}
-                    href={getGBIFUrl(taxon.gbif_taxon_key)}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    <span className="pt-0.5">{taxon.gbif_taxon_key}</span>
-                    <ExternalLinkIcon className="w-4 h-4" />
-                </a>
+                <GBIFLink taxonKey={taxon.gbif_taxon_key} />
                 <Button onClick={() => onTaxonChange({ ...taxon, gbif_taxon_key: null })} size="icon" variant="ghost">
                     <XIcon className="w-4 h-4" />
                 </Button>

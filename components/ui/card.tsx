@@ -18,12 +18,9 @@ export const Card = ({
     withImage?: boolean;
 }) => (
     <Link
-        className={cn(
-            'flex items-center bg-background border rounded-md overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-            {
-                'ring-2 ring-secondary ring-offset-2': isActive
-            }
-        )}
+        className={cn('flex items-center bg-background border rounded-md overflow-hidden', {
+            'ring-2 ring-secondary ring-offset-2': isActive
+        })}
         href={href}
     >
         {withImage ? (
