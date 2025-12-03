@@ -7,7 +7,7 @@ import { LoadingIcon } from '../ui/loading/loading-icon';
 
 const FILE_NAME = 'taxa.csv';
 
-export const ExportTaxa = ({ taxaListId }: { taxaListId: string }) => {
+export const ExportTaxa = ({ isCompact, taxaListId }: { isCompact?: boolean; taxaListId: string }) => {
     const supabase = createClient();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +41,8 @@ export const ExportTaxa = ({ taxaListId }: { taxaListId: string }) => {
 
     return (
         <ButtonTooltip content="Export taxa as CSV">
-            <Button onClick={onExport} size="icon" variant="ghost">
+            <Button onClick={onExport} size={isCompact ? 'icon' : 'sm'} variant="ghost">
+                {isCompact ? null : <span>Export</span>}
                 {isLoading ? <LoadingIcon /> : <DownloadIcon className="w-4 h-4" />}
             </Button>
         </ButtonTooltip>

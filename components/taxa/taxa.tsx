@@ -35,7 +35,7 @@ export const Taxa = ({ taxa, taxaListId }: { taxa: Tables<'taxa'>[]; taxaListId:
             <div className="flex items-center justify-between gap-2">
                 <span className="body-base font-medium">Taxa</span>
                 <div className="flex items-center justify-center gap-2">
-                    {taxa.length ? <ExportTaxa taxaListId={taxaListId} /> : null}
+                    {taxa.length ? <ExportTaxa isCompact taxaListId={taxaListId} /> : null}
                     <AddTaxon taxaListId={taxaListId} />
                 </div>
             </div>

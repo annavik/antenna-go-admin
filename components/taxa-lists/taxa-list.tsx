@@ -7,6 +7,7 @@ import { Grid2X2Icon, TableIcon } from 'lucide-react';
 import { useState } from 'react';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
+import { ExportTaxa } from '../taxa/export-taxa';
 
 const VIEW_MODES = [
     {
@@ -31,7 +32,7 @@ export const TaxaList = ({ taxa, taxaList }: { taxa: Tables<'taxa'>[]; taxaList:
                     <h1 className="heading-small text-primary">{taxaList.name}</h1>
                     {taxaList.description ? <span className="body-base">{taxaList.description}</span> : null}
                 </div>
-                <div className="flex items-end justify-end">
+                <div className="flex items-end justify-end gap-4">
                     <ToggleGroup type="single" value={viewMode} onValueChange={setViewMode}>
                         {VIEW_MODES.map(({ Icon, tooltip, value }) => (
                             <ButtonTooltip key={value} content={tooltip}>
@@ -41,6 +42,7 @@ export const TaxaList = ({ taxa, taxaList }: { taxa: Tables<'taxa'>[]; taxaList:
                             </ButtonTooltip>
                         ))}
                     </ToggleGroup>
+                    {taxa.length ? <ExportTaxa taxaListId={taxaList.id} /> : null}
                 </div>
             </div>
             {viewMode === 'gallery' ? <TaxaGallery taxa={taxa} /> : null}
