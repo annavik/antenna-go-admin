@@ -4,7 +4,15 @@ import { getTaxonParents } from '@/lib/taxa/get-taxon-parents';
 import { ChevronRight } from 'lucide-react';
 import { Fragment } from 'react';
 
-export const TaxonHeader = ({ taxon, withImage }: { taxon: Tables<'taxa'>; withImage?: boolean }) => {
+export const TaxonHeader = ({
+    taxon,
+    withImage,
+    withParents
+}: {
+    taxon: Tables<'taxa'>;
+    withImage?: boolean;
+    withParents?: boolean;
+}) => {
     const { label } = getTaxonInfo(taxon);
     const parents = getTaxonParents(taxon);
 
@@ -18,7 +26,7 @@ export const TaxonHeader = ({ taxon, withImage }: { taxon: Tables<'taxa'>; withI
                 />
             ) : null}
             <div className="grid gap-4">
-                {parents.length ? (
+                {withParents && parents.length ? (
                     <div className="flex items-center gap-2">
                         {parents.map((parent, index) => (
                             <Fragment key={parent.rank}>

@@ -1,6 +1,7 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { TaxonDetails } from '@/components/taxa/taxon-details';
 import { createClient } from '@/lib/supabase/server';
+import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { notFound } from 'next/navigation';
 
 export default async function Page({ params }) {
@@ -26,7 +27,7 @@ export default async function Page({ params }) {
                 items={[
                     { href: '/', label: 'Taxa lists' },
                     { label: taxaList.name, href: `/taxa-list/${taxaListId}` },
-                    { label: 'Taxon' }
+                    { label: getTaxonInfo(taxon).label }
                 ]}
             />
             <TaxonDetails taxon={taxon} taxonTags={taxonTags} />

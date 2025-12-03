@@ -57,7 +57,7 @@ export const TaxonForm = ({
     return (
         <div>
             <div className="p-8 relative">
-                <TaxonHeader taxon={formValues} withImage />
+                <TaxonHeader taxon={formValues} withImage withParents />
                 <Link
                     className={cn(buttonVariants({ variant: 'outline' }), 'absolute top-8 right-8')}
                     href={`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
