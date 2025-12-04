@@ -8,7 +8,6 @@ import { useMemo, useState } from 'react';
 import { ListItem } from '../ui/list-item';
 import { SearchInput } from '../ui/search-input';
 import { AddTaxon } from './add-taxon';
-import { ExportTaxa } from './export-taxa';
 
 const SEARCH_OPTIONS = {
     keys: ['label', 'common_name'],
@@ -34,10 +33,7 @@ export const Taxa = ({ taxa, taxaListId }: { taxa: Tables<'taxa'>[]; taxaListId:
         <div className="grid gap-2">
             <div className="flex items-center justify-between gap-2">
                 <span className="body-base font-medium">Taxa</span>
-                <div className="flex items-center justify-center gap-2">
-                    {taxa.length ? <ExportTaxa isCompact taxaListId={taxaListId} /> : null}
-                    <AddTaxon taxaListId={taxaListId} />
-                </div>
+                <AddTaxon taxaListId={taxaListId} />
             </div>
             {taxa.length ? (
                 <>

@@ -42,8 +42,8 @@ export const ExportTaxa = ({ isCompact, taxaListId }: { isCompact?: boolean; tax
     return (
         <ButtonTooltip content="Export taxa as CSV">
             <Button onClick={onExport} size={isCompact ? 'icon' : 'sm'} variant="ghost">
-                {isCompact ? null : <span>Export</span>}
                 {isLoading ? <LoadingIcon /> : <DownloadIcon className="w-4 h-4" />}
+                {isCompact ? null : <span>Export</span>}
             </Button>
         </ButtonTooltip>
     );

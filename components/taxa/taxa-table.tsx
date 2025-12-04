@@ -25,7 +25,7 @@ export const columns: ColumnDef<Tables<'taxa'> & { label: string; name?: string 
         )
     },
     {
-        accessorKey: 'label',
+        accessorKey: 'name',
         header: ({ column }) => <DataTableHeader column={column} label="Taxon" />,
         cell: ({ row }) => (
             <div className="grid gap-1">
@@ -59,7 +59,7 @@ export const TaxaTable = ({ taxa }: { taxa: Tables<'taxa'>[] }) => {
         <DataTable
             columns={columns}
             data={data}
-            defaultSorting={[{ id: 'label', desc: false }]}
+            defaultSorting={[{ id: 'name', desc: false }]}
             onRowClick={(row) => {
                 const taxaListId = row.original.taxa_list_id;
                 const taxonId = row.original.id;

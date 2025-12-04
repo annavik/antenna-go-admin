@@ -1,7 +1,7 @@
 import { Tables } from '@/lib/supabase/database.types';
 import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { getTaxonParents } from '@/lib/taxa/get-taxon-parents';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRightIcon, EllipsisIcon } from 'lucide-react';
 import { Fragment } from 'react';
 
 export const TaxonHeader = ({
@@ -27,15 +27,8 @@ export const TaxonHeader = ({
             ) : null}
             <div className="grid gap-4">
                 {withParents && parents.length ? (
-                    <div className="flex items-center gap-2">
-                        {parents.map((parent, index) => (
-                            <Fragment key={parent.rank}>
-                                <span className="body-small">{parent.label}</span>
-                                {index < parents.length - 1 ? (
-                                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                                ) : null}
-                            </Fragment>
-                        ))}
+                    <div className="flex items-center flex-wrap gap-2">
+                        <Parents parents={parents} />
                     </div>
                 ) : null}
                 <div className="grid gap-2">
@@ -48,3 +41,47 @@ export const TaxonHeader = ({
         </div>
     );
 };
+
+const Parents = ({ parents }: { parents: { label: string; rank: string }[] }) => {
+    if (parents.length <= 3) {
+        return (
+            <>
+                {parents.map((parent, index) => (
+                    <Fragment key={parent.rank}>
+                        <ParentLabel>{parent.label}</ParentLabel>
+                        {index < parents.length - 1 ? <ChevronRight /> : null}
+                    </Fragment>
+                ))}
+            </>
+        );
+    }
+
+    const firstParents = parents.slice(0, 1);
+    const lastParents = parents.slice(-2);
+
+    return (
+        <>
+            {firstParents.map((parent, index) => (
+                <Fragment key={parent.rank}>
+                    <ParentLabel>{parent.label}</ParentLabel>
+                    {index < firstParents.length - 1 ? <ChevronRight /> : null}
+                </Fragment>
+            ))}
+            <ChevronRight />
+            <Ellipsis />
+            <ChevronRight />
+            {lastParents.map((parent, index) => (
+                <Fragment key={parent.rank}>
+                    <ParentLabel>{parent.label}</ParentLabel>
+                    {index < lastParents.length - 1 ? <ChevronRight /> : null}
+                </Fragment>
+            ))}
+        </>
+    );
+};
+
+const ParentLabel = ({ children }: { children: string }) => <span className="body-small pt-0.5">{children}</span>;
+
+const ChevronRight = () => <ChevronRightIcon className="w-4 h-4 text-muted-foreground" />;
+
+const Ellipsis = () => <EllipsisIcon className="w-4 h-4 text-muted-foreground" />;

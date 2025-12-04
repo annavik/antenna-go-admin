@@ -1,7 +1,6 @@
 import { Tables } from '@/lib/supabase/database.types';
+import { capitalize } from '../utils';
 import { RANKS } from './constants';
-
-const capitalize = (value: string) => String(value).charAt(0).toUpperCase() + String(value).slice(1);
 
 export const getTaxonInfo = (taxon: Tables<'taxa'>): { rank?: string; name?: string; label: string } => {
     let rank: string;
