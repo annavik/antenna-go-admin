@@ -14,7 +14,9 @@ export default async function Page({ params }) {
     }
 
     const { data } = await supabase.from('taxa').select('*, tags( * )').eq('taxa_list_id', taxaListId);
-    const taxa = data.map((taxon) => ({ ...taxon, ...getTaxonInfo(taxon) }));
+    const taxa = data
+        .map((taxon) => ({ ...taxon, ...getTaxonInfo(taxon) }))
+        .sort((t1, t2) => (t1.name < t2.name ? -1 : t1.name > t2.name ? 1 : 0));
 
     return (
         <div className="grow space-y-8 p-8">
