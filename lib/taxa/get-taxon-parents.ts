@@ -3,7 +3,7 @@ import { capitalize } from '../utils';
 import { RANKS } from './constants';
 import { getTaxonInfo } from './get-taxon-info';
 
-export const getTaxonParents = (taxon: Tables<'taxa'>): { rank: string; name: string; label: string }[] => {
+export const getTaxonParents = (taxon: Tables<'taxa'>): { label: string; name: string; rank: string }[] => {
     const { rank } = getTaxonInfo(taxon);
 
     return RANKS.filter((key) => key !== rank && taxon[key]).map((key) => ({

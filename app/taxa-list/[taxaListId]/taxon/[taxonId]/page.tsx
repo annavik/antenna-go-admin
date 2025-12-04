@@ -19,7 +19,7 @@ export default async function Page({ params }) {
         return notFound();
     }
 
-    const { tags: taxonTags, ...taxon } = data;
+    const taxon = { ...data, ...getTaxonInfo(data) };
 
     return (
         <div className="grow space-y-8 p-8">
@@ -27,10 +27,10 @@ export default async function Page({ params }) {
                 items={[
                     { href: '/', label: 'Taxa lists' },
                     { label: taxaList.name, href: `/taxa-list/${taxaListId}` },
-                    { label: getTaxonInfo(taxon).label }
+                    { label: taxon.label }
                 ]}
             />
-            <TaxonDetails taxon={taxon} taxonTags={taxonTags} />
+            <TaxonDetails taxon={taxon} />
         </div>
     );
 }

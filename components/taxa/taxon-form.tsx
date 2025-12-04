@@ -7,6 +7,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
+import { TaxonDetails } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -15,7 +16,7 @@ import { GBIFControl } from '../external-resources/gbif-control';
 import { INatControl } from '../external-resources/inat-control';
 import { FormImage } from '../forms/form-image';
 import { FormTextarea } from '../forms/form-textarea';
-import { EditTags } from '../tags/edit-tags';
+import { EditTaxonTags } from '../tags/edit-taxon-tags';
 import { Tag } from '../tags/tag';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 import { DeleteTaxon } from './delete-taxon';
@@ -24,17 +25,16 @@ import { TaxonHeader } from './taxon-header';
 export const TaxonForm = ({
     taxaListId,
     taxaListTags,
-    taxon,
-    taxonTags
+    taxon
 }: {
     taxaListId: string;
     taxaListTags: Tables<'tags'>[];
-    taxon: Tables<'taxa'>;
-    taxonTags: Tables<'tags'>[];
+    taxon: TaxonDetails;
 }) => {
     const supabase = createClient();
     const router = useRouter();
-    const [formValues, setFormValues] = useState(taxon);
+    const { tags, label, rank, name, ...defaultFormValues } = taxon;
+    const [formValues, setFormValues] = useState(defaultFormValues);
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async () => {
@@ -74,10 +74,16 @@ export const TaxonForm = ({
                 <FormSection label="External resources">
                     <div className="grid grid-cols-2 gap-8">
                         <FormField label={LABELS.inat_taxon_id}>
-                            <INatControl taxon={formValues} onTaxonChange={setFormValues} />
+                            <INatControl
+                                taxon={formValues}
+                                onTaxonChange={(taxon) => setFormValues((prev) => ({ ...prev, ...taxon }))}
+                            />
                         </FormField>
                         <FormField label={LABELS.gbif_taxon_key}>
-                            <GBIFControl taxon={formValues} onTaxonChange={setFormValues} />
+                            <GBIFControl
+                                taxon={formValues}
+                                onTaxonChange={(taxon) => setFormValues((prev) => ({ ...prev, ...taxon }))}
+                            />
                         </FormField>
                     </div>
                 </FormSection>
@@ -161,13 +167,13 @@ export const TaxonForm = ({
                         />
                         <FormField
                             accessory={
-                                <EditTags taxaListTags={taxaListTags} taxonId={taxon.id} taxonTags={taxonTags} />
+                                <EditTaxonTags taxaListTags={taxaListTags} taxonId={taxon.id} taxonTags={taxon.tags} />
                             }
                             label={LABELS.tags}
                         >
-                            {taxonTags.length ? (
+                            {taxon.tags.length ? (
                                 <div className="flex flex-wrap gap-2">
-                                    {taxonTags.map((tag) => (
+                                    {taxon.tags.map((tag) => (
                                         <Tag key={tag.id} isActive tag={tag} />
                                     ))}
                                 </div>

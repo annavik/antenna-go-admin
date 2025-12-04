@@ -1,6 +1,7 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { TaxaList } from '@/components/taxa-lists/taxa-list';
 import { createClient } from '@/lib/supabase/server';
+import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { notFound } from 'next/navigation';
 
 export default async function Page({ params }) {
@@ -12,7 +13,8 @@ export default async function Page({ params }) {
         return notFound();
     }
 
-    const { data: taxa } = await supabase.from('taxa').select().eq('taxa_list_id', taxaListId).order('created_at');
+    const { data } = await supabase.from('taxa').select('*, tags( * )').eq('taxa_list_id', taxaListId);
+    const taxa = data.map((taxon) => ({ ...taxon, ...getTaxonInfo(taxon) }));
 
     return (
         <div className="grow space-y-8 p-8">

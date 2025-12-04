@@ -1,3 +1,11 @@
+import { Tables } from '@/lib/supabase/database.types';
+
+export type TaxonDetails = Tables<'taxa'> & { tags: Tables<'tags'>[] } & {
+    label: string;
+    name?: string;
+    rank?: string;
+};
+
 export interface INatTaxon {
     id: number;
     rank: string;

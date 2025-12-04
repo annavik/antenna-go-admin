@@ -1,7 +1,6 @@
 'use client';
 
-import { Tables } from '@/lib/supabase/database.types';
-import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
+import { TaxonDetails } from '@/lib/types';
 import Fuse from 'fuse.js';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -14,19 +13,10 @@ const SEARCH_OPTIONS = {
     threshold: 0.4
 };
 
-export const Taxa = ({ taxa, taxaListId }: { taxa: Tables<'taxa'>[]; taxaListId: string }) => {
+export const Taxa = ({ taxa, taxaListId }: { taxa: TaxonDetails[]; taxaListId: string }) => {
     const params = useParams();
     const [searchString, setSearchString] = useState('');
-    const fuse = useMemo(() => {
-        const list = taxa.map((taxon) => {
-            const { label } = getTaxonInfo(taxon);
-
-            return { ...taxon, label };
-        });
-
-        return new Fuse(list, SEARCH_OPTIONS);
-    }, [taxa]);
-
+    const fuse = useMemo(() => new Fuse(taxa, SEARCH_OPTIONS), [taxa]);
     const filteredTaxa = searchString.length ? fuse.search(searchString)?.map(({ item }) => item) : taxa;
 
     return (
@@ -39,21 +29,17 @@ export const Taxa = ({ taxa, taxaListId }: { taxa: Tables<'taxa'>[]; taxaListId:
                 <>
                     <SearchInput placeholder="Search taxa..." onValueChange={setSearchString} value={searchString} />
                     {filteredTaxa.length ? (
-                        filteredTaxa.map((taxon) => {
-                            const { label } = getTaxonInfo(taxon);
-
-                            return (
-                                <ListItem
-                                    key={taxon.id}
-                                    description={taxon.common_name ? `(${taxon.common_name})` : null}
-                                    href={`/admin/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
-                                    image={taxon.cover_image_thumbnail_url}
-                                    isActive={params.taxonId === taxon.id}
-                                    label={label}
-                                    withImage
-                                />
-                            );
-                        })
+                        filteredTaxa.map((taxon) => (
+                            <ListItem
+                                key={taxon.id}
+                                description={taxon.common_name ? `(${taxon.common_name})` : null}
+                                href={`/admin/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
+                                image={taxon.cover_image_thumbnail_url}
+                                isActive={params.taxonId === taxon.id}
+                                label={taxon.label}
+                                withImage
+                            />
+                        ))
                     ) : (
                         <span className="body-base text-muted-foreground">No matches found</span>
                     )}

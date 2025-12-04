@@ -18,7 +18,7 @@ export default async function RootLayout({ children }) {
 
 const Content = async () => {
     const supabase = await createClient();
-    const { data: taxaLists } = await supabase.from('taxa_lists').select().order('created_at');
+    const { data: taxaLists } = await supabase.from('taxa_lists').select().order('name');
 
     return (
         <Panel accessory={<CreateTaxaList />} title="Taxa lists">

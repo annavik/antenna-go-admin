@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 
 export default async function Page() {
     const supabase = await createClient();
-    const { data: taxaLists } = await supabase.from('taxa_lists').select().order('created_at');
+    const { data: taxaLists } = await supabase.from('taxa_lists').select().order('name');
 
     return (
         <div className="grow space-y-8 p-8">

@@ -5,6 +5,7 @@ import { Taxa } from '@/components/taxa/taxa';
 import { LoadingPanel } from '@/components/ui/loading/loading-panel';
 import { Panel } from '@/components/ui/panel';
 import { createClient } from '@/lib/supabase/server';
+import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
@@ -26,8 +27,9 @@ const Content = async ({ params }: { params: any }) => {
         return notFound();
     }
 
-    const { data: tags } = await supabase.from('tags').select().eq('taxa_list_id', taxaListId).order('created_at');
-    const { data: taxa } = await supabase.from('taxa').select().eq('taxa_list_id', taxaListId).order('created_at');
+    const { data: tags } = await supabase.from('tags').select().eq('taxa_list_id', taxaListId).order('name');
+    const { data } = await supabase.from('taxa').select('*, tags( * )').eq('taxa_list_id', taxaListId);
+    const taxa = data.map((taxon) => ({ ...taxon, ...getTaxonInfo(taxon) }));
 
     return (
         <Panel

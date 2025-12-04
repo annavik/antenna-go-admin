@@ -16,7 +16,7 @@ import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 import { Tag } from './tag';
 
-export const EditTags = ({
+export const EditTaxonTags = ({
     taxaListTags,
     taxonId,
     taxonTags

@@ -1,16 +1,14 @@
 'use client';
 
-import { Tables } from '@/lib/supabase/database.types';
 import { LABELS, RANKS } from '@/lib/taxa/constants';
-import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
+import { TaxonDetails } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
+import { ImageIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
 import { DataTable } from '../ui/table/data-table';
 import { DataTableHeader } from '../ui/table/data-table-header';
-import { ImageIcon } from 'lucide-react';
 
-export const columns: ColumnDef<Tables<'taxa'> & { label: string; name?: string }>[] = [
+export const columns: ColumnDef<TaxonDetails>[] = [
     {
         accessorKey: 'cover_image_thumbnail_url',
         header: () => <></>,
@@ -42,23 +40,13 @@ export const columns: ColumnDef<Tables<'taxa'> & { label: string; name?: string 
     }))
 ];
 
-export const TaxaTable = ({ taxa }: { taxa: Tables<'taxa'>[] }) => {
+export const TaxaTable = ({ taxa }: { taxa: TaxonDetails[] }) => {
     const router = useRouter();
-
-    const data = useMemo(
-        () =>
-            taxa.map((taxon) => {
-                const { label, name } = getTaxonInfo(taxon);
-
-                return { ...taxon, label, name };
-            }),
-        [taxa]
-    );
 
     return (
         <DataTable
             columns={columns}
-            data={data}
+            data={taxa}
             defaultSorting={[{ id: 'name', desc: false }]}
             onRowClick={(row) => {
                 const taxaListId = row.original.taxa_list_id;

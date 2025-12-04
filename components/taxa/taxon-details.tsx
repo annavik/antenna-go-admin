@@ -1,6 +1,6 @@
 import { FormField } from '@/components/forms/form-field';
-import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
+import { TaxonDetails as _TaxonDetails } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { PenIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { Tag } from '../tags/tag';
 import { buttonVariants } from '../ui/button';
 import { TaxonHeader } from './taxon-header';
 
-export const TaxonDetails = ({ taxon, taxonTags }: { taxon: Tables<'taxa'>; taxonTags: Tables<'tags'>[] }) => (
+export const TaxonDetails = ({ taxon }: { taxon: _TaxonDetails }) => (
     <div className="grid px-8 bg-background rounded-lg border">
         <div className="grid gap-2 py-8 border-b relative">
             <TaxonHeader taxon={taxon} withParents />
@@ -46,13 +46,13 @@ export const TaxonDetails = ({ taxon, taxonTags }: { taxon: Tables<'taxa'>; taxo
                             {taxon.gbif_taxon_key ? <GBIFLink label="GBIF" taxonKey={taxon.gbif_taxon_key} /> : null}
                         </div>
                     </div>
-                    <div className={cn('grid gap-4', { hidden: !taxon.common_name && !taxonTags.length })}>
+                    <div className={cn('grid gap-4', { hidden: !taxon.common_name && !taxon.tags.length })}>
                         <h2 className="body-xlarge font-medium">More</h2>
                         <Field label={LABELS.common_name} value={taxon.common_name} />
-                        {taxonTags.length ? (
+                        {taxon.tags.length ? (
                             <FormField label={LABELS.tags}>
                                 <div className="flex items-center gap-2">
-                                    {taxonTags.map((tag) => (
+                                    {taxon.tags.map((tag) => (
                                         <Tag key={tag.id} isActive tag={tag} />
                                     ))}
                                 </div>

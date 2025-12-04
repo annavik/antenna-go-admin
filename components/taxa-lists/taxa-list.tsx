@@ -3,11 +3,12 @@
 import { TaxaGallery } from '@/components/taxa/taxa-gallery';
 import { TaxaTable } from '@/components/taxa/taxa-table';
 import { Tables } from '@/lib/supabase/database.types';
+import { TaxonDetails } from '@/lib/types';
 import { Grid2X2Icon, TableIcon } from 'lucide-react';
 import { useState } from 'react';
+import { ExportTaxa } from '../taxa/export-taxa';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
-import { ExportTaxa } from '../taxa/export-taxa';
 
 const VIEW_MODES = [
     {
@@ -22,7 +23,7 @@ const VIEW_MODES = [
     }
 ];
 
-export const TaxaList = ({ taxa, taxaList }: { taxa: Tables<'taxa'>[]; taxaList: Tables<'taxa_lists'> }) => {
+export const TaxaList = ({ taxa, taxaList }: { taxa: TaxonDetails[]; taxaList: Tables<'taxa_lists'> }) => {
     const [viewMode, setViewMode] = useState('gallery');
 
     return (

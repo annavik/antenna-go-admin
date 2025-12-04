@@ -14,12 +14,7 @@ export const ExportTaxa = ({ isCompact, taxaListId }: { isCompact?: boolean; tax
     const onExport = async () => {
         try {
             setIsLoading(true);
-            const { data: csv, error } = await supabase
-                .from('taxa')
-                .select()
-                .eq('taxa_list_id', taxaListId)
-                .order('created_at')
-                .csv();
+            const { data: csv, error } = await supabase.from('taxa').select().eq('taxa_list_id', taxaListId).csv();
 
             if (error) {
                 throw error;
