@@ -10,6 +10,6 @@ export const Tag = ({ isActive, onClick, tag }: { isActive?: boolean; onClick?: 
         onClick={onClick}
         style={tag.color && isActive ? { backgroundColor: tag.color } : undefined}
     >
-        <span className="body-small font-medium">{tag.name}</span>
+        <span className="body-small font-medium whitespace-nowrap">{tag.name}</span>
     </div>
 );

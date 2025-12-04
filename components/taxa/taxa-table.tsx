@@ -5,6 +5,7 @@ import { TaxonDetails } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { ImageIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Tag } from '../tags/tag';
 import { DataTable } from '../ui/table/data-table';
 import { DataTableHeader } from '../ui/table/data-table-header';
 
@@ -33,6 +34,24 @@ export const columns: ColumnDef<TaxonDetails>[] = [
                 ) : null}
             </div>
         )
+    },
+    {
+        accessorKey: 'tags',
+        enableSorting: false,
+        header: ({ column }) => <DataTableHeader column={column} label="Tags" />,
+        cell: ({ row }) => {
+            if (!row.original.tags.length) {
+                return null;
+            }
+
+            return (
+                <div className="flex flex-wrap gap-2">
+                    {row.original.tags.map((tag) => (
+                        <Tag key={tag.id} isActive tag={tag} />
+                    ))}
+                </div>
+            );
+        }
     },
     ...RANKS.map((rank) => ({
         accessorKey: rank,

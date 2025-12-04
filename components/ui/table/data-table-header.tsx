@@ -4,6 +4,16 @@ import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from 'lucide-react';
 import { Button } from '../button';
 
 export const DataTableHeader = <TData, TValue>({ column, label }: { column: Column<TData, TValue>; label: string }) => {
+    const isSortable = column.getCanSort();
+
+    if (!isSortable) {
+        return (
+            <div className="flex items-center body-base font-medium">
+                <span className="pt-0.5">{label}</span>
+            </div>
+        );
+    }
+
     const isSorted = column.getIsSorted();
     const Icon = isSorted === 'desc' ? ArrowDownIcon : isSorted === 'asc' ? ArrowUpIcon : ArrowUpDownIcon;
 

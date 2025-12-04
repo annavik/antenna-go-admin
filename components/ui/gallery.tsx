@@ -15,17 +15,19 @@ export const Gallery = ({ children, size = 'default' }: { children: ReactNode; s
 );
 
 export const GalleryItem = ({
+    children,
     description,
     href,
     image,
     title
 }: {
+    children?: ReactNode;
     description?: string;
     href: string;
     image?: string;
     title: string;
 }) => (
-    <Link className="bg-background border rounded-md overflow-hidden" href={href}>
+    <Link className="bg-background border rounded-md relative overflow-hidden" href={href}>
         <div className="w-full aspect-square flex items-center justify-center border-b">
             {image ? (
                 <img alt={title} className="w-full h-full object-cover" src={image} />
@@ -37,5 +39,6 @@ export const GalleryItem = ({
             <span className="body-base font-medium">{title}</span>
             {description ? <span className="body-small text-muted-foreground">{description}</span> : null}
         </div>
+        {children}
     </Link>
 );

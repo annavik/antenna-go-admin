@@ -51,7 +51,7 @@ export const TaxonDetails = ({ taxon }: { taxon: _TaxonDetails }) => (
                         <Field label={LABELS.common_name} value={taxon.common_name} />
                         {taxon.tags.length ? (
                             <FormField label={LABELS.tags}>
-                                <div className="flex items-center gap-2">
+                                <div className="flex flex-wrap gap-2">
                                     {taxon.tags.map((tag) => (
                                         <Tag key={tag.id} isActive tag={tag} />
                                     ))}
