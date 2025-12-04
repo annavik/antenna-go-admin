@@ -17,18 +17,20 @@ export const convertINatTaxon = (taxon: INatTaxonDetails): { [key: string]: stri
         fields[taxon.rank] = taxon.name;
     }
 
-    const taxonPhoto = taxon.taxon_photos[0]?.photo;
-    if (taxonPhoto) {
-        if (taxonPhoto.original_url) {
-            fields.cover_image_url = taxonPhoto.original_url;
+    // Make sure photo is shared under open open license
+    const photo = taxon.taxon_photos.find(({ photo }) => photo.original_url.includes('inaturalist-open-data'))?.photo;
+
+    if (photo) {
+        if (photo.original_url) {
+            fields.cover_image_url = photo.original_url;
         }
 
-        if (taxonPhoto.small_url) {
-            fields.cover_image_thumbnail_url = taxonPhoto.small_url;
+        if (photo.small_url) {
+            fields.cover_image_thumbnail_url = photo.small_url;
         }
 
-        if (taxonPhoto.attribution) {
-            fields.cover_image_credit = taxonPhoto.attribution;
+        if (photo.attribution) {
+            fields.cover_image_credit = photo.attribution;
         }
     }
 
