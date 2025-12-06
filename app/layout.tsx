@@ -1,5 +1,6 @@
-import { Header } from '@/components/header';
+import { Header } from '@/components/header/header';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { createClient } from '@/lib/supabase/server';
 import { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '../styles/globals.css';
@@ -47,7 +48,12 @@ export const metadata: Metadata = {
     }
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+    const supabase = await createClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
+
     return (
         <html lang="en" className={Mazzard.className}>
             <head>
@@ -55,7 +61,7 @@ export default function RootLayout({ children }) {
             </head>
             <body className="min-h-screen flex flex-col antialiased">
                 <TooltipProvider>
-                    <Header />
+                    <Header user={user} />
                     <main className="grow flex flex-col bg-muted">{children}</main>
                 </TooltipProvider>
             </body>

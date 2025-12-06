@@ -3,9 +3,19 @@ import { TaxaLists } from '@/components/taxa-lists/taxa-lists';
 import { LoadingPanel } from '@/components/ui/loading/loading-panel';
 import { Panel } from '@/components/ui/panel';
 import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
 export default async function RootLayout({ children }) {
+    const supabase = await createClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+        redirect('/auth/login');
+    }
+
     return (
         <div className="grow flex">
             <Suspense fallback={<LoadingPanel />}>
