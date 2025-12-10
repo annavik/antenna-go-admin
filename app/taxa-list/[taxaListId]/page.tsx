@@ -17,11 +17,12 @@ export default async function Page({ params }) {
     const taxa = data
         .map((taxon) => ({ ...taxon, ...getTaxonInfo(taxon) }))
         .sort((t1, t2) => (t1.name < t2.name ? -1 : t1.name > t2.name ? 1 : 0));
+    const { data: tags } = await supabase.from('tags').select().eq('taxa_list_id', taxaListId).order('name');
 
     return (
         <div className="grow space-y-8 p-8">
             <Breadcrumbs items={[{ href: '/', label: 'Taxa lists' }, { label: taxaList.name }]} />
-            <TaxaList taxaList={taxaList} taxa={taxa} />
+            <TaxaList taxa={taxa} taxaList={taxaList} taxaListTags={tags} />
         </div>
     );
 }

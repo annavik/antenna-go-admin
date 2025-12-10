@@ -15,7 +15,7 @@ export const SearchInput = ({
     value: string;
 }) => (
     <div className="relative">
-        <div className="w-10 h-full flex items-center justify-center absolute top-0 left-0">
+        <div className="w-10 h-full flex items-center justify-center absolute top-0 left-0 opacity-50">
             <SearchIcon className="w-4 h-4" />
         </div>
         <Input

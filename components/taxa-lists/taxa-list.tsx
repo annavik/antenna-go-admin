@@ -2,6 +2,7 @@
 
 import { TaxaGallery } from '@/components/taxa/taxa-gallery';
 import { TaxaTable } from '@/components/taxa/taxa-table';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tables } from '@/lib/supabase/database.types';
 import { TaxonDetails } from '@/lib/types';
 import Fuse from 'fuse.js';
@@ -30,11 +31,32 @@ const VIEW_MODES = [
     }
 ];
 
-export const TaxaList = ({ taxa, taxaList }: { taxa: TaxonDetails[]; taxaList: Tables<'taxa_lists'> }) => {
+export const TaxaList = ({
+    taxa,
+    taxaList,
+    taxaListTags
+}: {
+    taxa: TaxonDetails[];
+    taxaList: Tables<'taxa_lists'>;
+    taxaListTags: Tables<'tags'>[];
+}) => {
     const [viewMode, setViewMode] = useState('gallery');
     const [searchString, setSearchString] = useState('');
-    const fuse = useMemo(() => new Fuse(taxa, SEARCH_OPTIONS), [taxa]);
-    const filteredTaxa = searchString.length ? fuse.search(searchString)?.map(({ item }) => item) : taxa;
+    const [tagFilter, setTagFilter] = useState<string>(null);
+    const filteredTaxa = useMemo(() => {
+        let result = taxa;
+
+        if (tagFilter) {
+            result = result.filter((taxon) => taxon.tags.find((tag) => tag.id === tagFilter));
+        }
+
+        if (searchString.length) {
+            const fuse = new Fuse(result, SEARCH_OPTIONS);
+            result = fuse.search(searchString)?.map(({ item }) => item);
+        }
+
+        return result;
+    }, [searchString, tagFilter, taxa]);
 
     return (
         <>
@@ -44,7 +66,7 @@ export const TaxaList = ({ taxa, taxaList }: { taxa: TaxonDetails[]; taxaList: T
                     {taxaList.description ? <span className="body-base">{taxaList.description}</span> : null}
                 </div>
                 <div className="flex items-end justify-end gap-4">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-8">
                         <ToggleGroup type="single" value={viewMode} onValueChange={setViewMode}>
                             {VIEW_MODES.map(({ Icon, tooltip, value }) => (
                                 <ButtonTooltip key={value} content={tooltip}>
@@ -54,12 +76,31 @@ export const TaxaList = ({ taxa, taxaList }: { taxa: TaxonDetails[]; taxaList: T
                                 </ButtonTooltip>
                             ))}
                         </ToggleGroup>
-                        <SearchInput
-                            placeholder="Search taxa..."
-                            onValueChange={setSearchString}
-                            value={searchString}
-                        />
-                        {taxa.length ? <ExportTaxa taxaListId={taxaList.id} /> : null}
+                        <div className="flex items-center gap-4">
+                            <SearchInput
+                                placeholder="Search taxa..."
+                                onValueChange={setSearchString}
+                                value={searchString}
+                            />
+                            {taxaListTags.length ? (
+                                <Select value={tagFilter} onValueChange={setTagFilter}>
+                                    <SelectTrigger className="min-w-32">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value={null}>
+                                            <span className="pt-0.5">All tags</span>
+                                        </SelectItem>
+                                        {taxaListTags.map((tag) => (
+                                            <SelectItem key={tag.id} value={tag.id}>
+                                                <span className="pt-0.5">{tag.name}</span>
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            ) : null}
+                        </div>
+                        {taxa.length ? <ExportTaxa isCompact taxaListId={taxaList.id} /> : null}
                     </div>
                 </div>
             </div>
