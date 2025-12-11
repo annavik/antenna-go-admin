@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Tag } from '../tags/tag';
 import { DataTable } from '../ui/table/data-table';
 import { DataTableHeader } from '../ui/table/data-table-header';
+import { getActivePeriodLabel } from '@/lib/taxa/get-active-period-label';
 
 export const columns: ColumnDef<TaxonDetails>[] = [
     {
@@ -56,7 +57,12 @@ export const columns: ColumnDef<TaxonDetails>[] = [
     ...RANKS.map((rank) => ({
         accessorKey: rank,
         header: ({ column }) => <DataTableHeader column={column} label={LABELS[rank]} />
-    }))
+    })),
+    {
+        accessorKey: 'active_period_from',
+        header: ({ column }) => <DataTableHeader column={column} label="Active period" />,
+        cell: ({ row }) => getActivePeriodLabel(row.original)
+    }
 ];
 
 export const TaxaTable = ({ taxa }: { taxa: TaxonDetails[] }) => {
