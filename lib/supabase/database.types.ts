@@ -4,7 +4,7 @@ export type Database = {
     // Allows to automatically instantiate createClient with right options
     // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
     __InternalSupabase: {
-        PostgrestVersion: '13.0.4';
+        PostgrestVersion: '13.0.5';
     };
     public: {
         Tables: {
@@ -42,6 +42,8 @@ export type Database = {
             };
             taxa: {
                 Row: {
+                    active_period_from: number | null;
+                    active_period_to: number | null;
                     class: string | null;
                     common_name: string | null;
                     cover_image_credit: string | null;
@@ -63,6 +65,8 @@ export type Database = {
                     tribe: string | null;
                 };
                 Insert: {
+                    active_period_from?: number | null;
+                    active_period_to?: number | null;
                     class?: string | null;
                     common_name?: string | null;
                     cover_image_credit?: string | null;
@@ -84,6 +88,8 @@ export type Database = {
                     tribe?: string | null;
                 };
                 Update: {
+                    active_period_from?: number | null;
+                    active_period_to?: number | null;
                     class?: string | null;
                     common_name?: string | null;
                     cover_image_credit?: string | null;

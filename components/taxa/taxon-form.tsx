@@ -19,6 +19,7 @@ import { FormTextarea } from '../forms/form-textarea';
 import { EditTaxonTags } from '../tags/edit-taxon-tags';
 import { Tag } from '../tags/tag';
 import { LoadingIcon } from '../ui/loading/loading-icon';
+import { MonthSelect } from '../ui/month-select';
 import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
 
@@ -156,6 +157,28 @@ export const TaxonForm = ({
                             value={formValues.cover_image_credit}
                             onValueChange={(value) => setFormValues((prev) => ({ ...prev, cover_image_credit: value }))}
                         />
+                    </div>
+                </FormSection>
+                <FormSection label="Active period">
+                    <div className="grid grid-cols-2 gap-8 items-start">
+                        <div className="grid grid-cols-2 gap-8 items-center">
+                            <FormField label={LABELS.active_period_from}>
+                                <MonthSelect
+                                    value={formValues.active_period_from}
+                                    onValueChange={(value) =>
+                                        setFormValues((prev) => ({ ...prev, active_period_from: value }))
+                                    }
+                                />
+                            </FormField>
+                            <FormField label={LABELS.active_period_to}>
+                                <MonthSelect
+                                    value={formValues.active_period_to}
+                                    onValueChange={(value) =>
+                                        setFormValues((prev) => ({ ...prev, active_period_to: value }))
+                                    }
+                                />
+                            </FormField>
+                        </div>
                     </div>
                 </FormSection>
                 <FormSection label="More">

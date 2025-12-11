@@ -1,5 +1,6 @@
 import { FormField } from '@/components/forms/form-field';
 import { LABELS } from '@/lib/taxa/constants';
+import { getActivePeriodLabel } from '@/lib/taxa/get-active-period-label';
 import { TaxonDetails as _TaxonDetails } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { PenIcon } from 'lucide-react';
@@ -45,6 +46,10 @@ export const TaxonDetails = ({ taxon }: { taxon: _TaxonDetails }) => (
                             ) : null}
                             {taxon.gbif_taxon_key ? <GBIFLink label="GBIF" taxonKey={taxon.gbif_taxon_key} /> : null}
                         </div>
+                    </div>
+                    <div className={cn('grid gap-4', { hidden: !taxon.active_period_from && !taxon.active_period_to })}>
+                        <h2 className="body-xlarge font-medium">Active period</h2>
+                        <span className="body-base text-muted-foreground">{getActivePeriodLabel(taxon)}</span>
                     </div>
                     <div className={cn('grid gap-4', { hidden: !taxon.common_name && !taxon.tags.length })}>
                         <h2 className="body-xlarge font-medium">More</h2>
