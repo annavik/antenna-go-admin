@@ -4,11 +4,13 @@ import { XIcon } from 'lucide-react';
 import { Button } from './button';
 
 export const MonthSelect = ({
-    value,
-    onValueChange
+    onValueChange,
+    placeholder = 'Select month',
+    value
 }: {
-    value: number | null;
     onValueChange: (value: number | null) => void;
+    placeholder?: string;
+    value: number | null;
 }) => (
     <div className="flex items-center gap-2">
         <Select
@@ -22,7 +24,7 @@ export const MonthSelect = ({
             }}
         >
             <SelectTrigger className="grow">
-                <SelectValue placeholder="Select month" />
+                <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
                 {MONTHS.map((month) => (

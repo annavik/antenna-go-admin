@@ -6,10 +6,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tables } from '@/lib/supabase/database.types';
 import { TaxonDetails } from '@/lib/types';
 import Fuse from 'fuse.js';
-import { Grid2X2Icon, TableIcon } from 'lucide-react';
+import { Grid2X2Icon, TableIcon, XIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { ExportTaxa } from '../taxa/export-taxa';
+import { Button } from '../ui/button';
 import { ButtonTooltip } from '../ui/button-tooltip';
+import { MonthSelect } from '../ui/month-select';
 import { SearchInput } from '../ui/search-input';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
 
@@ -43,11 +45,18 @@ export const TaxaList = ({
     const [viewMode, setViewMode] = useState('gallery');
     const [searchString, setSearchString] = useState('');
     const [tagFilter, setTagFilter] = useState<string>(null);
+    const [activePeriodFilter, setActivePeriodFilter] = useState<number>(null);
     const filteredTaxa = useMemo(() => {
         let result = taxa;
 
         if (tagFilter) {
             result = result.filter((taxon) => taxon.tags.find((tag) => tag.id === tagFilter));
+        }
+
+        if (activePeriodFilter) {
+            result = result.filter((taxon) => {
+                return taxon.active_period_from <= activePeriodFilter && taxon.active_period_to >= activePeriodFilter;
+            });
         }
 
         if (searchString.length) {
@@ -56,7 +65,7 @@ export const TaxaList = ({
         }
 
         return result;
-    }, [searchString, tagFilter, taxa]);
+    }, [searchString, tagFilter, activePeriodFilter, taxa]);
 
     return (
         <>
@@ -83,22 +92,31 @@ export const TaxaList = ({
                                 value={searchString}
                             />
                             {taxaListTags.length ? (
-                                <Select value={tagFilter} onValueChange={setTagFilter}>
-                                    <SelectTrigger className="min-w-32">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value={null}>
-                                            <span className="pt-0.5">All tags</span>
-                                        </SelectItem>
-                                        {taxaListTags.map((tag) => (
-                                            <SelectItem key={tag.id} value={tag.id}>
-                                                <span className="pt-0.5">{tag.name}</span>
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <div className="flex items-center gap-2">
+                                    <Select value={tagFilter ?? ''} onValueChange={setTagFilter}>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="All tags" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {taxaListTags.map((tag) => (
+                                                <SelectItem key={tag.id} value={tag.id}>
+                                                    <span className="pt-0.5">{tag.name}</span>
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {tagFilter ? (
+                                        <Button onClick={() => setTagFilter(null)} size="icon" variant="ghost">
+                                            <XIcon className="w-4 h-4" />
+                                        </Button>
+                                    ) : null}
+                                </div>
                             ) : null}
+                            <MonthSelect
+                                placeholder="All months"
+                                value={activePeriodFilter}
+                                onValueChange={setActivePeriodFilter}
+                            />
                         </div>
                         {taxa.length ? <ExportTaxa isCompact taxaListId={taxaList.id} /> : null}
                     </div>
