@@ -32,9 +32,8 @@ export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
 
     return (
         <Button onClick={onCreate} variant="success">
-            <PlusIcon className="w-4 h-4" />
             <span className="pt-0.5">Add taxon</span>
-            {isLoading ? <LoadingIcon /> : null}
+            {isLoading ? <LoadingIcon /> : <PlusIcon className="w-4 h-4" />}
         </Button>
     );
 };
