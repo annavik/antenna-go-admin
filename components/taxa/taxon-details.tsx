@@ -1,27 +1,42 @@
 import { FormField } from '@/components/forms/form-field';
+import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
 import { getActivePeriodLabel } from '@/lib/taxa/get-active-period-label';
 import { TaxonDetails as _TaxonDetails } from '@/lib/types';
-import { cn } from '@/lib/utils';
 import { PenIcon } from 'lucide-react';
 import Link from 'next/link';
 import { GBIFLink } from '../external-resources/gbif-link';
 import { INatLink } from '../external-resources/inat-link';
+import { ApplyTags } from '../tags/apply-tags';
 import { Tag } from '../tags/tag';
 import { buttonVariants } from '../ui/button';
+import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
 
-export const TaxonDetails = ({ taxon }: { taxon: _TaxonDetails }) => (
-    <div className="grid px-8 bg-background rounded-lg border">
+export const TaxonDetails = ({
+    loggedIn,
+    taxaListTags,
+    taxon
+}: {
+    loggedIn?: boolean;
+    taxaListTags: Tables<'tags'>[];
+    taxon: _TaxonDetails;
+}) => (
+    <div className="max-w-screen-xl sticky top-0 left-0 grid px-8 bg-background rounded-lg border">
         <div className="grid gap-2 py-8 border-b relative">
-            <TaxonHeader taxon={taxon} withParents />
-            <Link
-                className={cn(buttonVariants({ variant: 'outline' }), 'absolute top-8 right-0')}
-                href={`/admin/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
-            >
-                <PenIcon className="w-4 h-4" />
-                <span className="pt-0.5">Edit</span>
-            </Link>
+            <TaxonHeader taxon={taxon} />
+            {loggedIn ? (
+                <div className="absolute top-8 right-0 flex items-center gap-4">
+                    <DeleteTaxon taxaListId={taxon.taxa_list_id} taxonId={taxon.id} />
+                    <Link
+                        className={buttonVariants({ variant: 'outline' })}
+                        href={`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}/edit`}
+                    >
+                        <PenIcon className="w-4 h-4" />
+                        <span className="pt-0.5">Edit taxon</span>
+                    </Link>
+                </div>
+            ) : null}
         </div>
         <div className="grid grid-cols-2 items-start gap-8 py-8">
             <div className="grid grid-cols-2 items-start gap-8">
@@ -38,7 +53,7 @@ export const TaxonDetails = ({ taxon }: { taxon: _TaxonDetails }) => (
                     <Field label={LABELS.species} value={taxon.species} />
                 </div>
                 <div className="grid gap-8">
-                    <div className={cn('grid gap-4', { hidden: !taxon.inat_taxon_id && !taxon.gbif_taxon_key })}>
+                    <div className="grid gap-4">
                         <h2 className="body-xlarge font-medium">External resources</h2>
                         <div className="flex items-center gap-4">
                             {taxon.inat_taxon_id ? (
@@ -47,22 +62,36 @@ export const TaxonDetails = ({ taxon }: { taxon: _TaxonDetails }) => (
                             {taxon.gbif_taxon_key ? <GBIFLink label="GBIF" taxonKey={taxon.gbif_taxon_key} /> : null}
                         </div>
                     </div>
-                    <div className={cn('grid gap-4', { hidden: !taxon.active_period_from && !taxon.active_period_to })}>
+                    <div className="grid gap-4">
                         <h2 className="body-xlarge font-medium">Active period</h2>
                         <span className="body-base text-muted-foreground">{getActivePeriodLabel(taxon)}</span>
                     </div>
-                    <div className={cn('grid gap-4', { hidden: !taxon.common_name && !taxon.tags.length })}>
+                    <div className="grid gap-4">
                         <h2 className="body-xlarge font-medium">More</h2>
                         <Field label={LABELS.common_name} value={taxon.common_name} />
-                        {taxon.tags.length ? (
-                            <FormField label={LABELS.tags}>
+                        <FormField
+                            accessory={
+                                loggedIn ? (
+                                    <ApplyTags
+                                        taxaListId={taxon.taxa_list_id}
+                                        taxaListTags={taxaListTags}
+                                        taxonId={taxon.id}
+                                        taxonTags={taxon.tags}
+                                    />
+                                ) : null
+                            }
+                            label={LABELS.tags}
+                        >
+                            {taxon.tags.length ? (
                                 <div className="flex flex-wrap gap-2">
                                     {taxon.tags.map((tag) => (
                                         <Tag key={tag.id} isActive tag={tag} />
                                     ))}
                                 </div>
-                            </FormField>
-                        ) : null}
+                            ) : (
+                                <span className="body-base text-muted-foreground">Not set</span>
+                            )}
+                        </FormField>
                         <Field label={LABELS.notes} value={taxon.notes} />
                     </div>
                 </div>

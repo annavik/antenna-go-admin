@@ -1,3 +1,5 @@
+'use client';
+
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -15,7 +17,7 @@ export const DeleteTaxon = ({ taxaListId, taxonId }: { taxaListId: string; taxon
             if (error) {
                 throw error;
             }
-            router.replace(`/admin/taxa-list/${taxaListId}`);
+            router.replace(`/taxa-list/${taxaListId}`);
         } catch (error) {
             // TODO: Show message
         } finally {

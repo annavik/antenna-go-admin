@@ -54,28 +54,20 @@ export function DataTable<TData, TValue>({
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row) => (
-                            <TableRow
-                                key={row.id}
-                                className={cn({ 'cursor-pointer': onRowClick })}
-                                data-state={row.getIsSelected() && 'selected'}
-                                onClick={() => onRowClick?.(row)}
-                            >
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))
-                    ) : (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="h-32 text-center">
-                                Nothing to show here yet
-                            </TableCell>
+                    {table.getRowModel().rows?.map((row) => (
+                        <TableRow
+                            key={row.id}
+                            className={cn({ 'cursor-pointer': onRowClick })}
+                            data-state={row.getIsSelected() && 'selected'}
+                            onClick={() => onRowClick?.(row)}
+                        >
+                            {row.getVisibleCells().map((cell) => (
+                                <TableCell key={cell.id}>
+                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                </TableCell>
+                            ))}
                         </TableRow>
-                    )}
+                    ))}
                 </TableBody>
             </Table>
         </div>

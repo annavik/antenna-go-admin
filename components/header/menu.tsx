@@ -1,6 +1,5 @@
 'use client';
 
-import { LockIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -15,9 +14,8 @@ export const Menu = () => {
                 <MenuItem href="/" isActive={activeSegment === null || activeSegment === 'taxa-list'}>
                     <span className="pt-0.5">Taxa lists</span>
                 </MenuItem>
-                <MenuItem href="/admin" isActive={activeSegment === 'admin'}>
-                    <LockIcon className="w-4 h-4" />
-                    <span className="pt-0.5">Admin</span>
+                <MenuItem href="/about" isActive={activeSegment === 'about'}>
+                    <span className="pt-0.5">About</span>
                 </MenuItem>
             </ul>
         </nav>

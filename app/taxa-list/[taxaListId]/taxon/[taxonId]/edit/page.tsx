@@ -1,15 +1,20 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { TaxonDetails } from '@/components/taxa/taxon-details';
+import { EditTaxon } from '@/components/taxa/edit-taxon';
 import { createClient } from '@/lib/supabase/server';
 import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export default async function Page({ params }) {
-    const { taxaListId, taxonId } = await params;
+    const { taxonId, taxaListId } = await params;
     const supabase = await createClient();
     const {
         data: { user }
     } = await supabase.auth.getUser();
+
+    if (!user) {
+        redirect('/auth/login');
+    }
+
     const { data: taxaList } = await supabase.from('taxa_lists').select().eq('id', taxaListId).maybeSingle();
 
     if (!taxaList) {
@@ -31,10 +36,11 @@ export default async function Page({ params }) {
                 items={[
                     { href: '/', label: 'Taxa lists' },
                     { label: taxaList.name, href: `/taxa-list/${taxaListId}` },
-                    { label: taxon.label }
+                    { label: taxon.label, href: `/taxa-list/${taxaListId}/taxon/${taxon.id}` },
+                    { label: 'Edit' }
                 ]}
             />
-            <TaxonDetails loggedIn={!!user} taxaListTags={tags} taxon={taxon} />
+            <EditTaxon taxaListTags={tags} taxon={taxon} />;
         </div>
     );
 }

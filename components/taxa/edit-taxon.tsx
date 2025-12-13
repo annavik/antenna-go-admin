@@ -3,35 +3,24 @@
 import { FormField } from '@/components/forms/form-field';
 import { FormInput } from '@/components/forms/form-input';
 import { FormSection } from '@/components/forms/form-section';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
 import { TaxonDetails } from '@/lib/types';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GBIFControl } from '../external-resources/gbif-control';
 import { INatControl } from '../external-resources/inat-control';
 import { FormImage } from '../forms/form-image';
 import { FormTextarea } from '../forms/form-textarea';
-import { EditTaxonTags } from '../tags/edit-taxon-tags';
+import { ApplyTags } from '../tags/apply-tags';
 import { Tag } from '../tags/tag';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 import { MonthSelect } from '../ui/month-select';
 import { DeleteTaxon } from './delete-taxon';
-import { TaxonHeader } from './taxon-header';
 
-export const TaxonForm = ({
-    taxaListId,
-    taxaListTags,
-    taxon
-}: {
-    taxaListId: string;
-    taxaListTags: Tables<'tags'>[];
-    taxon: TaxonDetails;
-}) => {
+export const EditTaxon = ({ taxaListTags, taxon }: { taxaListTags: Tables<'tags'>[]; taxon: TaxonDetails }) => {
     const supabase = createClient();
     const router = useRouter();
     const { tags, label, rank, name, ...defaultFormValues } = taxon;
@@ -55,25 +44,23 @@ export const TaxonForm = ({
     };
 
     return (
-        <div>
-            <div className="p-8 relative">
-                <TaxonHeader taxon={formValues} withImage withParents />
-                <Link
-                    className={cn(buttonVariants({ variant: 'outline' }), 'absolute top-8 right-8')}
-                    href={`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`}
-                >
-                    <span className="pt-0.5">View</span>
-                </Link>
+        <div className="max-w-screen-xl grid px-8 bg-background rounded-lg border">
+            <div className="sticky top-0 left-0 grid gap-2 py-8 bg-background border-b relative">
+                <h1 className="heading-small text-primary">Edit taxon</h1>
+                <div className="absolute top-8 right-0 flex items-center gap-4">
+                    <DeleteTaxon taxaListId={taxon.taxa_list_id} taxonId={taxon.id} />
+                    <Button variant="outline" onClick={() => setFormValues(defaultFormValues)}>
+                        <span className="pt-0.5">Reset</span>
+                    </Button>
+                    <Button variant="success" onClick={onSubmit}>
+                        <span className="pt-0.5">Save</span>
+                        {isLoading ? <LoadingIcon /> : null}
+                    </Button>
+                </div>
             </div>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    onSubmit();
-                }}
-                className="grid gap-16 p-8"
-            >
+            <form className="grid gap-16 py-8" onSubmit={(e) => e.preventDefault()}>
                 <FormSection label="External resources">
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid grid-cols-4 gap-8">
                         <FormField label={LABELS.inat_taxon_id}>
                             <INatControl
                                 taxon={formValues}
@@ -160,25 +147,23 @@ export const TaxonForm = ({
                     </div>
                 </FormSection>
                 <FormSection label="Active period">
-                    <div className="grid grid-cols-2 gap-8 items-start">
-                        <div className="grid grid-cols-2 gap-8 items-center">
-                            <FormField label={LABELS.active_period_from}>
-                                <MonthSelect
-                                    value={formValues.active_period_from}
-                                    onValueChange={(value) =>
-                                        setFormValues((prev) => ({ ...prev, active_period_from: value }))
-                                    }
-                                />
-                            </FormField>
-                            <FormField label={LABELS.active_period_to}>
-                                <MonthSelect
-                                    value={formValues.active_period_to}
-                                    onValueChange={(value) =>
-                                        setFormValues((prev) => ({ ...prev, active_period_to: value }))
-                                    }
-                                />
-                            </FormField>
-                        </div>
+                    <div className="grid grid-cols-4 gap-8 items-center">
+                        <FormField label={LABELS.active_period_from}>
+                            <MonthSelect
+                                value={formValues.active_period_from}
+                                onValueChange={(value) =>
+                                    setFormValues((prev) => ({ ...prev, active_period_from: value }))
+                                }
+                            />
+                        </FormField>
+                        <FormField label={LABELS.active_period_to}>
+                            <MonthSelect
+                                value={formValues.active_period_to}
+                                onValueChange={(value) =>
+                                    setFormValues((prev) => ({ ...prev, active_period_to: value }))
+                                }
+                            />
+                        </FormField>
                     </div>
                 </FormSection>
                 <FormSection label="More">
@@ -190,7 +175,12 @@ export const TaxonForm = ({
                         />
                         <FormField
                             accessory={
-                                <EditTaxonTags taxaListTags={taxaListTags} taxonId={taxon.id} taxonTags={taxon.tags} />
+                                <ApplyTags
+                                    taxaListId={taxon.taxa_list_id}
+                                    taxaListTags={taxaListTags}
+                                    taxonId={taxon.id}
+                                    taxonTags={taxon.tags}
+                                />
                             }
                             label={LABELS.tags}
                         >
@@ -211,13 +201,6 @@ export const TaxonForm = ({
                         />
                     </div>
                 </FormSection>
-                <div className="flex items-center justify-end gap-4 sticky bottom-8">
-                    <DeleteTaxon taxaListId={taxaListId} taxonId={taxon.id} />
-                    <Button variant="success" type="submit">
-                        <span className="pt-0.5">Save</span>
-                        {isLoading ? <LoadingIcon /> : null}
-                    </Button>
-                </div>
             </form>
         </div>
     );

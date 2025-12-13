@@ -7,6 +7,9 @@ import { notFound } from 'next/navigation';
 export default async function Page({ params }) {
     const { taxaListId } = await params;
     const supabase = await createClient();
+    const {
+        data: { user }
+    } = await supabase.auth.getUser();
     const { data: taxaList } = await supabase.from('taxa_lists').select().eq('id', taxaListId).maybeSingle();
 
     if (!taxaList) {
@@ -22,7 +25,7 @@ export default async function Page({ params }) {
     return (
         <div className="grow space-y-8 p-8">
             <Breadcrumbs items={[{ href: '/', label: 'Taxa lists' }, { label: taxaList.name }]} />
-            <TaxaList taxa={taxa} taxaList={taxaList} taxaListTags={tags} />
+            <TaxaList loggedIn={!!user} taxa={taxa} taxaList={taxaList} taxaListTags={tags} />
         </div>
     );
 }

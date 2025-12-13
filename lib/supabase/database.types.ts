@@ -12,6 +12,7 @@ export type Database = {
                 Row: {
                     color: string | null;
                     created_at: string;
+                    description: string | null;
                     id: string;
                     name: string;
                     taxa_list_id: string;
@@ -19,6 +20,7 @@ export type Database = {
                 Insert: {
                     color?: string | null;
                     created_at?: string;
+                    description?: string | null;
                     id?: string;
                     name: string;
                     taxa_list_id: string;
@@ -26,6 +28,7 @@ export type Database = {
                 Update: {
                     color?: string | null;
                     created_at?: string;
+                    description?: string | null;
                     id?: string;
                     name?: string;
                     taxa_list_id?: string;

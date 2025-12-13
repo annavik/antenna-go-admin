@@ -5,7 +5,6 @@ import { createClient } from '@/lib/supabase/client';
 import { PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 
 export const CreateTaxaList = () => {
@@ -24,7 +23,7 @@ export const CreateTaxaList = () => {
             if (error) {
                 throw error;
             }
-            router.push(`/admin/taxa-list/${taxaList.id}`);
+            router.push(`/taxa-list/${taxaList.id}`);
         } catch (error) {
             // TODO: Show message
         } finally {
@@ -34,10 +33,10 @@ export const CreateTaxaList = () => {
     };
 
     return (
-        <ButtonTooltip content="Create new taxa list">
-            <Button onClick={onCreate} size="icon" variant="ghost">
-                {isLoading ? <LoadingIcon /> : <PlusIcon className="w-4 h-4" />}
-            </Button>
-        </ButtonTooltip>
+        <Button onClick={onCreate} variant="success">
+            <PlusIcon className="w-4 h-4" />
+            <span className="pt-0.5">Create taxa list</span>
+            {isLoading ? <LoadingIcon /> : null}
+        </Button>
     );
 };

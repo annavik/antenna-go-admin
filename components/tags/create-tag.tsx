@@ -5,7 +5,6 @@ import { createClient } from '@/lib/supabase/client';
 import { PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 
 export const CreateTag = ({ taxaListId }: { taxaListId: string }) => {
@@ -33,10 +32,10 @@ export const CreateTag = ({ taxaListId }: { taxaListId: string }) => {
     };
 
     return (
-        <ButtonTooltip content="Create new tag">
-            <Button onClick={onCreate} size="icon" variant="ghost">
-                {isLoading ? <LoadingIcon /> : <PlusIcon className="w-4 h-4" />}
-            </Button>
-        </ButtonTooltip>
+        <Button onClick={onCreate} variant="success">
+            <PlusIcon className="w-4 h-4" />
+            <span className="pt-0.5">Create tag</span>
+            {isLoading ? <LoadingIcon /> : null}
+        </Button>
     );
 };

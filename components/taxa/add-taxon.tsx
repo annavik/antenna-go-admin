@@ -3,7 +3,6 @@ import { createClient } from '@/lib/supabase/client';
 import { PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 
 export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
@@ -22,7 +21,7 @@ export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
             if (error) {
                 throw error;
             }
-            router.push(`/admin/taxa-list/${taxaListId}/taxon/${taxon.id}`);
+            router.push(`/taxa-list/${taxaListId}/taxon/${taxon.id}/edit`);
         } catch (error) {
             // TODO: Show message
         } finally {
@@ -32,10 +31,10 @@ export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     };
 
     return (
-        <ButtonTooltip content="Add new taxon">
-            <Button onClick={onCreate} size="icon" variant="ghost">
-                {isLoading ? <LoadingIcon /> : <PlusIcon className="w-4 h-4" />}
-            </Button>
-        </ButtonTooltip>
+        <Button onClick={onCreate} variant="success">
+            <PlusIcon className="w-4 h-4" />
+            <span className="pt-0.5">Add taxon</span>
+            {isLoading ? <LoadingIcon /> : null}
+        </Button>
     );
 };

@@ -1,14 +1,16 @@
 'use client';
 
 import { LABELS, RANKS } from '@/lib/taxa/constants';
+import { getActivePeriodLabel } from '@/lib/taxa/get-active-period-label';
 import { TaxonDetails } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { ImageIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { GBIFLink } from '../external-resources/gbif-link';
+import { INatLink } from '../external-resources/inat-link';
 import { Tag } from '../tags/tag';
 import { DataTable } from '../ui/table/data-table';
 import { DataTableHeader } from '../ui/table/data-table-header';
-import { getActivePeriodLabel } from '@/lib/taxa/get-active-period-label';
 
 export const columns: ColumnDef<TaxonDetails>[] = [
     {
@@ -33,35 +35,50 @@ export const columns: ColumnDef<TaxonDetails>[] = [
                 {row.original.common_name ? (
                     <span className="body-small text-muted-foreground">({row.original.common_name})</span>
                 ) : null}
+                {row.original.tags.length ? (
+                    <div className="flex flex-wrap gap-2">
+                        {row.original.tags.map((tag) => (
+                            <Tag key={tag.id} isActive tag={tag} />
+                        ))}
+                    </div>
+                ) : null}
             </div>
         )
-    },
-    {
-        accessorKey: 'tags',
-        enableSorting: false,
-        header: ({ column }) => <DataTableHeader column={column} label="Tags" />,
-        cell: ({ row }) => {
-            if (!row.original.tags.length) {
-                return null;
-            }
-
-            return (
-                <div className="flex flex-wrap gap-2">
-                    {row.original.tags.map((tag) => (
-                        <Tag key={tag.id} isActive tag={tag} />
-                    ))}
-                </div>
-            );
-        }
     },
     ...RANKS.map((rank) => ({
         accessorKey: rank,
         header: ({ column }) => <DataTableHeader column={column} label={LABELS[rank]} />
     })),
     {
+        accessorKey: 'inat_taxon_id',
+        header: ({ column }) => <DataTableHeader column={column} label={LABELS.inat_taxon_id} />,
+        cell: ({ row }) => {
+            if (!row.original.inat_taxon_id) {
+                return null;
+            }
+
+            return <INatLink label={row.original.inat_taxon_id} taxonId={row.original.inat_taxon_id} />;
+        }
+    },
+    {
+        accessorKey: 'gbif_taxon_key',
+        header: ({ column }) => <DataTableHeader column={column} label={LABELS.gbif_taxon_key} />,
+        cell: ({ row }) => {
+            if (!row.original.gbif_taxon_key) {
+                return null;
+            }
+
+            return <GBIFLink label={row.original.gbif_taxon_key} taxonKey={row.original.gbif_taxon_key} />;
+        }
+    },
+    {
         accessorKey: 'active_period_from',
         header: ({ column }) => <DataTableHeader column={column} label="Active period" />,
         cell: ({ row }) => getActivePeriodLabel(row.original)
+    },
+    {
+        accessorKey: 'common_name',
+        header: ({ column }) => <DataTableHeader column={column} label={LABELS.common_name} />
     }
 ];
 

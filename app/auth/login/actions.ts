@@ -17,5 +17,5 @@ export const login = async (formData: FormData) => {
     }
 
     revalidatePath('/', 'layout');
-    redirect('/admin');
+    redirect('/');
 };

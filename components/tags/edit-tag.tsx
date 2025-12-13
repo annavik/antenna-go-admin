@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { FormColor } from '../forms/form-color';
 import { ButtonTooltip } from '../ui/button-tooltip';
 import { LoadingIcon } from '../ui/loading/loading-icon';
+import { FormTextarea } from '../forms/form-textarea';
 
 export const EditTag = ({ tag }: { tag: Tables<'tags'> }) => {
     const supabase = createClient();
@@ -70,6 +71,11 @@ export const EditTag = ({ tag }: { tag: Tables<'tags'> }) => {
                         label="Name"
                         value={formValues.name}
                         onValueChange={(value) => setFormValues((prev) => ({ ...prev, name: value }))}
+                    />
+                    <FormTextarea
+                        label="Description"
+                        value={formValues.description}
+                        onValueChange={(value) => setFormValues((prev) => ({ ...prev, description: value }))}
                     />
                     <FormColor
                         label="Color"
