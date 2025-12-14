@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { login } from './actions';
 
-export default async function Page() {
+export default function Page() {
     return (
         <div className="grow flex items-center justify-center">
             <form className="w-sm flex flex-col gap-8 p-8 bg-background border rounded-lg">
