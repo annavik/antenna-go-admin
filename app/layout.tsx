@@ -1,6 +1,7 @@
 import { Header } from '@/components/header/header';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { createClient } from '@/lib/supabase/server';
+import { ConstructionIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '../styles/globals.css';
@@ -61,8 +62,17 @@ export default async function RootLayout({ children }) {
             </head>
             <body className="min-h-screen flex flex-col antialiased">
                 <TooltipProvider>
-                    <Header user={user} />
-                    <main className="grow flex flex-col bg-muted">{children}</main>
+                    <div className="hidden lg:contents">
+                        <Header user={user} />
+                        <main className="grow flex flex-col bg-muted">{children}</main>
+                    </div>
+                    <div className="grow flex flex-col items-center justify-center gap-8 px-8 bg-muted text-center lg:hidden">
+                        <ConstructionIcon className="w-16 h-16 text-primary" />
+                        <h1 className="heading-small text-primary font-medium">Screen size not supported</h1>
+                        <p className="body-xlarge text-foreground/50">
+                            This screen size is not yet supported, please switch to a larger screen.
+                        </p>
+                    </div>
                 </TooltipProvider>
             </body>
         </html>

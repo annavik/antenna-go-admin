@@ -7,7 +7,7 @@ export const Gallery = ({ children, size = 'default' }: { children: ReactNode; s
     <div
         className={cn('grid gap-4', {
             'grid-cols-5': size === 'lg',
-            'grid-cols-7': size === 'default'
+            'grid-cols-5 xl:grid-cols-7': size === 'default'
         })}
     >
         {children}

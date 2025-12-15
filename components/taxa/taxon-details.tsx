@@ -22,7 +22,7 @@ export const TaxonDetails = ({
     taxaListTags: Tables<'tags'>[];
     taxon: _TaxonDetails;
 }) => (
-    <div className="max-w-screen-xl sticky top-0 left-0 grid px-8 bg-background rounded-lg border">
+    <div className="max-w-screen-xl grid px-8 bg-background rounded-lg border">
         <div className="grid gap-2 py-8 border-b relative">
             <TaxonHeader taxon={taxon} />
             {loggedIn ? (
