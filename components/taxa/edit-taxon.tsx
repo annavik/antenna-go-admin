@@ -15,7 +15,6 @@ export const EditTaxon = ({ taxon }: { taxon: Tables<'taxa'> }) => {
         <TaxonForm
             defaultFormValues={taxon}
             isLoading={isLoading}
-            onBack={() => router.back()}
             onSubmit={async (formValues) => {
                 try {
                     setIsLoading(true);
@@ -25,6 +24,7 @@ export const EditTaxon = ({ taxon }: { taxon: Tables<'taxa'> }) => {
                     if (error) {
                         throw error;
                     }
+                    router.replace(`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}`);
                 } catch (error) {
                     // TODO: Show message
                 } finally {

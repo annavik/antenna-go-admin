@@ -13,7 +13,6 @@ export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     return (
         <TaxonForm
             isLoading={isLoading}
-            onBack={() => router.back()}
             onSubmit={async (formValues) => {
                 try {
                     setIsLoading(true);

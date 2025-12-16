@@ -9,6 +9,7 @@ import { GBIFLink } from '../external-resources/gbif-link';
 import { INatLink } from '../external-resources/inat-link';
 import { ApplyTags } from '../tags/apply-tags';
 import { Tag } from '../tags/tag';
+import { BackButton } from '../ui/back-button';
 import { buttonVariants } from '../ui/button';
 import { DeleteTaxon } from './delete-taxon';
 import { TaxonHeader } from './taxon-header';
@@ -37,6 +38,9 @@ export const TaxonDetails = ({
                     <DeleteTaxon taxaListId={taxon.taxa_list_id} taxonId={taxon.id} />
                 </div>
             ) : null}
+            <div className="absolute top-8 right-0">
+                <BackButton />
+            </div>
         </div>
         <div className="grid grid-cols-2 items-start gap-8 py-8">
             <div className="grid grid-cols-2 items-start gap-8">

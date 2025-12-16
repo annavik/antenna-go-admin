@@ -9,19 +9,18 @@ import { GBIFControl } from '../external-resources/gbif-control';
 import { INatControl } from '../external-resources/inat-control';
 import { FormImage } from '../forms/form-image';
 import { FormTextarea } from '../forms/form-textarea';
+import { BackButton } from '../ui/back-button';
 import { LoadingIcon } from '../ui/loading/loading-icon';
 import { MonthSelect } from '../ui/month-select';
 
 export const TaxonForm = ({
     defaultFormValues = {},
     isLoading,
-    onBack,
     onSubmit,
     title
 }: {
     defaultFormValues?: Partial<Tables<'taxa'>>;
     isLoading: boolean;
-    onBack: () => void;
     onSubmit: (formValues: Partial<Tables<'taxa'>>) => void;
     title: string;
 }) => {
@@ -32,9 +31,7 @@ export const TaxonForm = ({
             <div className="sticky top-0 left-0 grid gap-2 py-8 bg-background border-b relative">
                 <h1 className="heading-small text-primary">{title}</h1>
                 <div className="absolute top-8 right-0 flex items-center gap-4">
-                    <Button variant="ghost" onClick={onBack}>
-                        <span className="pt-0.5">Back</span>
-                    </Button>
+                    <BackButton />
                     <Button variant="success" onClick={() => onSubmit(formValues)}>
                         <span className="pt-0.5">Save</span>
                         {isLoading ? <LoadingIcon /> : null}

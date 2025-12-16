@@ -23,11 +23,7 @@ export default async function Page({ params }) {
     return (
         <div className="grow space-y-8 p-8">
             <Breadcrumbs
-                items={[
-                    { href: '/', label: 'Taxa lists' },
-                    { label: taxaList.name, href: `/taxa-list/${taxaList.id}` },
-                    { label: 'Add taxon' }
-                ]}
+                items={[{ label: taxaList.name, href: `/taxa-list/${taxaList.id}` }, { label: 'Add taxon' }]}
             />
             <AddTaxon taxaListId={taxaList.id} />
         </div>

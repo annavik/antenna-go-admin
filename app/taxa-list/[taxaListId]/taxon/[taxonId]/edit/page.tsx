@@ -27,7 +27,6 @@ export default async function Page({ params }) {
         <div className="grow space-y-8 p-8">
             <Breadcrumbs
                 items={[
-                    { href: '/', label: 'Taxa lists' },
                     { label: taxaList.name, href: `/taxa-list/${taxaList.id}` },
                     { label: getTaxonInfo(taxon).label, href: `/taxa-list/${taxaList.id}/taxon/${taxon.id}` },
                     { label: 'Edit taxon' }

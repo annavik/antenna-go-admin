@@ -24,7 +24,6 @@ export default async function Page({ params }) {
 
     return (
         <div className="grow space-y-8 p-8">
-            <Breadcrumbs items={[{ href: '/', label: 'Taxa lists' }, { label: taxaList.name }]} />
             <TaxaList loggedIn={!!user} taxa={taxa} taxaList={taxaList} taxaListTags={tags} />
         </div>
     );

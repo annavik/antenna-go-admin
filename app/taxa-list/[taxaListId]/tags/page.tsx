@@ -25,13 +25,7 @@ export default async function Page({ params }) {
 
     return (
         <div className="grow space-y-8 p-8">
-            <Breadcrumbs
-                items={[
-                    { href: '/', label: 'Taxa lists' },
-                    { label: taxaList.name, href: `/taxa-list/${taxaListId}` },
-                    { label: 'Tags' }
-                ]}
-            />
+            <Breadcrumbs items={[{ label: taxaList.name, href: `/taxa-list/${taxaListId}` }, { label: 'Tags' }]} />
             <div className="pb-8 border-b">
                 <div className="space-y-4">
                     <h1 className="heading-small text-primary">Tags</h1>

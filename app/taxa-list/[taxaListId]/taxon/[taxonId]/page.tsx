@@ -27,13 +27,7 @@ export default async function Page({ params }) {
 
     return (
         <div className="grow space-y-8 p-8">
-            <Breadcrumbs
-                items={[
-                    { href: '/', label: 'Taxa lists' },
-                    { label: taxaList.name, href: `/taxa-list/${taxaListId}` },
-                    { label: taxon.label }
-                ]}
-            />
+            <Breadcrumbs items={[{ label: taxaList.name, href: `/taxa-list/${taxaListId}` }, { label: taxon.label }]} />
             <TaxonDetails loggedIn={!!user} taxaListTags={tags} taxon={taxon} />
         </div>
     );
