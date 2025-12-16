@@ -1,6 +1,5 @@
 'use client';
 
-import { FormInput } from '@/components/forms/form-input';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -14,36 +13,15 @@ import { createClient } from '@/lib/supabase/client';
 import { Tables } from '@/lib/supabase/database.types';
 import { PenIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { FormTextarea } from '../forms/form-textarea';
+import { useState } from 'react';
 import { ButtonTooltip } from '../ui/button-tooltip';
-import { LoadingIcon } from '../ui/loading/loading-icon';
+import { TaxaListForm } from './taxa-list-form';
 
 export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
-    const [formValues, setFormValues] = useState(taxaList);
     const [isLoading, setIsLoading] = useState(false);
-
-    const onSubmit = async () => {
-        try {
-            setIsLoading(true);
-            const { error } = await supabase.from('taxa_lists').upsert(formValues);
-            if (error) {
-                throw error;
-            }
-            setIsOpen(false);
-            // TODO: Show message
-        } catch (error) {
-            // TODO: Show message
-        } finally {
-            setIsLoading(false);
-            router.refresh();
-        }
-    };
-
-    useEffect(() => setFormValues(taxaList), [isOpen, taxaList]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -59,33 +37,28 @@ export const EditTaxaList = ({ taxaList }: { taxaList: Tables<'taxa_lists'> }) =
                     <DialogTitle>Edit taxa list</DialogTitle>
                     <DialogDescription />
                 </DialogHeader>
-                <form
-                    className="grid gap-8"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        onSubmit();
+                <TaxaListForm
+                    defaultFormValues={taxaList}
+                    isLoading={isLoading}
+                    onCancel={() => setIsOpen(false)}
+                    onSubmit={async (formValues) => {
+                        try {
+                            setIsLoading(true);
+                            const { error } = await supabase
+                                .from('taxa_lists')
+                                .upsert({ ...formValues, name: formValues.name });
+                            if (error) {
+                                throw error;
+                            }
+                            setIsOpen(false);
+                        } catch (error) {
+                            // TODO: Show message
+                        } finally {
+                            setIsLoading(false);
+                            router.refresh();
+                        }
                     }}
-                >
-                    <FormInput
-                        label="Name"
-                        value={formValues.name}
-                        onValueChange={(value) => setFormValues((prev) => ({ ...prev, name: value }))}
-                    />
-                    <FormTextarea
-                        label="Description"
-                        value={formValues.description}
-                        onValueChange={(value) => setFormValues((prev) => ({ ...prev, description: value }))}
-                    />
-                    <div className="flex items-center justify-end gap-4">
-                        <Button onClick={() => setIsOpen(false)} variant="ghost">
-                            <span className="pt-0.5">Cancel</span>
-                        </Button>
-                        <Button variant="success" type="submit">
-                            <span className="pt-0.5">Save</span>
-                            {isLoading ? <LoadingIcon /> : null}
-                        </Button>
-                    </div>
-                </form>
+                />
             </DialogContent>
         </Dialog>
     );

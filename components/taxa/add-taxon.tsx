@@ -1,39 +1,39 @@
-import { Button } from '@/components/ui/button';
+'use client';
+
 import { createClient } from '@/lib/supabase/client';
-import { PlusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { LoadingIcon } from '../ui/loading/loading-icon';
+import { TaxonForm } from './taxon-form';
 
 export const AddTaxon = ({ taxaListId }: { taxaListId: string }) => {
     const supabase = createClient();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    const onCreate = async () => {
-        try {
-            setIsLoading(true);
-            const { data: taxon, error } = await supabase
-                .from('taxa')
-                .insert({ taxa_list_id: taxaListId })
-                .select()
-                .maybeSingle();
-            if (error) {
-                throw error;
-            }
-            router.push(`/taxa-list/${taxaListId}/taxon/${taxon.id}/edit`);
-        } catch (error) {
-            // TODO: Show message
-        } finally {
-            setIsLoading(false);
-            router.refresh();
-        }
-    };
-
     return (
-        <Button onClick={onCreate} variant="success">
-            <span className="pt-0.5">Add taxon</span>
-            {isLoading ? <LoadingIcon /> : <PlusIcon className="w-4 h-4" />}
-        </Button>
+        <TaxonForm
+            isLoading={isLoading}
+            onBack={() => router.back()}
+            onSubmit={async (formValues) => {
+                try {
+                    setIsLoading(true);
+                    const { data: taxon, error } = await supabase
+                        .from('taxa')
+                        .insert({ ...formValues, taxa_list_id: taxaListId })
+                        .select()
+                        .maybeSingle();
+                    if (error) {
+                        throw error;
+                    }
+                    router.replace(`/taxa-list/${taxaListId}/taxon/${taxon.id}`);
+                } catch (error) {
+                    // TODO: Show message
+                } finally {
+                    setIsLoading(false);
+                    router.refresh();
+                }
+            }}
+            title="Add taxon"
+        />
     );
 };

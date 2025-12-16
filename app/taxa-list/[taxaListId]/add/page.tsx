@@ -1,11 +1,10 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { EditTaxon } from '@/components/taxa/edit-taxon';
+import { AddTaxon } from '@/components/taxa/add-taxon';
 import { createClient } from '@/lib/supabase/server';
-import { getTaxonInfo } from '@/lib/taxa/get-taxon-info';
 import { notFound, redirect } from 'next/navigation';
 
 export default async function Page({ params }) {
-    const { taxonId, taxaListId } = await params;
+    const { taxaListId } = await params;
     const supabase = await createClient();
     const {
         data: { user }
@@ -21,19 +20,16 @@ export default async function Page({ params }) {
         return notFound();
     }
 
-    const { data: taxon } = await supabase.from('taxa').select().eq('id', taxonId).maybeSingle();
-
     return (
         <div className="grow space-y-8 p-8">
             <Breadcrumbs
                 items={[
                     { href: '/', label: 'Taxa lists' },
                     { label: taxaList.name, href: `/taxa-list/${taxaList.id}` },
-                    { label: getTaxonInfo(taxon).label, href: `/taxa-list/${taxaList.id}/taxon/${taxon.id}` },
-                    { label: 'Edit taxon' }
+                    { label: 'Add taxon' }
                 ]}
             />
-            <EditTaxon taxon={taxon} />;
+            <AddTaxon taxaListId={taxaList.id} />
         </div>
     );
 }

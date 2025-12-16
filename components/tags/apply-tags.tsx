@@ -48,7 +48,6 @@ export const ApplyTags = ({
                     taxaListTags.filter((tag) => checked[tag.id]).map((tag) => ({ taxon_id: taxonId, tag_id: tag.id }))
                 );
             setIsOpen(false);
-            // TODO: Show message
         } catch (error) {
             // TODO: Show message
         } finally {

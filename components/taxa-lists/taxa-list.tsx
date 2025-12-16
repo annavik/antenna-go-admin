@@ -7,10 +7,9 @@ import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
 import { TaxonDetails } from '@/lib/types';
 import Fuse from 'fuse.js';
-import { Grid2X2Icon, TableIcon, TagIcon, XIcon } from 'lucide-react';
+import { Grid2X2Icon, PlusIcon, TableIcon, TagIcon, XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { AddTaxon } from '../taxa/add-taxon';
 import { ExportTaxa } from '../taxa/export-taxa';
 import { Button, buttonVariants } from '../ui/button';
 import { ButtonTooltip } from '../ui/button-tooltip';
@@ -85,7 +84,13 @@ export const TaxaList = ({
                     <div className="flex items-center gap-4">
                         {loggedIn ? (
                             <>
-                                <AddTaxon taxaListId={taxaList.id} />
+                                <Link
+                                    className={buttonVariants({ variant: 'success' })}
+                                    href={`/taxa-list/${taxaList.id}/add`}
+                                >
+                                    <PlusIcon className="w-4 h-4" />
+                                    <span className="pt-0.5">Add taxon</span>
+                                </Link>
                                 <Link
                                     className={buttonVariants({ variant: 'outline' })}
                                     href={`/taxa-list/${taxaList.id}/tags`}

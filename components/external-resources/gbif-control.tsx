@@ -24,8 +24,8 @@ export const GBIFControl = ({
     onTaxonChange,
     taxon
 }: {
-    onTaxonChange: (taxon: Tables<'taxa'>) => void;
-    taxon: Tables<'taxa'>;
+    onTaxonChange: (taxon: Partial<Tables<'taxa'>>) => void;
+    taxon: Partial<Tables<'taxa'>>;
 }) => (
     <div className="flex items-center gap-2">
         {!taxon.gbif_taxon_key ? (
@@ -46,7 +46,7 @@ const GBIFDialog = ({
     taxon: _taxon
 }: {
     onConfirm: (fields: { [key: string]: string }) => void;
-    taxon: Tables<'taxa'>;
+    taxon: Partial<Tables<'taxa'>>;
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchString, setSearchString] = useState('');

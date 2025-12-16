@@ -24,8 +24,8 @@ export const INatControl = ({
     onTaxonChange,
     taxon
 }: {
-    onTaxonChange: (taxon: Tables<'taxa'>) => void;
-    taxon: Tables<'taxa'>;
+    onTaxonChange: (taxon: Partial<Tables<'taxa'>>) => void;
+    taxon: Partial<Tables<'taxa'>>;
 }) => (
     <div className="flex items-center gap-2">
         {!taxon.inat_taxon_id ? (
@@ -46,7 +46,7 @@ const INatDialog = ({
     taxon
 }: {
     onConfirm: (fields: { [key: string]: string }) => void;
-    taxon: Tables<'taxa'>;
+    taxon: Partial<Tables<'taxa'>>;
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchString, setSearchString] = useState(getTaxonInfo(taxon)?.name ?? '');

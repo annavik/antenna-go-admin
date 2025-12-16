@@ -8,13 +8,13 @@ export const MonthSelect = ({
     placeholder = 'Select month',
     value
 }: {
-    onValueChange: (value: number | null) => void;
+    onValueChange: (value?: number | null) => void;
     placeholder?: string;
-    value: number | null;
+    value?: number | null;
 }) => (
     <div className="flex items-center gap-2">
         <Select
-            value={value !== null ? `${value}` : ''}
+            value={value ? `${value}` : ''}
             onValueChange={(value) => {
                 if (value) {
                     onValueChange(Number(value));
@@ -34,7 +34,7 @@ export const MonthSelect = ({
                 ))}
             </SelectContent>
         </Select>
-        {value !== null ? (
+        {value ? (
             <Button onClick={() => onValueChange(null)} size="icon" variant="ghost">
                 <XIcon className="w-4 h-4" />
             </Button>

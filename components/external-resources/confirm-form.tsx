@@ -54,7 +54,7 @@ export const ConfirmForm = ({
                 </div>
             ) : null}
             <div className="flex items-center justify-end gap-4">
-                <Button onClick={() => onBack()} variant="outline">
+                <Button onClick={() => onBack()} variant="ghost">
                     <span className="pt-0.5">Back</span>
                 </Button>
                 <Button

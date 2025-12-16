@@ -23,11 +23,10 @@ export const TaxonDetails = ({
     taxon: _TaxonDetails;
 }) => (
     <div className="max-w-screen-xl grid px-8 bg-background rounded-lg border">
-        <div className="grid gap-2 py-8 border-b relative">
+        <div className="grid gap-4 py-8 border-b relative">
             <TaxonHeader taxon={taxon} />
             {loggedIn ? (
-                <div className="absolute top-8 right-0 flex items-center gap-4">
-                    <DeleteTaxon taxaListId={taxon.taxa_list_id} taxonId={taxon.id} />
+                <div className="flex items-center gap-4">
                     <Link
                         className={buttonVariants({ variant: 'outline' })}
                         href={`/taxa-list/${taxon.taxa_list_id}/taxon/${taxon.id}/edit`}
@@ -35,6 +34,7 @@ export const TaxonDetails = ({
                         <PenIcon className="w-4 h-4" />
                         <span className="pt-0.5">Edit taxon</span>
                     </Link>
+                    <DeleteTaxon taxaListId={taxon.taxa_list_id} taxonId={taxon.id} />
                 </div>
             ) : null}
         </div>
@@ -55,7 +55,7 @@ export const TaxonDetails = ({
                 <div className="grid gap-8">
                     <div className="grid gap-4">
                         <h2 className="body-xlarge font-medium">External resources</h2>
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-wrap items-center gap-4">
                             {taxon.inat_taxon_id ? (
                                 <INatLink label="iNaturalist" taxonId={taxon.inat_taxon_id} />
                             ) : null}
