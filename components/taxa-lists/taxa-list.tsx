@@ -73,6 +73,9 @@ export const TaxaList = ({
         return result;
     }, [searchString, tagFilter, activePeriodFilter, taxa]);
 
+    const showActivePeriodFilter = taxa.some((taxon) => taxon.active_period_from || taxon.active_period_to);
+    const showTagFilter = taxaListTags.length;
+
     return (
         <>
             <div className="grid grid-cols-2 gap-8 pb-8 border-b">
@@ -130,12 +133,14 @@ export const TaxaList = ({
                                 onValueChange={setSearchString}
                                 value={searchString}
                             />
-                            <MonthSelect
-                                placeholder="Active period"
-                                value={activePeriodFilter}
-                                onValueChange={setActivePeriodFilter}
-                            />
-                            {taxaListTags.length ? (
+                            {showActivePeriodFilter ? (
+                                <MonthSelect
+                                    placeholder="Active period"
+                                    value={activePeriodFilter}
+                                    onValueChange={setActivePeriodFilter}
+                                />
+                            ) : null}
+                            {showTagFilter ? (
                                 <div className="flex items-center gap-2">
                                     <Select value={tagFilter ?? ''} onValueChange={setTagFilter}>
                                         <SelectTrigger>

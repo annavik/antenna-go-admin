@@ -30,7 +30,7 @@ export const GalleryItem = ({
     <Link className="bg-background border rounded-md relative overflow-hidden" href={href}>
         <div className="w-full aspect-square flex items-center justify-center border-b">
             {image ? (
-                <img alt={title} className="w-full h-full object-cover" src={image} />
+                <img alt={title} className="w-full h-full object-contain bg-foreground" src={image} />
             ) : (
                 <ImageIcon className="w-8 h-8 text-foreground/50" />
             )}

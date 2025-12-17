@@ -3,6 +3,7 @@ import { Tables } from '@/lib/supabase/database.types';
 import { LABELS } from '@/lib/taxa/constants';
 import { getActivePeriodLabel } from '@/lib/taxa/get-active-period-label';
 import { TaxonDetails as _TaxonDetails } from '@/lib/types';
+import { cn } from '@/lib/utils';
 import { PenIcon } from 'lucide-react';
 import Link from 'next/link';
 import { GBIFLink } from '../external-resources/gbif-link';
@@ -66,7 +67,7 @@ export const TaxonDetails = ({
                             {taxon.gbif_taxon_key ? <GBIFLink label="GBIF" taxonKey={taxon.gbif_taxon_key} /> : null}
                         </div>
                     </div>
-                    <div className="grid gap-4">
+                    <div className={cn('grid gap-4', { hidden: !taxon.active_period_from && !taxon.active_period_to })}>
                         <h2 className="body-xlarge font-medium">Active period</h2>
                         <span className="body-base text-muted-foreground">{getActivePeriodLabel(taxon)}</span>
                     </div>

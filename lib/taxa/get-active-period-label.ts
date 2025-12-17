@@ -15,5 +15,5 @@ export const getActivePeriodLabel = (taxon: Tables<'taxa'>): string => {
         return to;
     }
 
-    return '';
+    return undefined;
 };
